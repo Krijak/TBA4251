@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+  <div id ="darkening" onclick="hideThis('#getStartedPopup'); fadeOut('#darkening')" class ="darkening"></div>
+  <div id ="map">
+  </div>
+<!--   <div class="container"> HEI
+  </div> -->
+  <div id = "getStartedPopup" class="popup" style="width: 500px; height: 300px;">
+    <a class ="closeThis" onclick="hideThis('#getStartedPopup'); fadeOut('#darkening')">X</a>
+  </div>
+  <div id ="sidebar"></div>
+
+</body>
+</html>
