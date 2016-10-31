@@ -1,6 +1,6 @@
 function addToMap(){
     var district_boundary = new L.geoJson();
-    district_boundary.addTo(MyApp.map);
+    // district_boundary.addTo(MyApp.map);
 
     $.ajax({
     dataType: "json",
