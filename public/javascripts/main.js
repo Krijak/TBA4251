@@ -2,6 +2,7 @@ $( document ).ready(function() {
     console.log( "ready!" );
 
     initializeMap();
+    initializeFileInput();
 });
 
 function initializeMap(){
@@ -18,6 +19,21 @@ function initializeMap(){
      	position:'topright'
 	}).addTo(map);
 };
+
+function initializeFileInput(){
+	    $("#input-21").fileinput({
+        // previewFileType: "image",
+        browseClass: "btn btn-browse",
+        browseLabel: "...",
+        removeLabel: "",
+        removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+        uploadLabel: "Upload",
+        uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> ",
+        showPreview: false,
+        elErrorContainer: "#errorBlock",
+        allowedFileExtensions: ["txt", "md", "ini", "text"],
+    });
+}
 
 function fadeOut(id){
 	$(id).fadeOut(500);
