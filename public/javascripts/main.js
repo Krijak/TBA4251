@@ -3,6 +3,8 @@ $( document ).ready(function() {
 
     initializeMap();
     initializeFileInput();
+    var mongoose = require('mongoose');
+    mongoose.connect('mongodb://heroku_k7jjmzwc:idaj27pbptblpb7f1nh3oiiqu9@ds139327.mlab.com:39327/heroku_k7jjmzwc');
 });
 
 function initializeMap(){
