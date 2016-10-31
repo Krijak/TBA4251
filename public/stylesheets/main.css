@@ -101,6 +101,12 @@ body {
   font-size: 10pt;
 }
 
+.popupTextWhat{
+  text-align: right;
+  margin-bottom: 0;
+  font-style: bold;
+}
+
 .darkening{
   display: none;
   position: absolute;
