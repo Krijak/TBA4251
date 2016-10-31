@@ -19,12 +19,12 @@
         <a class ="closeThis" onclick="hideThis('#getStartedPopup'); fadeOut('#darkening')">X</a>
         <div class ="fileInputForm">
           <label class="control-label">Select geoJSON files</label>
-          <input id="input-21" name="input7[]" multiple type="file" class="file file-loading" accept=".pdf, text/*, image/*">
+          <input id="input-21" name="input7[]" multiple type="file" class="file file-loading" accept=".geoJSON">
           <div id="errorBlock" class="help-block"></div>
         </div>
         <p class="popupText">Masse tekst her og et form</p>
       </div>
-      <div id ="sidebar"></div>
+      <div id ="sidebar" onclick="hideOrShowSidebar()"></div>
     </div>
   </div>
 </body>
