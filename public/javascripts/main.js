@@ -1,5 +1,6 @@
 var MyApp = MyApp || {};
 MyApp.openSidebar = false;
+MyApp.openHelp = false;
 
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -42,8 +43,11 @@ function initializeFileInput(){
     });
 }
 
-function fadeOut(id){
-	$(id).fadeOut(500);
+function fadeOutDarkening(){
+	$("#darkening").fadeOut(500);
+    if (MyApp.openHelp){
+        hideOrShowHelp(true);
+    }
 };
 
 function hideThis(id) {
@@ -57,6 +61,7 @@ function hideOrShowSidebar(){
             }, 300, function() {
         });
         MyApp.openSidebar = true;
+        fadeOut('#darkening');
     }else{
        $( "#sidebar" ).animate({
         left: "+=240",
@@ -66,7 +71,32 @@ function hideOrShowSidebar(){
     }
 };
 
+function hideOrShowHelp(cameFromLogo){
+    if (!cameFromLogo){
+        $("#getStartedPopup").hide(500);
+    }
+        if (MyApp.openHelp){
+        $( "#help" ).animate({
+        top: "-400",
+            }, 300, function() {
+        });
+        MyApp.openHelp = false;
+        fadeOutDarkening();
+        
+    }else{
+       $( "#help" ).animate({
+        top: "+=400",
+            }, 300, function() {
+        });
+        MyApp.openHelp = true; 
+        $("#darkening").delay(200).fadeIn();
+        
+    }
+
+}
+
 function openGetStartedPopup(){
+    // $("#getStartedPopup").toggle( "scale" );
 	$("#getStartedPopup").show(300);
 	$("#darkening").delay(200).fadeIn();
 	// $("#darkening").show(500);

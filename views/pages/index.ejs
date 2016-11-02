@@ -7,22 +7,24 @@
 <body>
 <div class="container-fluid noMarginPadding">
   <% include ../partials/nav.ejs %>
-  
+  <div id ="help" onclick="hideOrShowHelp(true)">
+    <p class="text">Hei, test test test test</p>
+  </div>
     <div class="row noMarginPadding">
-      <div id ="darkening" onclick="hideThis('#getStartedPopup'); fadeOut('#darkening')" class ="darkening"></div>
+      <div id ="darkening" onclick="hideThis('#getStartedPopup'); fadeOutDarkening()" class ="darkening"></div>
       <div class ="col-xs-12 col-md-12 noMarginPadding">
         <div id ="map"></div>
       </div>
       <!--   <div class="container"> HEI
       </div> -->
       <div id = "getStartedPopup" class="popup">
-        <a class ="closeThis" onclick="hideThis('#getStartedPopup'); fadeOut('#darkening')">X</a>
+        <a class ="closeThis" onclick="hideThis('#getStartedPopup'); fadeOutDarkening()">X</a>
         <div class ="fileInputForm">
           <label class="control-label">Select geoJSON files</label>
           <input id="input-21" name="input7[]" multiple type="file" class="file file-loading" accept=".geoJSON">
           <div id="errorBlock" class="help-block"></div>
         </div>
-        <p class="popupText popupTextWhat">But, what is this?</p>
+        <p class="text popupTextWhat" onclick="hideOrShowHelp(false)">But, what is this?</p>
       </div>
       <div id ="sidebar" onclick="hideOrShowSidebar()"></div>
     </div>
