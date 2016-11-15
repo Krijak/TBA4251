@@ -66,6 +66,22 @@ body {
   box-shadow: 0px 0px 6px rgba(90, 90, 90, 0.57);
 }
 
+#help{
+  position: absolute;
+  z-index: 100;
+  top: -400px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  height: 400px;
+  width: 50vw;
+  background-color: #fdfcfc;
+  z-index: 90;
+  box-shadow: 0px 1px 3px rgba(90, 90, 90, 0.57);
+  border-radius: 8px;
+  padding: 77px 30px 30px 30px;
+}
+
 .popup{
   display: none;
   background-color: #fdfcfc;
@@ -94,11 +110,20 @@ body {
     .popup {
         width: 90vw;
     }
+    #help {
+        width: 90vw;
+    }
 }
 
-.popupText{
+.text{
   color: grey;
   font-size: 10pt;
+}
+
+.popupTextWhat{
+  text-align: right;
+  margin-bottom: 0;
+  font-style: bold;
 }
 
 .darkening{
@@ -108,7 +133,7 @@ body {
   right: 0px;
   height: 100vh;
   width: 100vw;
-  z-index: 99;
+  z-index: 88;
   background-color: rgba(0,0,0,0.21);
 }
 
