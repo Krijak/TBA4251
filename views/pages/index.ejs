@@ -20,11 +20,15 @@
       <div id = "getStartedPopup" class="popup">
         <a class ="closeThis" onclick="hideThis('#getStartedPopup'); fadeOutDarkening()">X</a>
         <div class ="fileInputForm">
-          <label class="control-label">Select geoJSON files</label>
+          <label class="control-label">Select your own geoJSON files</label>
           <input id="input-21" name="input7[]" multiple type="file" class="file file-loading" accept=".geoJSON">
           <div id="errorBlock" class="help-block"></div>
         </div>
-        <p class="text popupTextWhat" onclick="hideOrShowHelp(false)">But, what is this?</p>
+        <p style="color: grey; text-align: center;">or</p>
+        <button onclick="hideThis('#getStartedPopup'); hideOrShowSidebar(); addToMap(true);" class="btn btn-browse useDefaultBtn">Use default geoJSON files</button>
+        <br>
+        <br>
+        <!-- <p class="text popupTextWhat" onclick="hideOrShowHelp(false)">But, what is this?</p> -->
       </div>
       <div id ="sidebar" onclick="hideOrShowSidebar()"></div>
     </div>

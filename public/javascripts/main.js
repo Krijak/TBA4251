@@ -7,7 +7,6 @@ $( document ).ready(function() {
 
     initializeMap();
     initializeFileInput();
-    addToMap();
 });
 
 function initializeMap(){
@@ -56,15 +55,20 @@ function hideThis(id) {
 
 function hideOrShowSidebar(){
     if (!MyApp.openSidebar){
-        $( "#sidebar" ).animate({
-        left: "-240",
-            }, 300, function() {
-        });
+        if($('#sidebar').css('display') == 'none')
+        {
+            $('#sidebar').show(200);
+        }else{
+            $( "#sidebar" ).animate({
+            left: "+=230",
+                }, 300, function() {
+            });
+        }
         MyApp.openSidebar = true;
-        fadeOut('#darkening');
+        fadeOutDarkening();
     }else{
        $( "#sidebar" ).animate({
-        left: "+=240",
+        left: "-230",
             }, 300, function() {
         });
         MyApp.openSidebar = false; 
