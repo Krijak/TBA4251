@@ -8,6 +8,12 @@ a:focus, a:hover {
     text-decoration: none; 
  }
 
+ button:focus{
+    outline: 0!important;
+    -webkit-box-shadow: inset 0 1px 1px rgb(128, 192, 178),0 0 8px rgb(128, 192, 178);
+    box-shadow: inset 0 0px 0px rgb(128, 192, 178),0 0 4px rgb(128, 192, 178);
+ }
+
  .leaflet-container {
  	background: white !important;
  }

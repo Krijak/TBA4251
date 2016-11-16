@@ -154,7 +154,7 @@ body {
   width: 53vw;
   max-width: 425px;
   min-width: 200px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 @media screen and (max-width: 550px) and (min-width: 200px) {
@@ -168,4 +168,11 @@ body {
   /*background: #8dc0b5;*/
   /*background: #f26a06;*/
   color: white;
+}
+
+.useDefaultBtn{
+  position: absolute;
+  left: 50%;
+  width: 200px;
+  margin-left: -100px !important;
 }
