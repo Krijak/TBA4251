@@ -94,9 +94,7 @@ function hideOrShowHelp(cameFromLogo){
         });
         MyApp.openHelp = true; 
         $("#darkening").delay(200).fadeIn();
-        
     }
-
 }
 
 function openGetStartedPopup(){
