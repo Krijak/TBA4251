@@ -1,6 +1,6 @@
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
-    var allLayers = new L.LayerGroup();
+    var allLayers = new L.FeatureGroup();
     var defaultLayerStyle = {
         "color": "#ffffff",
         "weight": 2,
@@ -26,6 +26,7 @@ function addToMap(isDefault){
         success: function(data) {
             $(data.features).each(function(key, data) {
                 parks.addData(data);
+                // console.log(parks.getBounds());
             });
         }
         }).error(function() {});
@@ -37,6 +38,8 @@ function addToMap(isDefault){
         success: function(data) {
             $(data.features).each(function(key, data) {
                 churches.addData(data);
+                // churches.getBounds();
+                // console.log(churches.getBounds());
             });
         }
         }).error(function() {});
@@ -63,8 +66,40 @@ function addToMap(isDefault){
             fillOpacity: 0.7
         });
     }
-    allLayers.addTo(MyApp.map);
+
+    // parkbounds = parks.getBounds();
+    // console.log(parkbounds);
+    // console.log(river.getBounds());
+    // console.log(churches.getBounds());
+
+//NOTE TO SELF: BOUNDS MAA FINNES ETTER AT LAGENE ER PAA KARTET. PRØV DEFERRED
+    // allLayers.addTo(MyApp.map);
+
+    $.when($.ajax(allLayers.addTo(MyApp.map))).then(function () {
+        console.log(allLayers);
+        MyApp.map.fitBounds(allLayers.getBounds());
+    });
+
+
+    // bounds = allLayers.getBounds();
+    // console.log(allLayers);
+    // console.log(bounds);
+    // MyApp.map.fitBounds(parkbounds);
+    drawSidebar();
 
 
 }
 // console.log(MyApp.map);
+function panToLayers(layerGroup){
+    return layerGroup.getBounds();
+    // MyApp.map.fitBounds(bounds);
+    
+}
+
+function getCenterPolygon(){
+
+}
+
+function getCenterPolyline(){
+
+}

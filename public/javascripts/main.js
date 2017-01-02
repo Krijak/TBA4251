@@ -106,3 +106,51 @@ function openGetStartedPopup(){
 	// $("#darkening").show(500);
 	// $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
 };
+
+function drawSidebar(){
+    sidebar = document.getElementById("sidebar");
+
+    header = document.createElement("p");
+    t = document.createTextNode("LAYERS");
+    header.className= "sidebarHeader";
+    header.appendChild(t);
+
+
+    box = document.createElement("div");
+    box.className = "sidebarBox";
+    box.id = "layerBox";
+
+
+    sidebar.appendChild(header);
+    sidebar.appendChild(box);
+    drawLayerControl();
+    drawLayerControl();
+    drawLayerControl();
+    drawLayerControl();
+    drawLayerControl();
+
+}
+
+function drawLayerControl(){
+    box = document.getElementById("layerBox");
+    layerdiv = document.createElement('div');
+    layerdiv.className = "layerdiv";
+    layerp = document.createElement("p");
+    layerp.className = "layerp";
+    t = document.createTextNode("Layer name");
+
+    changeName = document.createElement("span");
+    changeName.className = "glyphicon  glyphicon-pencil changeName"
+  
+
+    hr = document.createElement("hr");
+    hr.className = "layerhr";
+
+
+    layerp.appendChild(t);
+    layerp.appendChild(changeName);
+    layerdiv.appendChild(layerp);
+    // layerdiv.appendChild(hr);
+    box.appendChild(layerdiv);
+
+}
