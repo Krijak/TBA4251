@@ -7,7 +7,7 @@
 <body>
 <div class="container-fluid noMarginPadding">
   <% include ../partials/nav.ejs %>
-  <div id ="help" onclick="hideOrShowHelp(true)">
+  <div id ="help" onclick="hideOrShowHelp(true)" style="display: none">
     <p class="text">Hei, test test test test</p>
   </div>
     <div class="row noMarginPadding">
@@ -25,12 +25,29 @@
           <div id="errorBlock" class="help-block"></div>
         </div>
         <p style="color: grey; text-align: center;">or</p>
-        <button onclick="hideThis('#getStartedPopup'); hideOrShowSidebar(); addToMap(true);" class="btn btn-browse useDefaultBtn">Use default geoJSON files</button>
+        <button onclick="hideThis('#getStartedPopup'); hideOrShowSidebar(); addToMap(true); editNavbar();" class="btn btn-browse useDefaultBtn">Use default geoJSON files</button>
         <br>
         <br>
         <!-- <p class="text popupTextWhat" onclick="hideOrShowHelp(false)">But, what is this?</p> -->
       </div>
-      <div id ="sidebar" onclick="hideOrShowSidebar()"></div>
+      <div id ="sidebar" onclick="">
+        <p class="sidebarHeader">LAYERS</p>
+        <table id = "layerBox" class="sidebarBox" style="width: 100%"></table>
+        <table id = "legend" style="width: 100%">
+          <tr class="legendtr">
+            <td><span style ="padding-left: 10px" class="glyphicon  glyphicon-pencil"></span></td><td>Edit or download layer</td>
+          </tr>
+          <tr>
+            <td><span style ="padding-left: 10px" class="glyphicon  glyphicon-eye-open"></span></td><td>Hide or show layer</td>
+          </tr>
+          <!-- <tr>
+            <td><span style ="padding-left: 10px" class="glyphicon glyphicon-download-alt"></span></td><td>Download layer</td>
+          </tr> -->
+          <tr>
+            <td><span style ="padding-left: 10px" class="glyphicon glyphicon-search"></span></td><td>Go to layer</td>
+          </tr>
+        </table>
+      </div>
     </div>
   </div>
 </body>

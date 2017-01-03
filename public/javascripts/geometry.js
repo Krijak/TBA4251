@@ -50,7 +50,7 @@ function addToMap(isDefault){
         url: "./data/river.geojson",
         success: function(data) {
             $(data.features).each(function(key, data) {
-                river.addData(data);
+                // river.addData(data);
             });
         }
         }).error(function() {});
@@ -76,15 +76,10 @@ function addToMap(isDefault){
     // allLayers.addTo(MyApp.map);
 
     $.when($.ajax(allLayers.addTo(MyApp.map))).then(function () {
-        console.log(allLayers);
+        // console.log(allLayers);
         MyApp.map.fitBounds(allLayers.getBounds());
     });
 
-
-    // bounds = allLayers.getBounds();
-    // console.log(allLayers);
-    // console.log(bounds);
-    // MyApp.map.fitBounds(parkbounds);
     drawSidebar();
 
 
