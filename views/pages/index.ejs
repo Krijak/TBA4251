@@ -11,7 +11,7 @@
     <p class="text">Hei, test test test test</p>
   </div>
     <div class="row noMarginPadding">
-      <div id ="darkening" onclick="hideThis('#getStartedPopup'); fadeOutDarkening()" class ="darkening"></div>
+      <div id ="darkening" onclick="hideThis('.popup'); fadeOutDarkening()" class ="darkening" style="display: "></div>
       <div class ="col-xs-12 col-md-12 noMarginPadding">
         <div id ="map"></div>
       </div>
@@ -30,9 +30,13 @@
         <br>
         <!-- <p class="text popupTextWhat" onclick="hideOrShowHelp(false)">But, what is this?</p> -->
       </div>
+      <div id = "aboutPopup" class="popup" style="display: ">
+        <a class ="closeThis" onclick="hideThis('#aboutPopup'); fadeOutDarkening()"><span style ="padding-left: 10px" class="glyphicon glyphicon-remove"></span></a>
+      </div>
       <div id ="sidebar" onclick="">
         <p class="sidebarHeader">LAYERS</p>
         <table id = "layerBox" class="sidebarBox" style="width: 100%"></table>
+        <button onclick="" class="btn btn-browse useDefaultBtn" id="tollsBtn" title="For spatial operations">Tools</button>
         <table id = "legend" style="width: 100%">
           <tr class="legendtr">
             <td><span style ="padding-left: 10px" class="glyphicon  glyphicon-pencil"></span></td><td>Edit or download layer</td>
@@ -48,6 +52,9 @@
           </tr>
         </table>
       </div>
+    </div>
+    <div id="sidebarMenu">
+      <a class ="closeThis" id="sidebarMenuClose" onclick="openCloseSidebarMenu();"><span style ="padding-left: 10px" class="glyphicon glyphicon-remove"></span></a>
     </div>
   </div>
 </body>

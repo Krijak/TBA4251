@@ -1,5 +1,6 @@
 var MyApp = MyApp || {};
 MyApp.openSidebar = true;
+MyApp.openSidebarMenu = false;
 MyApp.openHelp = false;
 
 $( document ).ready(function() {
@@ -7,8 +8,8 @@ $( document ).ready(function() {
 
     initializeMap();
     initializeFileInput();
-    addToMap(true);
-    // drawSidebar();
+    // addToMap(true);
+    drawSidebar();
 });
 
 function initializeMap(){
@@ -75,8 +76,13 @@ function hideOrShowSidebar(){
         {
             $('#sidebar').show(200);
         }else{
+            document.getElementById('headerLogo').title = "Hide sidebar";
             $( "#sidebar" ).animate({
             left: "+=254",
+                }, 300, function() {
+            });
+            $( "#sidebarMenu" ).animate({
+            left: "+=507",
                 }, 300, function() {
             });
             $('#headerLogo').animate({
@@ -87,7 +93,12 @@ function hideOrShowSidebar(){
         MyApp.openSidebar = true;
         fadeOutDarkening();
     }else{
+        document.getElementById('headerLogo').title = "Show sidebar";
        $( "#sidebar" ).animate({
+        left: "-254",
+            }, 300, function() {
+        });
+       $( "#sidebarMenu" ).animate({
         left: "-254",
             }, 300, function() {
         });
@@ -140,18 +151,37 @@ function drawSidebar(){
 
 }
 
+function openCloseSidebarMenu(content){
+    if (MyApp.openSidebarMenu){
+        hideThis('#sidebarMenu');
+        $('.layerdiv').css("backgroundColor", "");
+        MyApp.openSidebarMenu = false;
+    }else{
+        $('#sidebarMenu').show(200);
+        console.log($('layerdiv').children());
+        MyApp.openSidebarMenu = true;
+    }
+}
 
 
 
-function editLayerName(id){
+
+function editLayer(item, id){
     console.log(id);
+    if(!MyApp.openSidebarMenu){
+        $(item).parent().parent().css("backgroundColor", "grey");
+    }
+    openCloseSidebarMenu();
+
 }
 
 function hideshow(item){
     if ($(item).hasClass( "glyphicon-eye-close" )){
-        item.className = "glyphicon glyphicon-eye-open hideshowLayer layer";      
+        item.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
+        item.title = "Hide layer";      
     }else{
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
+        item.title = "Show layer";
     }
 
 }
@@ -166,18 +196,21 @@ function drawLayerControl(layerid){
     t = document.createTextNode("Layer name");
 
     td = document.createElement("td");
-    changeName = document.createElement("span");
-    changeName.className = "glyphicon  glyphicon-pencil changeName layer";
-    changeName.onclick = function(){editLayerName(layerid + 'name')};
+    edit = document.createElement("span");
+    edit.className = "glyphicon  glyphicon-pencil changeName layer";
+    edit.title = "Edit layer";
+    edit.onclick = function(){editLayer(this, layerid + 'name')};
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");
     hideshowLayer.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
+    hideshowLayer.title = "Hide layer";
     hideshowLayer.onclick = function(){hideshow(this)};
 
     td2 = document.createElement("td");
     goToLayer = document.createElement("span");
     goToLayer.className = "glyphicon glyphicon-search layer";
+    goToLayer.title = "Go to layer";
     // hideshowLayer.onclick = function(){hideshow(this)};
 
     td3 = document.createElement("td");
@@ -192,7 +225,7 @@ function drawLayerControl(layerid){
 
     layerp.appendChild(t);
     td.appendChild(hideshowLayer);
-    td1.appendChild(changeName);
+    td1.appendChild(edit);
     td2.appendChild(goToLayer);
     td3.appendChild(downloadLayer);
     layertr.appendChild(layerp);
