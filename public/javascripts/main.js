@@ -76,17 +76,25 @@ function hideOrShowSidebar(){
             $('#sidebar').show(200);
         }else{
             $( "#sidebar" ).animate({
-            left: "+=230",
+            left: "+=254",
                 }, 300, function() {
+            });
+            $('#headerLogo').animate({
+                left: '+=90',
+                }, 300, function(){
             });
         }
         MyApp.openSidebar = true;
         fadeOutDarkening();
     }else{
        $( "#sidebar" ).animate({
-        left: "-230",
+        left: "-254",
             }, 300, function() {
         });
+       $('#headerLogo').animate({
+                left: '+40',
+                }, 300, function(){
+            });
         MyApp.openSidebar = false; 
     }
 };
@@ -124,25 +132,6 @@ function openGetStartedPopup(){
 };
 
 function drawSidebar(){
-    sidebar = document.getElementById("sidebar");
-
-    // header = document.createElement("p");
-    // t = document.createTextNode("LAYERS");
-    // header.className= "sidebarHeader";
-    // header.appendChild(t);
-
-
-    // box = document.createElement("table");
-    // box.style.width = "100%";
-    // box.className = "sidebarBox";
-    // box.id = "layerBox";
-
-    // legend = document.createElement('table');
-    // legend.style.width = '100%';
-
-
-    // sidebar.appendChild(header);
-    // sidebar.appendChild(box);
     drawLayerControl(1);
     drawLayerControl(2);
     drawLayerControl(3);
@@ -169,9 +158,8 @@ function hideshow(item){
 
 function drawLayerControl(layerid){
     box = document.getElementById("layerBox");
-    layerdiv = document.createElement('tr');
-    // layerdiv.style.width = "100%";
-    layerdiv.className = "layerdiv";
+    layertr = document.createElement('tr');
+    layertr.className = "layerdiv";
     layerp = document.createElement("td");
     layerp.className = "layerp";
     layerp.id = layerid + 'name';
@@ -201,23 +189,18 @@ function drawLayerControl(layerid){
     hr = document.createElement("hr");
     hr.className = "layerhr";
 
-    // tr = document.createElement("tr");
 
     layerp.appendChild(t);
     td.appendChild(hideshowLayer);
     td1.appendChild(changeName);
     td2.appendChild(goToLayer);
     td3.appendChild(downloadLayer);
-    layerdiv.appendChild(layerp);
-    // layerdiv.appendChild(td3);
-    layerdiv.appendChild(td2);
-    layerdiv.appendChild(td);
-    layerdiv.appendChild(td1);
+    layertr.appendChild(layerp);
+    layertr.appendChild(td2);
+    layertr.appendChild(td);
+    layertr.appendChild(td1);
+    box.appendChild(layertr);
 
-    box.appendChild(layerdiv);
-
-    // layerdiv.appendChild(hr);
-    // box.appendChild(layerdiv);
 
 }
 
