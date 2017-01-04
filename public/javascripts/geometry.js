@@ -1,6 +1,6 @@
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
-    var allLayers = new L.FeatureGroup();
+    MyApp.allLayers = new L.FeatureGroup();
     var defaultLayerStyle = {
         "color": "#ffffff",
         "weight": 2,
@@ -11,7 +11,7 @@ function addToMap(isDefault){
         dataType: "json",
         url: "users",
         success: function(data) {
-            console.log(data);
+            // console.log(data);
         }
         }).error(function() {});
 
@@ -50,15 +50,15 @@ function addToMap(isDefault){
         url: "./data/river.geojson",
         success: function(data) {
             $(data.features).each(function(key, data) {
-                // river.addData(data);
+                river.addData(data);
             });
         }
         }).error(function() {});
         // parks.setStyle(defaultLayerStyle);
         
-        parks.addTo(allLayers);
-        churches.addTo(allLayers);
-        river.addTo(allLayers);
+        parks.addTo(MyApp.allLayers);
+        churches.addTo(MyApp.allLayers);
+        // river.addTo(allLayers);
         parks.setStyle({
             weight: 5,
             color: '#666',
@@ -75,12 +75,20 @@ function addToMap(isDefault){
 //NOTE TO SELF: BOUNDS MAA FINNES ETTER AT LAGENE ER PAA KARTET. PRØV DEFERRED
     // allLayers.addTo(MyApp.map);
 
-    $.when($.ajax(allLayers.addTo(MyApp.map))).then(function () {
+    $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
         // console.log(allLayers);
-        MyApp.map.fitBounds(allLayers.getBounds());
+        // MyApp.map.fitBounds(allLayers.getBounds());
     });
+    // console.log(allLayers);
+    // console.log(allLayers._layers);
+    // console.log(allLayers._layers[51]);
+    for (var object in MyApp.allLayers._layers){
+        drawLayerControl(object);
+    }
+    console.log(churches.getBounds());
+    console.log(MyApp.allLayers._layers[53].getBounds());
+    console.log(MyApp.map._layers[53].getBounds().getCenter());
 
-    drawSidebar();
 
 
 }

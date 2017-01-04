@@ -8,8 +8,8 @@ $( document ).ready(function() {
 
     initializeMap();
     initializeFileInput();
-    // addToMap(true);
-    drawSidebar();
+    addToMap(true);
+    // drawSidebar();
 });
 
 function initializeMap(){
@@ -25,7 +25,6 @@ function initializeMap(){
 	L.control.zoom({
      	position:'topright'
 	}).addTo(MyApp.map);
-    // console.log(MyApp);
 };
 
 
@@ -176,13 +175,16 @@ function editLayer(item, id){
 
 }
 
-function hideshow(item){
+function hideshow(item, layerid){
     if ($(item).hasClass( "glyphicon-eye-close" )){
         item.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
-        item.title = "Hide layer";      
+        item.title = "Hide layer";
+        MyApp.allLayers._layers[layerid].addTo(MyApp.map);
+
     }else{
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
         item.title = "Show layer";
+        MyApp.map.removeLayer(MyApp.map._layers[layerid]);
     }
 
 }
@@ -206,7 +208,7 @@ function drawLayerControl(layerid){
     hideshowLayer = document.createElement("span");
     hideshowLayer.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
     hideshowLayer.title = "Hide layer";
-    hideshowLayer.onclick = function(){hideshow(this)};
+    hideshowLayer.onclick = function(){hideshow(this, layerid)};
 
     td2 = document.createElement("td");
     goToLayer = document.createElement("span");
