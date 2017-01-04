@@ -134,12 +134,13 @@ function hideOrShowHelp(cameFromLogo){
 
 }
 
-function openGetStartedPopup(){
+
+function openPopup(id){
     // $("#getStartedPopup").toggle( "scale" );
-	$("#getStartedPopup").show(300);
-	$("#darkening").delay(200).fadeIn();
-	// $("#darkening").show(500);
-	// $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
+    $(id).show(300);
+    $("#darkening").delay(200).fadeIn();
+    // $("#darkening").show(500);
+    // $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
 };
 
 function drawSidebar(){

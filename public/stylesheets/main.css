@@ -278,3 +278,16 @@ table{
 #sidebarMenuClose:hover{
   color: black;
 }
+
+#sidebarHelp{
+  font-size: smaller;
+  position: absolute;
+  bottom: 0;
+  margin-left: 10px;
+  /* color: black; */
+  color: grey;
+}
+
+#sidebarHelp:hover{
+  color: black;
+}

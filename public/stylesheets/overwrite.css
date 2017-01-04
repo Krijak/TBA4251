@@ -1,6 +1,8 @@
 .navbar{
 	margin-bottom: 0px !important;
 	background: #fdfcfc;
+    /*position: absolute;*/
+    z-index: 100;
 }
 
 a:focus, a:hover {
