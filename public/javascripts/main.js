@@ -189,14 +189,14 @@ function hideshow(item, layerid){
 
 }
 
-function drawLayerControl(layerid){
+function drawLayerControl(layerid, name){
     box = document.getElementById("layerBox");
     layertr = document.createElement('tr');
     layertr.className = "layerdiv";
     layerp = document.createElement("td");
     layerp.className = "layerp";
     layerp.id = layerid + 'name';
-    t = document.createTextNode("Layer name");
+    t = document.createTextNode(name);
 
     td = document.createElement("td");
     edit = document.createElement("span");

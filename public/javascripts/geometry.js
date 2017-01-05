@@ -1,3 +1,5 @@
+MyApp.layernames = {};
+
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
     MyApp.allLayers = new L.FeatureGroup();
@@ -18,7 +20,7 @@ function addToMap(isDefault){
     if(isDefault){
         var parks = new L.geoJson();
         parks.setStyle({
-            color: '#666',
+            color: 'red',
         });
         $.ajax({
         dataType: "json",
@@ -26,10 +28,10 @@ function addToMap(isDefault){
         success: function(data) {
             $(data.features).each(function(key, data) {
                 parks.addData(data);
-                // console.log(parks.getBounds());
             });
         }
         }).error(function() {});
+
 
         var churches = new L.geoJson();
         $.ajax({
@@ -54,23 +56,33 @@ function addToMap(isDefault){
             });
         }
         }).error(function() {});
-        // parks.setStyle(defaultLayerStyle);
-        
-        parks.addTo(MyApp.allLayers);
-        churches.addTo(MyApp.allLayers);
-        // river.addTo(allLayers);
-        parks.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-        });
-    }
 
-    // parkbounds = parks.getBounds();
-    // console.log(parkbounds);
-    // console.log(river.getBounds());
-    // console.log(churches.getBounds());
+        }
+        // parks.addTo(MyApp.allLayers);
+        // churches.addTo(MyApp.allLayers);
+         var mystyle = {
+            "color": "#ff7800",
+            "weight": 5,
+            "opacity": 0.65 
+         };
+
+        // var skolekretser = new L.GeoJSON.AJAX("./data/SkolekretserStav.geojson");
+        var geoJsonLayer = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {
+        style: mystyle });
+        // geoJsonLayer.addTo(MyApp.map);
+        geoJsonLayer.addTo(MyApp.allLayers);
+        // skolekretser.addTo(MyApp.allLayers);     
+
+        var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson");       
+        // skolekretser.addTo(MyApp.map);
+        turveier.addTo(MyApp.allLayers);    
+        // console.log(turveier);
+
+        // parks.addStyle(style);
+        // MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
+        MyApp.layernames[turveier._leaflet_id] = 'Turveier';
+
+
 
 //NOTE TO SELF: BOUNDS MAA FINNES ETTER AT LAGENE ER PAA KARTET. PRØV DEFERRED
     // allLayers.addTo(MyApp.map);
@@ -82,27 +94,16 @@ function addToMap(isDefault){
     // console.log(allLayers);
     // console.log(allLayers._layers);
     // console.log(allLayers._layers[51]);
+
     for (var object in MyApp.allLayers._layers){
-        drawLayerControl(object);
+        name = MyApp.layernames[object];
+        drawLayerControl(object, name);
+        console.log(MyApp.allLayers._layers[object]);
     }
-    console.log(churches.getBounds());
-    console.log(MyApp.allLayers._layers[53].getBounds());
-    console.log(MyApp.map._layers[53].getBounds().getCenter());
+    // console.log(churches.getBounds());
+    // console.log(MyApp.allLayers._layers[53].getBounds());
+    // console.log(MyApp.map._layers[53].getBounds().getCenter());
 
 
-
-}
-// console.log(MyApp.map);
-function panToLayers(layerGroup){
-    return layerGroup.getBounds();
-    // MyApp.map.fitBounds(bounds);
-    
-}
-
-function getCenterPolygon(){
-
-}
-
-function getCenterPolyline(){
 
 }
