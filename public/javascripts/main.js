@@ -168,8 +168,14 @@ function openCloseSidebarMenu(content){
 
 function editLayer(item, id){
     console.log(id);
+    var turveistyle = {
+        "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+        "weight": 1,
+        "opacity": 1, 
+     };
     if(!MyApp.openSidebarMenu){
         $(item).parent().parent().css("backgroundColor", "grey");
+        MyApp.map._layers[id].setStyle(turveistyle);
     }
     openCloseSidebarMenu();
 
@@ -202,7 +208,7 @@ function drawLayerControl(layerid, name){
     edit = document.createElement("span");
     edit.className = "glyphicon  glyphicon-pencil changeName layer";
     edit.title = "Edit layer";
-    edit.onclick = function(){editLayer(this, layerid + 'name')};
+    edit.onclick = function(){editLayer(this, layerid)};
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");
