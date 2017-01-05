@@ -20,13 +20,13 @@ function addToMap(isDefault){
 
         var mystyle = {
             "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
-            "weight": 2,
+            "weight": 1,
             "opacity": 0.8 
          };
 
          var turveistyle = {
-            "color": "#fff",
-            "weight": 1,
+            "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+            "weight": 2,
             "opacity": 1, 
          };
 
@@ -34,7 +34,7 @@ function addToMap(isDefault){
             style: mystyle });
         skolekretser.addTo(MyApp.allLayers);
 
-        var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: mystyle});       
+        var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: turveistyle});       
         turveier.addTo(MyApp.allLayers);
         // turveier.getBounds();
         console.log(turveier.getBounds());
@@ -49,11 +49,7 @@ function addToMap(isDefault){
     // allLayers.addTo(MyApp.map);
 
     $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
-        MyApp.map._layers[turveier._leaflet_id].setStyle({
-        weight: 3,
-        color: '#666',
-        dashArray: '',
-        fillOpacity: 0.7
+
     });    
 
         // MyApp.map.removeLayer(MyApp.map._layers[turveier._leaflet_id]);
@@ -63,7 +59,6 @@ function addToMap(isDefault){
 
         // console.log(allLayers);
         // MyApp.map.fitBounds(allLayers.getBounds());
-    });
     // console.log(allLayers);
     // console.log(allLayers._layers);
     // console.log(allLayers._layers[51]);
