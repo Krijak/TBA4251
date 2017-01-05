@@ -21,27 +21,30 @@ function addToMap(isDefault){
         var mystyle = {
             "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
             "weight": 1,
-            "opacity": 0.8 
+            "opacity": 0.8,
+            "fillOpacity": 0.2, 
          };
 
          var turveistyle = {
             "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
             "weight": 2,
-            "opacity": 1, 
+            "opacity": 1,
+            "fillOpacity": 0.8, 
          };
 
-        var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {
-            style: mystyle });
+        var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {style: mystyle });
         skolekretser.addTo(MyApp.allLayers);
 
         var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: turveistyle});       
         turveier.addTo(MyApp.allLayers);
-        // turveier.getBounds();
-        console.log(turveier.getBounds());
+
+        var elv = new L.GeoJSON.AJAX("./data/river.geojson", {style: turveistyle});       
+        elv.addTo(MyApp.allLayers);
 
         
         MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
         MyApp.layernames[turveier._leaflet_id] = 'Turveier';
+        MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
 
 
 
@@ -49,7 +52,7 @@ function addToMap(isDefault){
     // allLayers.addTo(MyApp.map);
 
     $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
-
+        console.log(MyApp.allLayers);
     });    
 
         // MyApp.map.removeLayer(MyApp.map._layers[turveier._leaflet_id]);

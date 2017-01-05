@@ -158,7 +158,6 @@ function openCloseSidebarMenu(content){
         MyApp.openSidebarMenu = false;
     }else{
         $('#sidebarMenu').show(200);
-        console.log($('layerdiv').children());
         MyApp.openSidebarMenu = true;
     }
 }
@@ -167,32 +166,47 @@ function openCloseSidebarMenu(content){
 
 
 function editLayer(item, id){
-    console.log(id);
     var turveistyle = {
         "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
         "weight": 1,
-        "opacity": 1, 
+        "opacity": 1,
+        "fillOpacity": 0.2, 
      };
     if(!MyApp.openSidebarMenu){
         $(item).parent().parent().css("backgroundColor", "grey");
         MyApp.map._layers[id].setStyle(turveistyle);
+        MyApp.map._layers[id].options.style = turveistyle;
     }
     openCloseSidebarMenu();
 
 }
 
 function hideshow(item, layerid){
+    var hide = {opacity: 0, fillOpacity: 0,};
+
     if ($(item).hasClass( "glyphicon-eye-close" )){
         item.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
         item.title = "Hide layer";
-        MyApp.allLayers._layers[layerid].addTo(MyApp.map);
+        MyApp.map._layers[layerid].setStyle(MyApp.map._layers[layerid].options.style);
+        // MyApp.map._layers[layerid].resetStyle();
+        // console.log(MyApp.map._layers[layerid]);
+
+        // MyApp.allLayers._layers[layerid].addTo(MyApp.map);
 
     }else{
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
         item.title = "Show layer";
-        MyApp.map.removeLayer(MyApp.map._layers[layerid]);
+        MyApp.map._layers[layerid].setStyle(hide);
+        // MyApp.map.removeLayer(MyApp.map._layers[layerid]);
     }
 
+}
+
+function panToLayer(layerid){
+    bounds = MyApp.allLayers._layers[layerid].getBounds();
+    MyApp.map.fitBounds(bounds);
+    // center = MyApp.allLayers._layers[layerid].getBounds().getCenter();
+    // MyApp.map.setView(center);
 }
 
 function drawLayerControl(layerid, name){
@@ -220,7 +234,7 @@ function drawLayerControl(layerid, name){
     goToLayer = document.createElement("span");
     goToLayer.className = "glyphicon glyphicon-search layer";
     goToLayer.title = "Go to layer";
-    // hideshowLayer.onclick = function(){hideshow(this)};
+    goToLayer.onclick = function(){panToLayer(layerid)};
 
     td3 = document.createElement("td");
     downloadLayer = document.createElement("span");
