@@ -17,16 +17,21 @@ function addToMap(isDefault){
         }
         }).error(function() {});
 
+       var color1 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+       var color2 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+
 
         var mystyle = {
-            "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+            "color": color1,
+            "fillColor": color1,
             "weight": 1,
             "opacity": 0.8,
             "fillOpacity": 0.2, 
          };
 
          var turveistyle = {
-            "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+            "color": color2,
+            "fillColor": color2,
             "weight": 2,
             "opacity": 1,
             "fillOpacity": 0.8, 
@@ -45,7 +50,6 @@ function addToMap(isDefault){
         MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
         MyApp.layernames[turveier._leaflet_id] = 'Turveier';
         MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
-        console.log(MyApp.layernames);
 
 
 

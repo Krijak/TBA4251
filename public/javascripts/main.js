@@ -2,6 +2,7 @@ var MyApp = MyApp || {};
 MyApp.openSidebar = true;
 MyApp.openSidebarMenu = [0, 0];
 MyApp.openHelp = false;
+MyApp.currentStyle = null;
 
 $( document ).ready(function() {
     console.log( "ready!" );
@@ -163,8 +164,10 @@ function openCloseSidebarMenu(id){
 
 
 function editLayer(item, id){
+    var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     var turveistyle = {
-        "color": '#'+(Math.random()*0xFFFFFF<<0).toString(16),
+        "color": color,
+        "fillColor": color,
         "weight": 1,
         "opacity": 1,
         "fillOpacity": 0.2, 
@@ -172,8 +175,6 @@ function editLayer(item, id){
      // var idtest = "'"id"'";
     if(!MyApp.openSidebarMenu[0] || MyApp.openSidebarMenu[1] != id){
         $(item).parent().parent().css("backgroundColor", "grey");
-        MyApp.map._layers[id].setStyle(turveistyle);
-        MyApp.map._layers[id].options.style = turveistyle;
         updateSidebarMenu(id);
 
         $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
@@ -191,12 +192,15 @@ function editLayer(item, id){
 
 function updateSidebarMenu(id){
     console.log(MyApp.map._layers[id].options.style);
-    $('#cp2').colorpicker({format: 'hex'});
-    $('#cp3').colorpicker({format: 'hex'});
+    $('#cpfill').colorpicker({format: 'hex'});
+    $('#cpstroke').colorpicker({format: 'hex'});
 
+    $('#cpfill').colorpicker('setValue', MyApp.map._layers[id].options.style.fillColor);
 
     document.getElementById('opacityrange').value= MyApp.map._layers[id].options.style.fillOpacity;
     document.getElementById('opacity').innerHTML= MyApp.map._layers[id].options.style.fillOpacity;
+
+    $('#cpstroke').colorpicker('setValue', MyApp.map._layers[id].options.style.color);
 
     document.getElementById('strokeweightrange').value= MyApp.map._layers[id].options.style.weight;
     document.getElementById('strokeweight').innerHTML= MyApp.map._layers[id].options.style.weight;
@@ -204,6 +208,33 @@ function updateSidebarMenu(id){
     document.getElementById('strokeopacityrange').value= MyApp.map._layers[id].options.style.opacity;
     document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
 }
+
+
+function layerChanges(save){
+    id = MyApp.openSidebarMenu[1];
+
+    fillColor = document.getElementById('cpfillinput').value;
+    fillOpacity = document.getElementById('opacityrange').value;
+    color = document.getElementById('cpstrokeinput').value;
+    weight = document.getElementById('strokeweightrange').value;
+    opacity = document.getElementById('strokeopacityrange').value;
+
+    var style = {
+        "fillColor": fillColor,
+        "fillOpacity": fillOpacity, 
+        "color": color,
+        "weight": weight,
+        "opacity": opacity,
+     };
+
+    MyApp.map._layers[id].setStyle(style);
+    
+    if (save) {
+        MyApp.map._layers[id].options.style = style;
+        openCloseSidebarMenu(-1);
+    }
+}
+
 
 function hideshow(item, layerid){
     var hide = {opacity: 0, fillOpacity: 0,};
