@@ -151,12 +151,16 @@ function openPopup(id){
 function openCloseSidebarMenu(id){
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
+        MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
+        console.log(MyApp.currentStyle);
         MyApp.openSidebarMenu = [1, id];
     }else if (MyApp.openSidebarMenu[1] == id || id == -1) {
         hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
         $('.layerdiv').css("backgroundColor", "");
         document.getElementById("layernameinput").value = "";
+        console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
+        MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
     }
 }
 
@@ -183,6 +187,7 @@ function editLayer(item, id){
             $(item).parent().parent().css("backgroundColor", "grey");
             document.getElementById("layernameinput").value = "";
             MyApp.openSidebarMenu = [0, id];
+            MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
         }
     }
     // console.log(id);
@@ -230,7 +235,9 @@ function layerChanges(save){
     MyApp.map._layers[id].setStyle(style);
     
     if (save) {
+        console.log(save);
         MyApp.map._layers[id].options.style = style;
+        MyApp.currentStyle[0] = style;
         openCloseSidebarMenu(-1);
     }
 }
