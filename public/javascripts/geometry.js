@@ -1,4 +1,5 @@
 MyApp.layernames = {};
+MyApp.layertypes = {};
 
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
@@ -48,8 +49,13 @@ function addToMap(isDefault){
 
         
         MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
+        MyApp.layertypes[skolekretser._leaflet_id] = 'polygon';
+
         MyApp.layernames[turveier._leaflet_id] = 'Turveier';
+        MyApp.layertypes[turveier._leaflet_id] = 'polyline';
+        
         MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
+        MyApp.layertypes[elv._leaflet_id] = 'polyline';
 
 
 
@@ -57,7 +63,7 @@ function addToMap(isDefault){
     // allLayers.addTo(MyApp.map);
 
     $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
-        console.log(MyApp.allLayers);
+        // console.log(MyApp.allLayers);
     });    
 
         // MyApp.map.removeLayer(MyApp.map._layers[turveier._leaflet_id]);

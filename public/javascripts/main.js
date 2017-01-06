@@ -50,7 +50,7 @@ function updateValue(val, id) {
 }
 
 function editNavbar(){
-    console.log("hei");
+    // console.log("hei");
     document.getElementById('getStarted').style.display = 'none';
     document.getElementById('theNavbar').style.width = '254px';
     document.getElementById('theNavbar').style.boxShadow = 'none';
@@ -152,15 +152,20 @@ function openCloseSidebarMenu(id){
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
-        console.log(MyApp.currentStyle);
+        // console.log('!MyApp.openSidebarMenu[0]');
         MyApp.openSidebarMenu = [1, id];
-    }else if (MyApp.openSidebarMenu[1] == id || id == -1) {
+    } else if (MyApp.openSidebarMenu[1] == id || id == -1) {
+        // console.log('elseif');
         hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
         $('.layerdiv').css("backgroundColor", "");
         document.getElementById("layernameinput").value = "";
-        console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
+        console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
+    }else if (MyApp.openSidebarMenu[1] != id){
+        // console.log("gikk inn hit");
+        MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
+
     }
 }
 
@@ -176,18 +181,27 @@ function editLayer(item, id){
         "opacity": 1,
         "fillOpacity": 0.2, 
      };
+     console.log(MyApp.map._layers[id]);
+     if (MyApp.openSidebarMenu[1] != id && MyApp.openSidebarMenu[1]!=0){
+        MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
+     }
      // var idtest = "'"id"'";
     if(!MyApp.openSidebarMenu[0] || MyApp.openSidebarMenu[1] != id){
         $(item).parent().parent().css("backgroundColor", "grey");
         updateSidebarMenu(id);
 
         $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+
+        
         if (MyApp.openSidebarMenu[1] != id) {
             $('.layerdiv').css("backgroundColor", "");
             $(item).parent().parent().css("backgroundColor", "grey");
             document.getElementById("layernameinput").value = "";
-            MyApp.openSidebarMenu = [0, id];
             MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
+            MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
+            MyApp.openSidebarMenu = [0, id];
+            // MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
+
         }
     }
     // console.log(id);
@@ -196,7 +210,14 @@ function editLayer(item, id){
 }
 
 function updateSidebarMenu(id){
-    console.log(MyApp.map._layers[id].options.style);
+    // $('.colorpicker-saturation').onclick = layerChanges(false);
+
+    if (MyApp.layertypes[id] == 'polyline') {
+        document.getElementById('filldiv').style.display = 'none';
+    }else{
+        document.getElementById('filldiv').style.display = 'block';
+    }
+
     $('#cpfill').colorpicker({format: 'hex'});
     $('#cpstroke').colorpicker({format: 'hex'});
 
@@ -235,7 +256,14 @@ function layerChanges(save){
     MyApp.map._layers[id].setStyle(style);
     
     if (save) {
-        console.log(save);
+        var name = document.getElementById("layernameinput").value;
+        if (name != ''){
+            console.log(name);
+            document.getElementById(id + 'name').innerHTML = name;
+            MyApp.layernames[id] = name;
+            $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+        }
+        // console.log(save);
         MyApp.map._layers[id].options.style = style;
         MyApp.currentStyle[0] = style;
         openCloseSidebarMenu(-1);
