@@ -146,13 +146,17 @@ function openPopup(id){
 function openCloseSidebarMenu(id){
     console.log(id);
     console.log(MyApp.openSidebarMenu);
-    if (MyApp.openSidebarMenu[1]!= id || MyApp.openSidebarMenu[0]){
+    if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.openSidebarMenu = [1, id];
-    }else{
-        hideThis('#sidebarMenu');
-        $('.layerdiv').css("backgroundColor", "");
+    }else if (MyApp.openSidebarMenu[1] == id) {
+        hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
+        $('.layerdiv').css("backgroundColor", "");
+    }else{
+        // MyApp.openSidebarMenu[0] = 0;
+        // openCloseSidebarMenu(id);
+
     }
     console.log(MyApp.openSidebarMenu);
 }
@@ -168,12 +172,17 @@ function editLayer(item, id){
         "fillOpacity": 0.2, 
      };
      // var idtest = "'"id"'";
-    if(!MyApp.openSidebarMenu[0]){
+    if(!MyApp.openSidebarMenu[0] || MyApp.openSidebarMenu[1] != id){
         $(item).parent().parent().css("backgroundColor", "grey");
         MyApp.map._layers[id].setStyle(turveistyle);
         MyApp.map._layers[id].options.style = turveistyle;
 
         $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+        if (MyApp.openSidebarMenu[1] != id) {
+            $('.layerdiv').css("backgroundColor", "");
+            $(item).parent().parent().css("backgroundColor", "grey");
+            MyApp.openSidebarMenu = [0, id];
+        }
     }
     // console.log(id);
     openCloseSidebarMenu(id);
@@ -222,7 +231,6 @@ function drawLayerControl(layerid, name){
     edit.className = "glyphicon  glyphicon-pencil changeName layer";
     edit.title = "Edit layer";
     edit.onclick = function(){editLayer(this, layerid)};
-    console.log(layerid);
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");
