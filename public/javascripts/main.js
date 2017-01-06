@@ -44,6 +44,10 @@ function initializeFileInput(){
     });
 }
 
+function updateValue(val, id) {
+    document.getElementById(id).innerHTML=val; 
+}
+
 function editNavbar(){
     console.log("hei");
     document.getElementById('getStarted').style.display = 'none';
@@ -170,6 +174,7 @@ function editLayer(item, id){
         $(item).parent().parent().css("backgroundColor", "grey");
         MyApp.map._layers[id].setStyle(turveistyle);
         MyApp.map._layers[id].options.style = turveistyle;
+        updateSidebarMenu(id);
 
         $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
         if (MyApp.openSidebarMenu[1] != id) {
@@ -182,6 +187,22 @@ function editLayer(item, id){
     // console.log(id);
     openCloseSidebarMenu(id);
 
+}
+
+function updateSidebarMenu(id){
+    console.log(MyApp.map._layers[id].options.style);
+    $('#cp2').colorpicker({format: 'hex'});
+    $('#cp3').colorpicker({format: 'hex'});
+
+
+    document.getElementById('opacityrange').value= MyApp.map._layers[id].options.style.fillOpacity;
+    document.getElementById('opacity').innerHTML= MyApp.map._layers[id].options.style.fillOpacity;
+
+    document.getElementById('strokeweightrange').value= MyApp.map._layers[id].options.style.weight;
+    document.getElementById('strokeweight').innerHTML= MyApp.map._layers[id].options.style.weight;
+
+    document.getElementById('strokeopacityrange').value= MyApp.map._layers[id].options.style.opacity;
+    document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
 }
 
 function hideshow(item, layerid){

@@ -59,3 +59,13 @@ a:focus, a:hover {
 .control-label{
 	color: grey;
 }
+
+.dropdown-menu{
+    min-width: 0!important;
+    padding: 10px;
+    /*background-color: #474747;*/
+}
+
+.colorpicker-visible{
+    left: 336px !important;
+}
