@@ -61,7 +61,7 @@
       </div>
     </div>
     <div id="sidebarMenu">
-      <a class ="closeThis" id="sidebarMenuClose" onclick="openCloseSidebarMenu();"><span style ="padding-left: 10px" class="glyphicon glyphicon-remove"></span></a>
+      <a class ="closeThis" id="sidebarMenuClose" onclick="openCloseSidebarMenu(-1);"><span style ="padding-left: 10px" class="glyphicon glyphicon-remove"></span></a>
       <!-- <p class="sidebartext" style="margin-top: 90px">LAYER NAME</p> -->
       <p class="sidebartext sidebarheader" style="text-align: right; margin-top: 90px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small">LAYER NAME</p>
       <hr style="margin: -12px 71px 32px -10px; border-color: #c6c6c6">
@@ -83,7 +83,11 @@
         <p class="sidebartext">Opacity</p>
       </div>
       <br>
-      <input type="submit" value="Submit" class="btn" style="">
+      <div id="sidebaremenusavechangesdiv">
+        <input type="submit" value="Submit" class="btn" id="sidebaremenusavechangesbtn" style="" title="Save changes">
+        <button onclick="openCloseSidebarMenu(-1)" class="btn btn-browse useDefaultBtn" title="Discard changes" style="margin-top: 60px; font-size: smaller;">Cancel</button>
+
+      </div>
     </div>
   </div>
 </body>

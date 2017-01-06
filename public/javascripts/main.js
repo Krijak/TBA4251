@@ -144,21 +144,15 @@ function openPopup(id){
 
 
 function openCloseSidebarMenu(id){
-    console.log(id);
-    console.log(MyApp.openSidebarMenu);
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.openSidebarMenu = [1, id];
-    }else if (MyApp.openSidebarMenu[1] == id) {
+    }else if (MyApp.openSidebarMenu[1] == id || id == -1) {
         hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
         $('.layerdiv').css("backgroundColor", "");
-    }else{
-        // MyApp.openSidebarMenu[0] = 0;
-        // openCloseSidebarMenu(id);
-
+        document.getElementById("layernameinput").value = "";
     }
-    console.log(MyApp.openSidebarMenu);
 }
 
 
@@ -181,6 +175,7 @@ function editLayer(item, id){
         if (MyApp.openSidebarMenu[1] != id) {
             $('.layerdiv').css("backgroundColor", "");
             $(item).parent().parent().css("backgroundColor", "grey");
+            document.getElementById("layernameinput").value = "";
             MyApp.openSidebarMenu = [0, id];
         }
     }
