@@ -1,6 +1,6 @@
 var MyApp = MyApp || {};
 MyApp.openSidebar = true;
-MyApp.openSidebarMenu = false;
+MyApp.openSidebarMenu = [0, 0];
 MyApp.openHelp = false;
 
 $( document ).ready(function() {
@@ -142,24 +142,19 @@ function openPopup(id){
     // $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
 };
 
-function drawSidebar(){
-    drawLayerControl(1);
-    drawLayerControl(2);
-    drawLayerControl(3);
-    drawLayerControl(4);
-    drawLayerControl(5);
 
-}
-
-function openCloseSidebarMenu(content){
-    if (MyApp.openSidebarMenu){
+function openCloseSidebarMenu(id){
+    console.log(id);
+    console.log(MyApp.openSidebarMenu);
+    if (MyApp.openSidebarMenu[1]!= id || MyApp.openSidebarMenu[0]){
+        $('#sidebarMenu').show(200);
+        MyApp.openSidebarMenu = [1, id];
+    }else{
         hideThis('#sidebarMenu');
         $('.layerdiv').css("backgroundColor", "");
-        MyApp.openSidebarMenu = false;
-    }else{
-        $('#sidebarMenu').show(200);
-        MyApp.openSidebarMenu = true;
+        MyApp.openSidebarMenu = [0, id];
     }
+    console.log(MyApp.openSidebarMenu);
 }
 
 
@@ -172,12 +167,16 @@ function editLayer(item, id){
         "opacity": 1,
         "fillOpacity": 0.2, 
      };
-    if(!MyApp.openSidebarMenu){
+     // var idtest = "'"id"'";
+    if(!MyApp.openSidebarMenu[0]){
         $(item).parent().parent().css("backgroundColor", "grey");
         MyApp.map._layers[id].setStyle(turveistyle);
         MyApp.map._layers[id].options.style = turveistyle;
+
+        $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
     }
-    openCloseSidebarMenu();
+    // console.log(id);
+    openCloseSidebarMenu(id);
 
 }
 
@@ -223,6 +222,7 @@ function drawLayerControl(layerid, name){
     edit.className = "glyphicon  glyphicon-pencil changeName layer";
     edit.title = "Edit layer";
     edit.onclick = function(){editLayer(this, layerid)};
+    console.log(layerid);
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");

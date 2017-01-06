@@ -45,6 +45,7 @@ function addToMap(isDefault){
         MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
         MyApp.layernames[turveier._leaflet_id] = 'Turveier';
         MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
+        console.log(MyApp.layernames);
 
 
 

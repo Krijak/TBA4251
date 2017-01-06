@@ -78,7 +78,8 @@ body {
   top: 0;
   left: 254px;
   height: 100vh;
-  width: 200px;
+  width: 240px;
+  padding: 10px;
   /*background-color: #fdfcfc;*/
   /*background-color: rgba(253, 252, 252, 0.74);*/
   background-color: rgba(121, 121, 121, 0.97);
@@ -230,9 +231,8 @@ body {
   /*display: inline;*/
 }
 
-.layerhr{
+hr{
   margin-top: 0;
-  margin-bottom: 0;
   border-top: 0.5px solid #fff;
 }
 
@@ -290,4 +290,22 @@ table{
 
 #sidebarHelp:hover{
   color: black;
+}
+
+.sidebartext{
+  font-size: smaller;
+  color: white;
+}
+
+#layernameinput{
+  border-radius: 2px;
+  background-color: #474747;
+  color: white;
+  font-size: smaller;
+  padding: 4px 30px 4px 8px;
+  border: none;
+}
+
+#layernameinput:focus{
+    outline-color: rgba(243, 106, 1, 0.49);
 }
