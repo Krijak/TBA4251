@@ -173,6 +173,13 @@ function openCloseSidebarMenu(id){
 
 
 function editLayer(item, id){
+    if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
+        console.log("ja, hadde den klassen");
+        $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+        MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
+
+    }
+
     var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     var turveistyle = {
         "color": color,
@@ -238,6 +245,13 @@ function updateSidebarMenu(id){
 
 function layerChanges(save){
     id = MyApp.openSidebarMenu[1];
+
+    if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
+        console.log("ja, hadde den klassen");
+        $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+        MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
+
+    }
 
     fillColor = document.getElementById('cpfillinput').value;
     fillOpacity = document.getElementById('opacityrange').value;
@@ -316,6 +330,7 @@ function drawLayerControl(layerid, name){
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");
+    hideshowLayer.id = layerid + "hideshow";
     hideshowLayer.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
     hideshowLayer.title = "Hide layer";
     hideshowLayer.onclick = function(){hideshow(this, layerid)};
