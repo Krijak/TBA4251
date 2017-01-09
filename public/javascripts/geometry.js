@@ -123,7 +123,7 @@ function buffer(){
         var merged = makeOneLayer(id);
         result = turf.buffer(merged, bufferDist, 'kilometers');
 
-        addToMapAndLayercontrol(id, result, ' buffer_' + bufferDist*1000);
+        addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
     }else{
         console.log("You must select a layer and/or a positive buffer value");
