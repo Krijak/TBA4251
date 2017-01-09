@@ -16,7 +16,7 @@ $( document ).ready(function() {
 function initializeMap(){
 	MyApp.map = L.map('map', {
     	zoomControl: false,
-    }).setView([58.96, 5.717], 13) //[63.422, 10.38], 13);
+    }).setView([63.422, 10.526], 13);//[58.96, 5.717], 13) //[63.422, 10.38], 13);
 	L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png').addTo(MyApp.map);
 	// L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png').addTo(map);
 	// L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);

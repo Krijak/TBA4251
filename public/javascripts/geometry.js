@@ -22,9 +22,11 @@ function addToMap(isDefault){
 
        var color1 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
        var color2 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+       var color3 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
 
 
-        var mystyle = {
+
+        var style1 = {
             "color": color1,
             "fillColor": color1,
             "weight": 1,
@@ -32,7 +34,7 @@ function addToMap(isDefault){
             "fillOpacity": 0.2, 
          };
 
-         var turveistyle = {
+         var style2 = {
             "color": color2,
             "fillColor": color2,
             "weight": 2,
@@ -40,30 +42,56 @@ function addToMap(isDefault){
             "fillOpacity": 0.8, 
          };
 
-        var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {style: mystyle });
-        skolekretser.addTo(MyApp.allLayers);
+         var style3 = {
+            "color": color3,
+            "fillColor": color3,
+            "weight": 2,
+            "opacity": 1,
+            "fillOpacity": 0.8, 
+         };
 
-        var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: turveistyle});       
-        turveier.addTo(MyApp.allLayers);
+        // var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {style: mystyle });
+        // skolekretser.addTo(MyApp.allLayers);
 
-        var elv = new L.GeoJSON.AJAX("./data/river.geojson", {style: turveistyle});       
-        elv.addTo(MyApp.allLayers);
-        console.log(elv);
+        // var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: turveistyle});       
+        // turveier.addTo(MyApp.allLayers);
+
+        // var elv = new L.GeoJSON.AJAX("./data/river.geojson", {style: turveistyle});       
+        // elv.addTo(MyApp.allLayers);
 
         
-        MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
-        MyApp.layertypes[skolekretser._leaflet_id] = 'polygon';
+        // MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
+        // MyApp.layertypes[skolekretser._leaflet_id] = 'polygon';
 
-        MyApp.layernames[turveier._leaflet_id] = 'Turveier';
-        MyApp.layertypes[turveier._leaflet_id] = 'polyline';
+        // MyApp.layernames[turveier._leaflet_id] = 'Turveier';
+        // MyApp.layertypes[turveier._leaflet_id] = 'polyline';
         
-        MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
-        MyApp.layertypes[elv._leaflet_id] = 'polyline';
+        // MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
+        // MyApp.layertypes[elv._leaflet_id] = 'polyline';
+
+
+        var arealbruk = new L.GeoJSON.AJAX("./data/Trondheim/arealbruk.geojson", {style: style1 });
+        arealbruk.addTo(MyApp.allLayers);
+
+        var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
+        vann.addTo(MyApp.allLayers);
+
+        var veg = new L.GeoJSON.AJAX("./data/Trondheim/veg.geojson", {style: style3});       
+        veg.addTo(MyApp.allLayers);
+
+        
+        MyApp.layernames[arealbruk._leaflet_id] = 'Arealbruk';
+        MyApp.layertypes[arealbruk._leaflet_id] = 'polygon';
+
+        MyApp.layernames[vann._leaflet_id] = 'Vann';
+        MyApp.layertypes[vann._leaflet_id] = 'polygon';
+        
+        MyApp.layernames[veg._leaflet_id] = 'Vei';
+        MyApp.layertypes[veg._leaflet_id] = 'polyline';
 
 
 
-//NOTE TO SELF: BOUNDS MAA FINNES ETTER AT LAGENE ER PAA KARTET. PRØV DEFERRED
-    // allLayers.addTo(MyApp.map);
+
 
     $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
         // console.log(MyApp.allLayers);
@@ -118,7 +146,7 @@ function buffer(){
         result.addTo(MyApp.map);
         console.log(result._leaflet_id);
 
-        var name = MyApp.layernames[id] + ' buffer ' + bufferDist*1000;
+        var name = MyApp.layernames[id] + ' buffer_' + bufferDist*1000;
         MyApp.layernames[result._leaflet_id] = name;
 
 
