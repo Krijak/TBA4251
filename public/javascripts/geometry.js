@@ -108,10 +108,7 @@ function buffer(){
 
         var merged;
         merged = layers[0]
-        c = 0;
-        for (i = 1; i < 113; i++){
-            c = c+1;
-            console.log(c);
+        for (i = 1; i < count; i++){
             merged = union(merged, layers[i]);
         }
         console.log(merged);
