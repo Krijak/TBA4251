@@ -68,26 +68,37 @@
             <table id = "" style="width: 100%">
               <tr>
                 <td style="width:"><div style="text-align: center;">
-                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()" style="width: 190px">
+                  <select class="dropdowns inputfocus" id="merge1select" onchange="selectTool()" style="width: 190px">
                     <option value="" disabled selected>Select first layer</option>
-                    <option value="buffer">l1</option>
-                    <option value="merge">l2</option>
-                    <option value="intersect">l3</option>
-                    <option value="difference">l4</option>
                   </select>
                 </td>
                 <td style="width:"><div style="text-align: center;">
-                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()" style="width: 190px">
+                  <select class="dropdowns inputfocus" id="merge2select" onchange="selectTool()" style="width: 190px">
                     <option value="" disabled selected>Select second layer</option>
-                    <option value="buffer">l1</option>
-                    <option value="merge">l2</option>
-                    <option value="intersect">l3</option>
-                    <option value="difference">l4</option>
                   </select>
                 </td>
               </tr>
             </table>
-            <button id="createBufferBtn" onclick="" class="btn useDefaultBtn" title="">Merge layers</button>
+            <button id="createBufferBtn" onclick="merge()" class="btn useDefaultBtn" title="">Merge layers</button>
+          </div>
+          <div id="intersectDiv" style="display: none">
+            <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO INTERSECT</p>
+            <hr style="margin: -12px 155px 24px -30px; border-color: #c6c6c6">
+            <table id = "" style="width: 100%">
+              <tr>
+                <td style="width:"><div style="text-align: center;">
+                  <select class="dropdowns inputfocus" id="intersect1select" onchange="selectTool()" style="width: 190px">
+                    <option value="" disabled selected>Select first layer</option>
+                  </select>
+                </td>
+                <td style="width:"><div style="text-align: center;">
+                  <select class="dropdowns inputfocus" id="intersect2select" onchange="selectTool()" style="width: 190px">
+                    <option value="" disabled selected>Select second layer</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <button id="createBufferBtn" onclick="intersect()" class="btn useDefaultBtn" title="">Find intersection</button>
           </div>
         </div>
       </div>
@@ -172,7 +183,7 @@
       <div id="sidebaremenusavechangesdiv">
         <input type="submit" value="Save changes" class="btn" id="sidebaremenusavechangesbtn" onclick="layerChanges(true);">
         <button onclick="openCloseSidebarMenu(-1)" class="btn btn-browse useDefaultBtn" title="Discard changes" style="margin-top: 60px; font-size: smaller;">Cancel</button>
-        <p id="deleteLayer"><span class="glyphicon glyphicon-trash"></span></p>
+        <p id="deleteLayer"><span class="glyphicon glyphicon-trash" title="Delete layer"></span></p>
 
       </div>
     </div>

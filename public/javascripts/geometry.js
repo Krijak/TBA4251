@@ -120,59 +120,96 @@ function buffer(){
 
     if (id != 0 && bufferDist > 0) {
         bufferDist = bufferDist/1000;
-        var feature = MyApp.map._layers[id];
-        console.log(feature);
-        var layers = [];
-
-
-        var count = 0;
-        var object;
-        for (object in feature._layers){
-            layers[count] = MyApp.map._layers[object].feature;
-            count = count + 1;
-        }
-        console.log(layers);
-        console.log(count);
-
-        var merged;
-        merged = layers[0]
-        for (i = 1; i < count; i++){
-            merged = union(merged, layers[i]);
-        }
-        console.log(merged);
+        var merged = makeOneLayer(id);
         result = turf.buffer(merged, bufferDist, 'kilometers');
 
-        result = L.geoJSON(result, {style: mystyle});
-        result.addTo(MyApp.map);
-        console.log(result._leaflet_id);
-
-        var name = MyApp.layernames[id] + ' buffer_' + bufferDist*1000;
-        MyApp.layernames[result._leaflet_id] = name;
-
-
-        drawLayerControl(result._leaflet_id, name);
-        hideThis('#toolsPopup'); fadeOutDarkening();
+        addToMapAndLayercontrol(id, result, ' buffer_' + bufferDist*1000);
 
     }else{
         console.log("You must select a layer and/or a positive buffer value");
     }
 }
 
-function afterBuffer(){
-    // buffer().addTo(MyApp.map);
-
-    // console.log(MyApp.layerResult);
-    // var result = MyApp.map._layers[id];
-
-    // for (var object in MyApp.layerResult){
-    //     result = union(result, MyApp.layerResult[object])
-
-    //     // L.geoJSON(MyApp.layerResult[object]).addTo(MyApp.map);
-    // }
-    console.log(MyApp.result);
-    MyApp.result.addTo(MyApp.map);
-}
 
 function union(layerOne, layerTwo){
     return turf.union(layerOne, layerTwo);
+}
+
+
+function merge(){
+    var layer1id = document.getElementById('merge1select').value;
+    var layer2id = document.getElementById('merge2select').value;
+
+    layer1 = makeOneLayer(layer1id);
+    layer2 = makeOneLayer(layer2id);
+
+    merged = turf.union(layer1, layer2);
+
+    var name = '_merged_' + MyApp.layernames[layer2id];
+
+    addToMapAndLayercontrol(layer1id, merged, name);
+}
+
+function intersect(){
+    var layer1id = document.getElementById('intersect1select').value;
+    var layer2id = document.getElementById('intersect2select').value;
+
+    if (layer1id != 0 && layer2id != 0) {
+        layer1 = makeOneLayer(layer1id);
+        layer2 = makeOneLayer(layer2id);
+
+        intersected = turf.intersect(layer1, layer2);
+        if (intersected == 'undefined') {
+            console.log('undefined intersection');
+        }else{
+            var name = '_intersect_' + MyApp.layernames[layer2id];
+            addToMapAndLayercontrol(layer1id, intersected, name);
+        };   
+    }else{
+        console.log('you have to select two layers');
+    }
+
+
+
+}
+
+
+function makeOneLayer(id){
+    var feature = MyApp.map._layers[id];
+    var layers = [];    
+    var count = 0;
+    var object;
+
+    for (object in feature._layers){
+        layers[count] = MyApp.map._layers[object].feature;
+        count = count + 1;
+    }
+
+    var merged;
+    merged = layers[0]
+    for (i = 1; i < count; i++){
+        merged = union(merged, layers[i]);
+    }
+    return merged;
+}
+
+function addToMapAndLayercontrol(id, result, text){
+    var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var mystyle = {
+        "color": color,
+        "fillColor": color,
+        "weight": 1,
+        "opacity": 0.8,
+        "fillOpacity": 0.2, 
+     };
+
+    result = L.geoJSON(result, {style: mystyle});
+    result.addTo(MyApp.map);
+
+    var name = MyApp.layernames[id] + text;
+    MyApp.layernames[result._leaflet_id] = name;
+
+
+    drawLayerControl(result._leaflet_id, name);
+    hideThis('#toolsPopup'); fadeOutDarkening();
 }

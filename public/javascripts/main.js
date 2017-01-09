@@ -405,6 +405,13 @@ function selectTool(){
         drawDropdownTool('bufferSelect');
     } else if($( "#toolsSelect option:selected" ).val() == 'merge'){
         document.getElementById('mergeDiv').style.display = 'block';
+        drawDropdownTool('merge1select');
+        drawDropdownTool('merge2select');
+    }else if($( "#toolsSelect option:selected" ).val() == 'intersect'){
+        document.getElementById('intersectDiv').style.display = 'block';
+        drawDropdownTool('intersect1select');
+        drawDropdownTool('intersect2select');
     }
+
 
 }
