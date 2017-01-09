@@ -1,6 +1,7 @@
 MyApp.layernames = {};
 MyApp.layertypes = {};
 MyApp.layerResult = {};
+MyApp.result;
 
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
@@ -73,55 +74,80 @@ function addToMap(isDefault){
         drawLayerControl(object, name);
         // console.log(MyApp.allLayers._layers[object]);
     }
-    // console.log(churches.getBounds());
-    // console.log(MyApp.allLayers._layers[53].getBounds());
-    // console.log(MyApp.map._layers[53].getBounds().getCenter());
-
-
-
 }
 
 
-// function buffer(id){
-//     // console.log(MyApp.map._layers[id]);
-//     // var layer = L.geoJSON(MyApp.map._layers[id]);
+function buffer(){
+    var id = document.getElementById('bufferSelect').value;
+    var bufferDist = document.getElementById('bufferInput').value;
 
-//     // var buffered = turf.buffer(layer, 5, 'kilometers');
+    var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var mystyle = {
+        "color": color,
+        "fillColor": color,
+        "weight": 1,
+        "opacity": 0.8,
+        "fillOpacity": 0.2, 
+     };
 
-//     var pt = {
-//       "type": "Feature",
-//       "properties": {},
-//       "geometry": {
-//         "type": "Point",
-//         "coordinates": [63.422, 10.38]
-//       }
-//     };
-//     var unit = 'miles';
+    if (id != 0 && bufferDist > 0) {
+        bufferDist = bufferDist/1000;
+        var feature = MyApp.map._layers[id];
+        console.log(feature);
+        var layers = [];
 
-//     var buffered = turf.buffer(pt, 500, unit);
-//     var result = turf.featurecollection([buffered, pt]);
 
-//     // L.geoJSON(buffered).addTo(MyApp.map);
-//     console.log(result);
+        var count = 0;
+        var object;
+        for (object in feature._layers){
+            layers[count] = MyApp.map._layers[object].feature;
+            count = count + 1;
+        }
+        console.log(layers);
+        console.log(count);
 
-// }
+        var merged;
+        merged = layers[0]
+        c = 0;
+        for (i = 1; i < 113; i++){
+            c = c+1;
+            console.log(c);
+            merged = union(merged, layers[i]);
+        }
+        console.log(merged);
+        result = turf.buffer(merged, bufferDist, 'kilometers');
 
-function buffer(id){
-    var feature = MyApp.map._layers[id];
-    console.log(feature);
+        result = L.geoJSON(result, {style: mystyle});
+        result.addTo(MyApp.map);
+        console.log(result._leaflet_id);
 
-    for (var object in feature._layers){
-        console.log(MyApp.map._layers[object].feature);
-        MyApp.layerResult[object] = turf.buffer(MyApp.map._layers[object].feature, 1, 'miles');
+        var name = MyApp.layernames[id] + ' buffer ' + bufferDist*1000;
+        MyApp.layernames[result._leaflet_id] = name;
+
+
+        drawLayerControl(result._leaflet_id, name);
+        hideThis('#toolsPopup'); fadeOutDarkening();
+
+    }else{
+        console.log("You must select a layer and/or a positive buffer value");
     }
 }
 
 function afterBuffer(){
-    console.log(MyApp.layerResult);
-    // console.log(MyApp.layer);
-    for (var object in MyApp.layerResult){
-        console.log(MyApp.layerResult[object]);
-        L.geoJSON(MyApp.layerResult[object]).addTo(MyApp.map);
-    }
-    // L.geoJSON( MyApp.layerResult).addTo(MyApp.map);
+    // buffer().addTo(MyApp.map);
+
+    // console.log(MyApp.layerResult);
+    // var result = MyApp.map._layers[id];
+
+    // for (var object in MyApp.layerResult){
+    //     result = union(result, MyApp.layerResult[object])
+
+    //     // L.geoJSON(MyApp.layerResult[object]).addTo(MyApp.map);
+    // }
+    console.log(MyApp.result);
+    MyApp.result.addTo(MyApp.map);
+}
+
+function union(layerOne, layerTwo){
+    return turf.union(layerOne, layerTwo);
 }

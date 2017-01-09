@@ -52,19 +52,15 @@
             <table id = "" style="width: 100%">
               <tr>
                 <td style="width: 70%"><div style="text-align: center;">
-                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()">
+                  <select class="dropdowns inputfocus" id="bufferSelect" onchange="selectTool()">
                     <option value="" disabled selected>Select layer</option>
-                    <option value="buffer">l1</option>
-                    <option value="merge">l2</option>
-                    <option value="intersect">l3</option>
-                    <option value="difference">l4</option>
                   </select>
                 </td>
                 <td><input type="number" class="inputfocus" name="fname" id="bufferInput"><p style="color: white; font-size: smaller; display: inline; margin-left: 10px;">M</p>
                 </td>
               </tr>
             </table>
-            <button id="createBufferBtn" onclick="" class="btn useDefaultBtn" title="">Create buffer</button>
+            <button id="createBufferBtn" onclick="buffer()" class="btn useDefaultBtn" title="">Create buffer</button>
           </div>
           <div id="mergeDiv" style="display: none">
             <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO MERGE</p>
@@ -174,7 +170,7 @@
       </div>
       <br>
       <div id="sidebaremenusavechangesdiv">
-        <input type="submit" value="Save changes" class="btn" id="sidebaremenusavechangesbtn" onclick="layerChanges(true)">
+        <input type="submit" value="Save changes" class="btn" id="sidebaremenusavechangesbtn" onclick="layerChanges(true);">
         <button onclick="openCloseSidebarMenu(-1)" class="btn btn-browse useDefaultBtn" title="Discard changes" style="margin-top: 60px; font-size: smaller;">Cancel</button>
 
       </div>

@@ -165,7 +165,7 @@ function openCloseSidebarMenu(id){
         $('.layerdiv').css("backgroundColor", "");
         document.getElementById("layernameinput").value = "";
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
-        console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
+        // console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
     }else if (MyApp.openSidebarMenu[1] != id){
         // console.log("gikk inn hit");
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
@@ -177,6 +177,8 @@ function openCloseSidebarMenu(id){
 
 
 function editLayer(item, id){
+    console.log(id);
+    console.log(MyApp.map._layers[id]);
     if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
         console.log("ja, hadde den klassen");
         $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
@@ -279,6 +281,7 @@ function layerChanges(save){
             document.getElementById(id + 'name').innerHTML = name;
             MyApp.layernames[id] = name;
             $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+            console.log(MyApp.layernames);
         }
         // console.log(save);
         MyApp.map._layers[id].options.style = style;
@@ -310,7 +313,7 @@ function hideshow(item, layerid){
 }
 
 function panToLayer(layerid){
-    bounds = MyApp.allLayers._layers[layerid].getBounds();
+    bounds = MyApp.map._layers[layerid].getBounds();
     MyApp.map.fitBounds(bounds);
 
     // buffer(layerid);
@@ -319,6 +322,7 @@ function panToLayer(layerid){
 }
 
 function drawLayerControl(layerid, name){
+
     box = document.getElementById("layerBox");
     layertr = document.createElement('tr');
     layertr.className = "layerdiv";
@@ -370,10 +374,23 @@ function drawLayerControl(layerid, name){
 
 }
 
+function drawDropdownTool(dropdownId){
+    dropdown = document.getElementById(dropdownId);
+
+    for (var object in MyApp.layernames){
+        option = document.createElement('option');
+        option.value = object;
+        option.innerHTML = MyApp.layernames[object];
+        dropdown.appendChild(option);
+    }
+
+}
+
 function selectTool(){
     $( "#allToolsDiv" ).children().css( "display", "none" );
     if($( "#toolsSelect option:selected" ).val() == 'buffer'){
         document.getElementById('bufferDiv').style.display = 'block';
+        drawDropdownTool('bufferSelect');
     } else if($( "#toolsSelect option:selected" ).val() == 'merge'){
         document.getElementById('mergeDiv').style.display = 'block';
     }
