@@ -72,6 +72,10 @@ function fadeOutDarkening(){
 
 function hideThis(id) {
 	$(id).hide(300);
+
+    if(id == 'toolsPopup'){
+        $("toolsSelect").val("0");
+    }
 };
 
 function hideOrShowSidebar(){
@@ -188,7 +192,6 @@ function editLayer(item, id){
         "opacity": 1,
         "fillOpacity": 0.2, 
      };
-     console.log(MyApp.map._layers[id]);
      if (MyApp.openSidebarMenu[1] != id && MyApp.openSidebarMenu[1]!=0){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
      }
@@ -309,6 +312,8 @@ function hideshow(item, layerid){
 function panToLayer(layerid){
     bounds = MyApp.allLayers._layers[layerid].getBounds();
     MyApp.map.fitBounds(bounds);
+
+    // buffer(layerid);
     // center = MyApp.allLayers._layers[layerid].getBounds().getCenter();
     // MyApp.map.setView(center);
 }
@@ -365,3 +370,12 @@ function drawLayerControl(layerid, name){
 
 }
 
+function selectTool(){
+    $( "#allToolsDiv" ).children().css( "display", "none" );
+    if($( "#toolsSelect option:selected" ).val() == 'buffer'){
+        document.getElementById('bufferDiv').style.display = 'block';
+    } else if($( "#toolsSelect option:selected" ).val() == 'merge'){
+        document.getElementById('mergeDiv').style.display = 'block';
+    }
+
+}

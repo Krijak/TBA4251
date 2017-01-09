@@ -35,12 +35,70 @@
         <p class="text" style="text-align: center">Spør du meg, så spør eg deg.</p>
       </div>
       <div id = "toolsPopup" class="popup" style="display: ">
-        <a class ="closeThis" onclick="hideThis('#toolsPopup'); fadeOutDarkening()"><span style ="padding-left: 10px" class="glyphicon glyphicon-remove"></span></a>
+        <a class ="closeThis" onclick="hideThis('#toolsPopup'); fadeOutDarkening()"><span style ="padding-left: 10px;" class="glyphicon glyphicon-remove" id="closeToolsPopup"></span></a>
+        <div style="text-align: center;">
+          <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()">
+            <option value="" disabled selected>Select spatial operation</option>
+            <option value="buffer">Buffer</option>
+            <option value="merge">Merge</option>
+            <option value="intersect">Intersect</option>
+            <option value="difference">Difference</option>
+          </select>
+        </div>
+        <div id="allToolsDiv">
+          <div id="bufferDiv" style="display: none">
+            <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYER AND BUFFER DISTANCE</p>
+            <hr style="margin: -12px 204px 24px -30px; border-color: #c6c6c6">
+            <table id = "" style="width: 100%">
+              <tr>
+                <td style="width: 70%"><div style="text-align: center;">
+                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()">
+                    <option value="" disabled selected>Select layer</option>
+                    <option value="buffer">l1</option>
+                    <option value="merge">l2</option>
+                    <option value="intersect">l3</option>
+                    <option value="difference">l4</option>
+                  </select>
+                </td>
+                <td><input type="number" class="inputfocus" name="fname" id="bufferInput"><p style="color: white; font-size: smaller; display: inline; margin-left: 10px;">M</p>
+                </td>
+              </tr>
+            </table>
+            <button id="createBufferBtn" onclick="" class="btn useDefaultBtn" title="">Create buffer</button>
+          </div>
+          <div id="mergeDiv" style="display: none">
+            <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO MERGE</p>
+            <hr style="margin: -12px 155px 24px -30px; border-color: #c6c6c6">
+            <table id = "" style="width: 100%">
+              <tr>
+                <td style="width:"><div style="text-align: center;">
+                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()" style="width: 190px">
+                    <option value="" disabled selected>Select first layer</option>
+                    <option value="buffer">l1</option>
+                    <option value="merge">l2</option>
+                    <option value="intersect">l3</option>
+                    <option value="difference">l4</option>
+                  </select>
+                </td>
+                <td style="width:"><div style="text-align: center;">
+                  <select class="dropdowns inputfocus" id="toolsSelect" onchange="selectTool()" style="width: 190px">
+                    <option value="" disabled selected>Select second layer</option>
+                    <option value="buffer">l1</option>
+                    <option value="merge">l2</option>
+                    <option value="intersect">l3</option>
+                    <option value="difference">l4</option>
+                  </select>
+                </td>
+              </tr>
+            </table>
+            <button id="createBufferBtn" onclick="" class="btn useDefaultBtn" title="">Merge layers</button>
+          </div>
+        </div>
       </div>
       <div id ="sidebar" onclick="">
         <p class="sidebarHeader">LAYERS</p>
         <table id = "layerBox" class="sidebarBox" style="width: 100%"></table>
-        <button onclick="openPopup('#toolsPopup')" class="btn btn-browse useDefaultBtn" id="tollsBtn" title="For spatial operations">Tools</button>
+        <button onclick="openPopup('#toolsPopup');" class="btn btn-browse useDefaultBtn" id="tollsBtn" title="For spatial operations">Tools</button>
         <table id = "legend" style="width: 100%">
           <tr class="legendtr">
             <td><span style ="padding-left: 10px" class="glyphicon  glyphicon-pencil"></span></td><td>Edit or download layer</td>
@@ -66,7 +124,7 @@
       <p class="sidebartext sidebarheader" style="text-align: right; margin-top: 101px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small">LAYER NAME</p>
       <hr style="margin: -12px 71px 32px -10px; border-color: #c6c6c6">
       <div id="changelayernameinput" style="text-align: center; margin-top: -10px">
-        <input id="layernameinput" type="text" name="layername">
+        <input id="layernameinput" class="inputfocus" type="text" name="layername">
       </div>
 
       <div id="filldiv">

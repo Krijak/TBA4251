@@ -1,5 +1,6 @@
 MyApp.layernames = {};
 MyApp.layertypes = {};
+MyApp.layerResult = {};
 
 function addToMap(isDefault){
     // var allLayers = new L.geoJson();
@@ -46,6 +47,7 @@ function addToMap(isDefault){
 
         var elv = new L.GeoJSON.AJAX("./data/river.geojson", {style: turveistyle});       
         elv.addTo(MyApp.allLayers);
+        console.log(elv);
 
         
         MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
@@ -66,17 +68,6 @@ function addToMap(isDefault){
         // console.log(MyApp.allLayers);
     });    
 
-        // MyApp.map.removeLayer(MyApp.map._layers[turveier._leaflet_id]);
-        // MyApp.allLayers._layers[turveier._leaflet_id].addTo(MyApp.map);
-        // console.log("YOLO");
-
-
-        // console.log(allLayers);
-        // MyApp.map.fitBounds(allLayers.getBounds());
-    // console.log(allLayers);
-    // console.log(allLayers._layers);
-    // console.log(allLayers._layers[51]);
-
     for (var object in MyApp.allLayers._layers){
         name = MyApp.layernames[object];
         drawLayerControl(object, name);
@@ -88,4 +79,49 @@ function addToMap(isDefault){
 
 
 
+}
+
+
+// function buffer(id){
+//     // console.log(MyApp.map._layers[id]);
+//     // var layer = L.geoJSON(MyApp.map._layers[id]);
+
+//     // var buffered = turf.buffer(layer, 5, 'kilometers');
+
+//     var pt = {
+//       "type": "Feature",
+//       "properties": {},
+//       "geometry": {
+//         "type": "Point",
+//         "coordinates": [63.422, 10.38]
+//       }
+//     };
+//     var unit = 'miles';
+
+//     var buffered = turf.buffer(pt, 500, unit);
+//     var result = turf.featurecollection([buffered, pt]);
+
+//     // L.geoJSON(buffered).addTo(MyApp.map);
+//     console.log(result);
+
+// }
+
+function buffer(id){
+    var feature = MyApp.map._layers[id];
+    console.log(feature);
+
+    for (var object in feature._layers){
+        console.log(MyApp.map._layers[object].feature);
+        MyApp.layerResult[object] = turf.buffer(MyApp.map._layers[object].feature, 1, 'miles');
+    }
+}
+
+function afterBuffer(){
+    console.log(MyApp.layerResult);
+    // console.log(MyApp.layer);
+    for (var object in MyApp.layerResult){
+        console.log(MyApp.layerResult[object]);
+        L.geoJSON(MyApp.layerResult[object]).addTo(MyApp.map);
+    }
+    // L.geoJSON( MyApp.layerResult).addTo(MyApp.map);
 }

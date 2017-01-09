@@ -156,7 +156,9 @@ body {
   width: 100vw;
   z-index: 100;
   margin-top: -50px;
-  background-color: rgba(0,0,0,0.21);
+  /*background-color: rgba(0,0,0,0.3);*/
+  background-color: rgba(255,255,255,0.35);
+
 }
 
 .closeThis{
@@ -306,7 +308,7 @@ table{
   border: none;
 }
 
-#layernameinput:focus{
+.inputfocus:focus{
     outline-color: rgba(243, 106, 1, 0.49);
 }
 
@@ -475,4 +477,67 @@ input[type=range]:focus::-moz-range-track {
     width: 28px;
     margin-right: 10px;
     margin-left: 3px;
+}
+
+/*.dropdown-menu {
+  left: 50%;
+  right: auto;
+  text-align: center;
+  transform: translate(-50%, 0);
+}*/
+
+.dropdowns{
+  /*text-align: center;
+  color: white;*/
+  /*background-color: #999 !important;*/
+ /* background-color: #474747;
+  width: 200px;
+  border-radius: 2px;
+  padding: 3px;
+  font-size: smaller;*/
+
+  border-radius: 2px;
+  background-color: #474747;
+  color: white;
+  font-size: smaller;
+  padding: 4px 30px 4px 8px;
+  border: none;
+  width: 200px;
+}
+
+#toolsPopup{
+  padding-bottom: 40px;
+  padding-top: 40px;
+  background-color: rgba(121, 121, 121, 0.97);
+}
+
+#closeToolsPopup{
+  color: #c6c6c6;
+}
+
+#closeToolsPopup:hover{
+  color: black;
+}
+
+#createBufferBtn{
+  margin-top: 25px; 
+  font-size: smaller; 
+  background-color: 
+  rgba(255, 145, 60, 0.77); 
+  color: white; 
+  position: relative;
+}
+
+#createBufferBtn:hover{
+  color: #dadada;
+}
+
+#bufferInput{
+  width: 50px;
+  color: white;
+  background-color: #474747;
+  border: none;
+  border-radius: 2px;
+  padding: 5px;
+  font-size: smaller;
 }
