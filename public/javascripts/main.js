@@ -174,6 +174,14 @@ function openCloseSidebarMenu(id){
 }
 
 
+function deleteLayer(id){
+    MyApp.map.removeLayer(MyApp.map._layers[id]);
+    console.log($("#"+id+'name').parent());
+    $("#"+id+'name').parent().css('display', 'none');
+    hideThis('#sidebarMenu');  
+    MyApp.openSidebarMenu = [0, 0];
+
+}
 
 
 function editLayer(item, id){
@@ -245,6 +253,10 @@ function updateSidebarMenu(id){
 
     document.getElementById('strokeopacityrange').value= MyApp.map._layers[id].options.style.opacity;
     document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
+
+    document.getElementById('deleteLayer').onclick = function(){deleteLayer(id)};
+    // document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
+
 }
 
 

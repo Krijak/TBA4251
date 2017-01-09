@@ -500,7 +500,7 @@ input[type=range]:focus::-moz-range-track {
   background-color: #474747;
   color: white;
   font-size: smaller;
-  padding: 4px 30px 4px 8px;
+  padding: 8px 30px 8px 8px;
   border: none;
   width: 200px;
 }
@@ -533,11 +533,22 @@ input[type=range]:focus::-moz-range-track {
 }
 
 #bufferInput{
-  width: 50px;
+  width: 55px;
   color: white;
   background-color: #474747;
   border: none;
   border-radius: 2px;
   padding: 5px;
   font-size: smaller;
+}
+
+#deleteLayer{
+  position: absolute;
+  bottom: 10px;
+  left: 46%;
+  color: #dedede;
+}
+
+#deleteLayer:hover{
+  color: black;
 }
