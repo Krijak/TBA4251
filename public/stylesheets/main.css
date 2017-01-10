@@ -62,6 +62,7 @@ body {
 
 #sidebar{
   /*display: none;*/
+  overflow: auto;
   position: absolute;
   top: 0;
   height: 100vh;
@@ -73,6 +74,7 @@ body {
 }
 
 #sidebarMenu{
+  overflow: auto;
   display: none;
   position: absolute;
   top: 0;
@@ -223,13 +225,20 @@ body {
   background-color: #aaa;
 }
 
+.layerdiv{
+  overflow: auto;
+}
+
 .layerp{
   font-size: smaller;
   color: #fff;
   padding-left: 10px;
+  padding-right: 10px;
   padding-top: 7px;
   padding-bottom: 7px;
   margin-bottom: 0;
+  max-width: 110px;
+  overflow: visible;
   /*display: inline;*/
 }
 
@@ -283,9 +292,12 @@ table{
 
 #sidebarHelp{
   font-size: smaller;
-  position: absolute;
-  bottom: 0;
   margin-left: 10px;
+  margin-bottom: 10px;
+  margin-top: 30vh;
+  /*position: absolute;
+  bottom: 0;
+  margin-left: 10px;*/
   /* color: black; */
   color: grey;
 }
@@ -318,6 +330,10 @@ table{
   color: white;
   background-color: rgba(255, 145, 60, 0.77);
   margin-top:20px;
+}
+
+#sidebaremenusavechangesbtn:hover{
+  color: #d6d6d6;
 }
 
 #sidebaremenusavechangesdiv{
@@ -502,7 +518,8 @@ input[type=range]:focus::-moz-range-track {
   font-size: smaller;
   padding: 8px 30px 8px 8px;
   border: none;
-  width: 200px;
+  max-width: 200px;
+  min-width: 100px;
 }
 
 #toolsPopup{
@@ -543,12 +560,26 @@ input[type=range]:focus::-moz-range-track {
 }
 
 #deleteLayer{
-  position: absolute;
+  /*display: inline-table; */
+  /* position: absolute; */
+  /* padding-top: 10px; */
   bottom: 10px;
-  left: 46%;
-  color: #dedede;
+  margin-top: 74px;
+  /* left: 46%; */
+  margin: 0 auto;
+  color: #ebebeb;
 }
 
 #deleteLayer:hover{
   color: black;
+}
+
+#cancelBtn{
+  width: 200px;
+   margin-top: 10px; 
+  margin-bottom: 50px;
+  font-size: smaller;
+  /* position: absolute; */
+  /* left: 50%; */
+  /* margin-left: -100px; */
 }

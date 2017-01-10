@@ -210,13 +210,13 @@ function editLayer(item, id){
         $(item).parent().parent().css("backgroundColor", "grey");
         updateSidebarMenu(id);
 
-        $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+        $('#layernameinput').attr("value", MyApp.layernames[id]);
 
         
         if (MyApp.openSidebarMenu[1] != id) {
             $('.layerdiv').css("backgroundColor", "");
             $(item).parent().parent().css("backgroundColor", "grey");
-            document.getElementById("layernameinput").value = "";
+            document.getElementById("layernameinput").value = MyApp.layernames[id];
             MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
             MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
             MyApp.openSidebarMenu = [0, id];
@@ -386,14 +386,21 @@ function drawLayerControl(layerid, name){
 
 }
 
-function drawDropdownTool(dropdownId){
+function drawDropdownTool(dropdownId, name){
     dropdown = document.getElementById(dropdownId);
 
+    while (dropdown.firstChild) {
+        dropdown.removeChild(dropdown.firstChild);
+    }
+
+    optionSelected = document.createElement('option');
+    optionSelected.disabled = true;
+    optionSelected.selected = true;
+    optionSelected.innerHTML = name;
+    dropdown.appendChild(optionSelected);
+
     for (var object in MyApp.layernames){
-        option = document.createElement('option');
-        option.value = object;
-        option.innerHTML = MyApp.layernames[object];
-        dropdown.appendChild(option);
+        dropdown.options.add( new Option(MyApp.layernames[object],object) );
     }
 
 }
@@ -402,15 +409,19 @@ function selectTool(){
     $( "#allToolsDiv" ).children().css( "display", "none" );
     if($( "#toolsSelect option:selected" ).val() == 'buffer'){
         document.getElementById('bufferDiv').style.display = 'block';
-        drawDropdownTool('bufferSelect');
+        drawDropdownTool('bufferSelect', 'Select layer');
     } else if($( "#toolsSelect option:selected" ).val() == 'merge'){
         document.getElementById('mergeDiv').style.display = 'block';
-        drawDropdownTool('merge1select');
-        drawDropdownTool('merge2select');
+        drawDropdownTool('merge1select', 'Select first layer');
+        drawDropdownTool('merge2select', 'Select second layer');
     }else if($( "#toolsSelect option:selected" ).val() == 'intersect'){
         document.getElementById('intersectDiv').style.display = 'block';
-        drawDropdownTool('intersect1select');
-        drawDropdownTool('intersect2select');
+        drawDropdownTool('intersect1select', 'Select first layer');
+        drawDropdownTool('intersect2select', 'Select second layer');
+    }else if($( "#toolsSelect option:selected" ).val() == 'difference'){
+        document.getElementById('differenceDiv').style.display = 'block';
+        drawDropdownTool('difference1select', 'Select first layer');
+        drawDropdownTool('difference2select', 'Select second layer');
     }
 
 

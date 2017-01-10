@@ -168,9 +168,26 @@ function intersect(){
     }else{
         console.log('you have to select two layers');
     }
+}
 
+function difference(){
+    var layer1id = document.getElementById('difference1select').value;
+    var layer2id = document.getElementById('difference2select').value;
 
+    if (layer1id != 0 && layer2id != 0) {
+        layer1 = makeOneLayer(layer1id);
+        layer2 = makeOneLayer(layer2id);
 
+        difference = turf.difference(layer1, layer2);
+        if (difference == 'undefined') {
+            console.log('undefined difference');
+        }else{
+            var name = '_diff_' + MyApp.layernames[layer2id];
+            addToMapAndLayercontrol(layer1id, difference, name);
+        };   
+    }else{
+        console.log('you have to select two layers');
+    }
 }
 
 
