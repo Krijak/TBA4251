@@ -126,6 +126,10 @@ function buffer(){
         addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
     }else{
+        var error = document.getElementById('errorBuffer');
+        error.style.display = 'block';
+        error.addClass = 'file-error-message';
+        error.innerHTML = 'You must select a layer and/or a positive buffer value';
         console.log("You must select a layer and/or a positive buffer value");
     }
 }
@@ -140,14 +144,23 @@ function merge(){
     var layer1id = document.getElementById('merge1select').value;
     var layer2id = document.getElementById('merge2select').value;
 
-    layer1 = makeOneLayer(layer1id);
-    layer2 = makeOneLayer(layer2id);
+    if (layer1id != 0 && layer2id != 0) {
 
-    merged = turf.union(layer1, layer2);
+        layer1 = makeOneLayer(layer1id);
+        layer2 = makeOneLayer(layer2id);
 
-    var name = '_merged_' + MyApp.layernames[layer2id];
+        merged = turf.union(layer1, layer2);
 
-    addToMapAndLayercontrol(layer1id, merged, name);
+        var name = '_merged_' + MyApp.layernames[layer2id];
+
+        addToMapAndLayercontrol(layer1id, merged, name);
+    }else{
+        var error = document.getElementById('errorUnite');
+        error.style.display = 'block';
+        error.addClass = 'file-error-message';
+        error.innerHTML = 'You have to select two layers';
+        console.log('you have to select two layers');
+    }
 }
 
 function intersect(){
@@ -159,13 +172,22 @@ function intersect(){
         layer2 = makeOneLayer(layer2id);
 
         intersected = turf.intersect(layer1, layer2);
-        if (intersected == 'undefined') {
+        if (intersected == undefined) {
+            var error = document.getElementById('errorIntersect');
+            error.style.display = 'block';
+            error.addClass = 'file-error-message';
+            error.innerHTML = 'Undefined intersection';
             console.log('undefined intersection');
         }else{
             var name = '_intersect_' + MyApp.layernames[layer2id];
             addToMapAndLayercontrol(layer1id, intersected, name);
-        };   
+        }   
     }else{
+        console.log('gikk inn i else');
+        var error = document.getElementById('errorIntersect');
+        error.style.display = 'block';
+        error.addClass = 'file-error-message';
+        error.innerHTML = 'You have to select two layers';
         console.log('you have to select two layers');
     }
 }
@@ -179,13 +201,23 @@ function difference(){
         layer2 = makeOneLayer(layer2id);
 
         difference = turf.difference(layer1, layer2);
-        if (difference == 'undefined') {
+        console.log(difference);
+        if (difference == undefined) {
+            console.log('lolol');
+            var error = document.getElementById('errorDifference');
+            error.style.display = 'block';
+            error.addClass = 'file-error-message';
+            error.innerHTML = 'Undefined difference';
             console.log('undefined difference');
         }else{
             var name = '_diff_' + MyApp.layernames[layer2id];
             addToMapAndLayercontrol(layer1id, difference, name);
         };   
     }else{
+        var error = document.getElementById('errorDifference');
+        error.style.display = 'block';
+        error.addClass = 'file-error-message';
+        error.innerHTML = 'You have to select two layers';
         console.log('you have to select two layers');
     }
 }
@@ -229,4 +261,9 @@ function addToMapAndLayercontrol(id, result, text){
 
     drawLayerControl(result._leaflet_id, name);
     hideThis('#toolsPopup'); fadeOutDarkening();
+
+    var error = document.getElementsByClassName('error');
+    for(var i=0; i<error.length; i++){
+        error[i].style.display = 'none';
+    }
 }

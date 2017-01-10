@@ -239,6 +239,7 @@ body {
   margin-bottom: 0;
   max-width: 110px;
   overflow: visible;
+  word-wrap: break-word;
   /*display: inline;*/
 }
 
@@ -291,10 +292,10 @@ table{
 }
 
 #sidebarHelp{
-  font-size: smaller;
+  font-size: x-small;
   margin-left: 10px;
   margin-bottom: 10px;
-  margin-top: 30vh;
+  margin-top: 20vh;
   /*position: absolute;
   bottom: 0;
   margin-left: 10px;*/
@@ -518,7 +519,7 @@ input[type=range]:focus::-moz-range-track {
   font-size: smaller;
   padding: 8px 30px 8px 8px;
   border: none;
-  max-width: 200px;
+  width: 200px;
   min-width: 100px;
 }
 
@@ -582,4 +583,19 @@ input[type=range]:focus::-moz-range-track {
   /* position: absolute; */
   /* left: 50%; */
   /* margin-left: -100px; */
+}
+
+.error{
+  padding: 8px;
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: -14px;
+  /* margin: 10px 0px 0px 0px !important; */
+  color: rgb(139, 69, 0) !important;
+  background-color: rgba(255, 218, 191, 0.64) !important;
+  border: 1px solid rgba(145, 64, 3, 0.41) !important;
+  font-size: smaller;
+  border-radius: 4px;
 }

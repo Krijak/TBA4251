@@ -397,6 +397,7 @@ function drawDropdownTool(dropdownId, name){
     optionSelected.disabled = true;
     optionSelected.selected = true;
     optionSelected.innerHTML = name;
+    optionSelected.value = 0;
     dropdown.appendChild(optionSelected);
 
     for (var object in MyApp.layernames){
