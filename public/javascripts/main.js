@@ -210,13 +210,13 @@ function editLayer(item, id){
         $(item).parent().parent().css("backgroundColor", "grey");
         updateSidebarMenu(id);
 
-        $('#layernameinput').attr("value", MyApp.layernames[id]);
+        document.getElementById("layernameinput").value = MyApp.layernames[id];
 
         
         if (MyApp.openSidebarMenu[1] != id) {
             $('.layerdiv').css("backgroundColor", "");
             $(item).parent().parent().css("backgroundColor", "grey");
-            document.getElementById("layernameinput").value = MyApp.layernames[id];
+            // document.getElementById("layernameinput").value = MyApp.layernames[id];
             MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
             MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
             MyApp.openSidebarMenu = [0, id];
