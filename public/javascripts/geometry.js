@@ -147,7 +147,7 @@ function merge(){
     var error = document.getElementById('errorUnite');
 
     if (layer1id != 0 && layer2id != 0) {
-         if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+         if (MyApp.layertypes[layer1id] == 'polyline' || MyApp.layertypes[layer2id] == 'polyline') {
             console.log('not equal polygon')
             error.style.display = 'block';
             error.addClass = 'file-error-message';
@@ -156,7 +156,7 @@ function merge(){
             layer1 = makeOneLayer(layer1id);
             layer2 = makeOneLayer(layer2id);
             merged = turf.union(layer1, layer2);
-            var name = '_merged_' + MyApp.layernames[layer2id];   
+            var name = '_union_' + MyApp.layernames[layer2id];   
             addToMapAndLayercontrol(layer1id, merged, name);
         }
     }else{
@@ -173,7 +173,10 @@ function intersect(){
     var error = document.getElementById('errorIntersect');
 
     if (layer1id != 0 && layer2id != 0) {
-        if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+        if (MyApp.layertypes[layer1id] == 'polyline' || MyApp.layertypes[layer2id] == 'polyline') {
+            console.log(layertypes[layer1id]);
+            console.log(layertypes[layer2id]);
+
             console.log('not equal polygon')
             error.style.display = 'block';
             error.addClass = 'file-error-message';
@@ -218,7 +221,7 @@ function difference(){
             error.addClass = 'file-error-message';
             error.innerHTML = 'Undefined difference';
             console.log('undefined difference');
-        }else if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+        }else if (MyApp.layertypes[layer1id] == 'polyline' || MyApp.layertypes[layer2id] == 'polyline') {
             console.log('not equal polygon')
             error.style.display = 'block';
             error.addClass = 'file-error-message';

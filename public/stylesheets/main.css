@@ -243,6 +243,7 @@ body {
   overflow: visible;
   word-wrap: break-word;
   /*display: inline;*/
+  word-break: break-all;
 }
 
 hr{
