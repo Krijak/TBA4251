@@ -11,6 +11,9 @@ $( document ).ready(function() {
     initializeFileInput();
     addToMap(true);
     // orderLayers();
+    $(".colorblock").change(function(){
+      alert( $(".colorblock").attr("background-color") );
+   });
 
     $( "#layerUl" ).sortable();
     $( "#layerUl" ).disableSelection();
@@ -111,7 +114,7 @@ function hideThis(id) {
 };
 
 function hideOrShowSidebar(){
-    orderLayers();
+    // orderLayers();
     if (!MyApp.openSidebar){
         if($('#sidebar').css('display') == 'none')
         {
