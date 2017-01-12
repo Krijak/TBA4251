@@ -560,18 +560,20 @@ input[type=range]:focus::-moz-range-track {
   font-size: smaller;
 }
 
-#deleteLayer{
+.deleteDownload{
   /*display: inline-table; */
   /* position: absolute; */
   /* padding-top: 10px; */
   bottom: 10px;
   margin-top: 74px;
+  padding-left: 20px;
+  padding-right: 20px;
   /* left: 46%; */
   margin: 0 auto;
   color: #ebebeb;
 }
 
-#deleteLayer:hover{
+.deleteDownload:hover{
   color: black;
 }
 

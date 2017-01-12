@@ -76,7 +76,7 @@ function addToMap(isDefault){
         var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
         vann.addTo(MyApp.allLayers);
 
-        var veg = new L.GeoJSON.AJAX("./data/Trondheim/veg.geojson", {style: style3});       
+        var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer20.geojson", {style: style3});       
         veg.addTo(MyApp.allLayers);
 
         
@@ -122,6 +122,8 @@ function buffer(){
         bufferDist = bufferDist/1000;
         var merged = makeOneLayer(id);
         result = turf.buffer(merged, bufferDist, 'kilometers');
+        // console.log(merged);
+        // console.log(result);
 
         addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
@@ -143,82 +145,98 @@ function union(layerOne, layerTwo){
 function merge(){
     var layer1id = document.getElementById('merge1select').value;
     var layer2id = document.getElementById('merge2select').value;
+    var error = document.getElementById('errorUnite');
 
     if (layer1id != 0 && layer2id != 0) {
-
-        layer1 = makeOneLayer(layer1id);
-        layer2 = makeOneLayer(layer2id);
-
-        merged = turf.union(layer1, layer2);
-
-        var name = '_merged_' + MyApp.layernames[layer2id];
-
-        addToMapAndLayercontrol(layer1id, merged, name);
+         if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+            console.log('not equal polygon')
+            error.style.display = 'block';
+            error.addClass = 'file-error-message';
+            error.innerHTML = 'Both layers must be polygons';
+        }else{
+            layer1 = makeOneLayer(layer1id);
+            layer2 = makeOneLayer(layer2id);
+            merged = turf.union(layer1, layer2);
+            var name = '_merged_' + MyApp.layernames[layer2id];   
+            addToMapAndLayercontrol(layer1id, merged, name);
+        }
     }else{
-        var error = document.getElementById('errorUnite');
         error.style.display = 'block';
         error.addClass = 'file-error-message';
-        error.innerHTML = 'You have to select two layers';
-        console.log('you have to select two layers');
+        error.innerHTML = 'You have to select two polygon layers';
+        console.log('you have to select two polygon layers');
     }
 }
 
 function intersect(){
     var layer1id = document.getElementById('intersect1select').value;
     var layer2id = document.getElementById('intersect2select').value;
+    var error = document.getElementById('errorIntersect');
 
     if (layer1id != 0 && layer2id != 0) {
-        layer1 = makeOneLayer(layer1id);
-        layer2 = makeOneLayer(layer2id);
-
-        intersected = turf.intersect(layer1, layer2);
-        if (intersected == undefined) {
-            var error = document.getElementById('errorIntersect');
+        if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+            console.log('not equal polygon')
             error.style.display = 'block';
             error.addClass = 'file-error-message';
-            error.innerHTML = 'Undefined intersection';
-            console.log('undefined intersection');
+            error.innerHTML = 'Both layers must be polygons';
         }else{
-            var name = '_intersect_' + MyApp.layernames[layer2id];
-            addToMapAndLayercontrol(layer1id, intersected, name);
+            layer1 = makeOneLayer(layer1id);
+            layer2 = makeOneLayer(layer2id);
+            intersected = turf.intersect(layer1, layer2);
+            if (intersected == undefined) {
+                error.style.display = 'block';
+                error.addClass = 'file-error-message';
+                error.innerHTML = 'Undefined intersection';
+                console.log('undefined intersection');
+            }else{
+                var name = '_intersect_' + MyApp.layernames[layer2id];
+                addToMapAndLayercontrol(layer1id, intersected, name);
+            }
         }   
     }else{
         console.log('gikk inn i else');
-        var error = document.getElementById('errorIntersect');
         error.style.display = 'block';
         error.addClass = 'file-error-message';
-        error.innerHTML = 'You have to select two layers';
-        console.log('you have to select two layers');
+        error.innerHTML = 'You have to select two polygon layers';
+        console.log('you have to select two polygon layers');
     }
 }
 
 function difference(){
     var layer1id = document.getElementById('difference1select').value;
     var layer2id = document.getElementById('difference2select').value;
+    console.log(MyApp.layertypes[layer1id]);
+    console.log(MyApp.layertypes[layer2id]);
+    var error = document.getElementById('errorDifference');
+
 
     if (layer1id != 0 && layer2id != 0) {
-        layer1 = makeOneLayer(layer1id);
-        layer2 = makeOneLayer(layer2id);
 
         difference = turf.difference(layer1, layer2);
-        console.log(difference);
         if (difference == undefined) {
             console.log('lolol');
-            var error = document.getElementById('errorDifference');
             error.style.display = 'block';
             error.addClass = 'file-error-message';
             error.innerHTML = 'Undefined difference';
             console.log('undefined difference');
+        }else if (MyApp.layertypes[layer1id] != 'polygon' || MyApp.layertypes[layer2id] != 'polygon') {
+            console.log('not equal polygon')
+            error.style.display = 'block';
+            error.addClass = 'file-error-message';
+            error.innerHTML = 'Both layers must be polygons';
         }else{
+            layer1 = makeOneLayer(layer1id);
+            layer2 = makeOneLayer(layer2id);
+            console.log('did the computation');
             var name = '_diff_' + MyApp.layernames[layer2id];
             addToMapAndLayercontrol(layer1id, difference, name);
         };   
     }else{
-        var error = document.getElementById('errorDifference');
+        // var error = document.getElementById('errorDifference');
         error.style.display = 'block';
         error.addClass = 'file-error-message';
-        error.innerHTML = 'You have to select two layers';
-        console.log('you have to select two layers');
+        error.innerHTML = 'You have to select two polygon layers';
+        console.log('you have to select two polygon layers');
     }
 }
 

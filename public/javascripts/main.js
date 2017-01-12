@@ -176,17 +176,31 @@ function openCloseSidebarMenu(id){
 
 function deleteLayer(id){
     MyApp.map.removeLayer(MyApp.map._layers[id]);
-    console.log($("#"+id+'name').parent());
     $("#"+id+'name').parent().css('display', 'none');
     hideThis('#sidebarMenu');  
     MyApp.openSidebarMenu = [0, 0];
 
 }
 
+function downloadTheLayer(id){
+    layer = MyApp.map._layers[id];
+
+    var json = layer.toGeoJSON();
+    console.log(json);
+    // L.extend(json.properties, polygon.properties);
+    
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+    var dlAnchorElem = document.getElementById('downloadLayer');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", "scene.json");
+    // newWindow = window.open(dataStr);
+    dlAnchorElem.click();
+
+
+}
+
 
 function editLayer(item, id){
-    console.log(id);
-    console.log(MyApp.map._layers[id]);
     if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
         console.log("ja, hadde den klassen");
         $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
@@ -255,7 +269,17 @@ function updateSidebarMenu(id){
     document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
 
     document.getElementById('deleteLayer').onclick = function(){deleteLayer(id)};
-    // document.getElementById('strokeopacity').innerHTML= MyApp.map._layers[id].options.style.opacity;
+
+    name = MyApp.layernames[id].split(' ').join('_');
+    console.log(name);
+
+    layer = MyApp.map._layers[id];
+    var json = layer.toGeoJSON();
+    console.log(json);    
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
+    var dlAnchorElem = document.getElementById('downloadLayer');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", name + ".geojson");
 
 }
 
