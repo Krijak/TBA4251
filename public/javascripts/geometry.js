@@ -104,7 +104,7 @@ function addToMap(isDefault){
 }
 
 
-function buffer(){
+function computeBuffer(){
     var id = document.getElementById('bufferSelect').value;
     var bufferDist = document.getElementById('bufferInput').value;
 
@@ -141,7 +141,7 @@ function union(layerOne, layerTwo){
 }
 
 
-function merge(){
+function computeMerge(){
     var layer1id = document.getElementById('merge1select').value;
     var layer2id = document.getElementById('merge2select').value;
     var error = document.getElementById('errorUnite');
@@ -167,15 +167,13 @@ function merge(){
     }
 }
 
-function intersect(){
+function computeIntersect(){
     var layer1id = document.getElementById('intersect1select').value;
     var layer2id = document.getElementById('intersect2select').value;
     var error = document.getElementById('errorIntersect');
 
     if (layer1id != 0 && layer2id != 0) {
         if (MyApp.layertypes[layer1id] == 'polyline' || MyApp.layertypes[layer2id] == 'polyline') {
-            console.log(layertypes[layer1id]);
-            console.log(layertypes[layer2id]);
 
             console.log('not equal polygon')
             error.style.display = 'block';

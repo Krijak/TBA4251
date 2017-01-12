@@ -335,11 +335,12 @@ function layerChanges(save){
     
     if (save) {
         var name = document.getElementById("layernameinput").value;
-        if (name != ''){
+        if (name != '' && !(/^ *$/.test(name))){
+            console.log((/^ *$/.test(name)));
             document.getElementById(id + 'name').innerHTML = name;
             MyApp.layernames[id] = name;
-            $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
-            console.log(MyApp.layernames);
+            // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+            // console.log(MyApp.layernames);
         }
         MyApp.map._layers[id].options.style = style;
         MyApp.currentStyle[0] = style;
