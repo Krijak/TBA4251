@@ -46,7 +46,7 @@ function orderLayers(){
     console.log(idsInOrder);
 
     for (var i in idsInOrder){
-        console.log(i);
+        // console.log(i);
         MyApp.map._layers[idsInOrder[i]].bringToBack();//setZIndex(zIndex);
     }
 }
@@ -186,6 +186,7 @@ function openPopup(id){
     // $("#getStartedPopup").toggle( "scale" );
     $(id).show(300);
     $("#darkening").delay(200).fadeIn();
+
     // $("#darkening").show(500);
     // $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
 };
@@ -253,7 +254,7 @@ function editLayer(item, id){
         "fillColor": color,
         "weight": 1,
         "opacity": 1,
-        "fillOpacity": 0.2, 
+        "fillOpacity": 0.3, 
      };
      if (MyApp.openSidebarMenu[1] != id && MyApp.openSidebarMenu[1]!=0){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
@@ -457,6 +458,8 @@ function drawLayerControl(layerid, name){
     li.appendChild(box);
     ul.insertBefore(li, ul.childNodes[0]);
 
+    selectTool();
+
     // list.insertBefore(newItem, list.childNodes[0])
 
     // MyApp.map._layers[layerid].bringToBack();
@@ -465,6 +468,11 @@ function drawLayerControl(layerid, name){
 }
 
 function drawDropdownTool(dropdownId, name){
+    console.log("start dropdown");
+    console.log(dropdownId);
+    console.log(MyApp.layernames);
+    console.log("stop dropdown");
+
     dropdown = document.getElementById(dropdownId);
 
     while (dropdown.firstChild) {
@@ -485,58 +493,26 @@ function drawDropdownTool(dropdownId, name){
 }
 
 function selectTool(){
+        drawDropdownTool('bufferSelect', 'Select layer');
+        drawDropdownTool('merge1select', 'Select first layer');
+        drawDropdownTool('merge2select', 'Select second layer');
+        drawDropdownTool('intersect1select', 'Select first layer');
+        drawDropdownTool('intersect2select', 'Select second layer');
+        drawDropdownTool('difference1select', 'Select first layer');
+        drawDropdownTool('difference2select', 'Select second layer');
     $( "#allToolsDiv" ).children().css( "display", "none" );
     if($( "#toolsSelect option:selected" ).val() == 'buffer'){
         document.getElementById('bufferDiv').style.display = 'block';
-        drawDropdownTool('bufferSelect', 'Select layer');
     } else if($( "#toolsSelect option:selected" ).val() == 'merge'){
         document.getElementById('mergeDiv').style.display = 'block';
-        drawDropdownTool('merge1select', 'Select first layer');
-        drawDropdownTool('merge2select', 'Select second layer');
     }else if($( "#toolsSelect option:selected" ).val() == 'intersect'){
         document.getElementById('intersectDiv').style.display = 'block';
-        drawDropdownTool('intersect1select', 'Select first layer');
-        drawDropdownTool('intersect2select', 'Select second layer');
     }else if($( "#toolsSelect option:selected" ).val() == 'difference'){
         document.getElementById('differenceDiv').style.display = 'block';
-        drawDropdownTool('difference1select', 'Select first layer');
-        drawDropdownTool('difference2select', 'Select second layer');
     }
 
 
 }
 
-
-
-function dragDrop(){
-var x,y,
-      container = $('layerBox');
-      // button = $('#order-button'),
-      // orderDisplay = $('.order-display'),
-      // groovyBox = $('#groovy-box');
-      
-
-      container.delegate('.box','mouseenter mouseout', handleMouse);
-      container.sortable();
-      
-      function handleMouse(e) {
-      //   if (e.type == "mouseenter") {
-      //     $(this).addClass('highlight');
-      //   }
-      //   else if (e.type == "mouseout") {
-      //     $(this).removeClass('highlight');
-      //   }
-      // }
-      
-      for (x=0; x<4; x++) {
-          console.log(x+","+y);
-          var box = $('<div class="box"></div>');
-          box.attr('id',x);
-          box.html(x);
-          box.sortable();
-          container.append(box);
-      }
-}
-}
 
 

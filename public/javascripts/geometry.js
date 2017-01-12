@@ -114,7 +114,7 @@ function buffer(){
         "fillColor": color,
         "weight": 1,
         "opacity": 0.8,
-        "fillOpacity": 0.2, 
+        "fillOpacity": 0.7, 
      };
 
     if (id != 0 && bufferDist > 0) {
@@ -204,17 +204,26 @@ function intersect(){
     }
 }
 
-function difference(){
+function computeDifference(){
     var layer1id = document.getElementById('difference1select').value;
     var layer2id = document.getElementById('difference2select').value;
     console.log(MyApp.layertypes[layer1id]);
     console.log(MyApp.layertypes[layer2id]);
     var error = document.getElementById('errorDifference');
 
+    console.log("start difference");
+    // console.log(dropdownId);
+    console.log(MyApp.layernames);
+    console.log("stop difference");
+
 
     if (layer1id != 0 && layer2id != 0) {
 
+        layer1 = makeOneLayer(layer1id);
+        layer2 = makeOneLayer(layer2id);
         difference = turf.difference(layer1, layer2);
+        console.log(layer1);
+        console.log(layer2);
         if (difference == undefined) {
             console.log('lolol');
             error.style.display = 'block';
@@ -227,8 +236,6 @@ function difference(){
             error.addClass = 'file-error-message';
             error.innerHTML = 'Both layers must be polygons';
         }else{
-            layer1 = makeOneLayer(layer1id);
-            layer2 = makeOneLayer(layer2id);
             console.log('did the computation');
             var name = '_diff_' + MyApp.layernames[layer2id];
             addToMapAndLayercontrol(layer1id, difference, name);
@@ -269,7 +276,7 @@ function addToMapAndLayercontrol(id, result, text){
         "fillColor": color,
         "weight": 1,
         "opacity": 0.8,
-        "fillOpacity": 0.2, 
+        "fillOpacity": 0.7, 
      };
 
     result = L.geoJSON(result, {style: mystyle});
