@@ -10,8 +10,46 @@ $( document ).ready(function() {
     initializeMap();
     initializeFileInput();
     addToMap(true);
-    // drawSidebar();
-});
+    // orderLayers();
+
+    $( "#layerUl" ).sortable();
+    $( "#layerUl" ).disableSelection();
+    var $sortableList = $("#layerUl");
+
+    var sortEventHandler = function(event, ui){
+        // console.log("New sort order!");
+        var idsInOrder = $sortableList.sortable("toArray");
+        console.log(idsInOrder);
+        if (idsInOrder.length == $('ul#layerUl li').length) {
+            for (var i in idsInOrder){
+                MyApp.map._layers[idsInOrder[i]].bringToBack();//setZIndex(zIndex);
+            }
+        }
+    };
+
+    $sortableList.sortable({
+        stop: sortEventHandler
+    });
+
+    // You can also set the event handler on an already existing Sortable widget this way:
+
+    $sortableList.on("sortchange", sortEventHandler);
+
+        // dragDrop();
+        // drawSidebar();
+    });
+
+function orderLayers(){
+    var $sortableList = $("#layerUl");
+    console.log(MyApp.layernames);
+    var idsInOrder = $sortableList.sortable("toArray");
+    console.log(idsInOrder);
+
+    for (var i in idsInOrder){
+        console.log(i);
+        MyApp.map._layers[idsInOrder[i]].bringToBack();//setZIndex(zIndex);
+    }
+}
 
 function initializeMap(){
 	MyApp.map = L.map('map', {
@@ -79,6 +117,7 @@ function hideThis(id) {
 };
 
 function hideOrShowSidebar(){
+    orderLayers();
     if (!MyApp.openSidebar){
         if($('#sidebar').css('display') == 'none')
         {
@@ -359,9 +398,18 @@ function panToLayer(layerid){
 
 function drawLayerControl(layerid, name){
 
-    box = document.getElementById("layerBox");
+    // box = document.getElementById("layerBox");
+    // MyApp.map._layers[layerid].bringToBack();
+    // console.log(MyApp.map._layers[layerid]);
+    ul = document.getElementById('layerUl');
+    li = document.createElement('li');
+    li.className = 'ui-state-default';
+    li.id = layerid;
+
+    box = document.createElement('table');
+    box.id = 'layerBox';
     layertr = document.createElement('tr');
-    layertr.className = "layerdiv";
+    layertr.className = "layerdiv no-swipe group handle instant ";
     layerp = document.createElement("td");
     layerp.className = "layerp";
     layerp.id = layerid + 'name';
@@ -406,6 +454,12 @@ function drawLayerControl(layerid, name){
     layertr.appendChild(td);
     layertr.appendChild(td1);
     box.appendChild(layertr);
+    li.appendChild(box);
+    ul.insertBefore(li, ul.childNodes[0]);
+
+    // list.insertBefore(newItem, list.childNodes[0])
+
+    // MyApp.map._layers[layerid].bringToBack();
 
 
 }
@@ -451,3 +505,38 @@ function selectTool(){
 
 
 }
+
+
+
+function dragDrop(){
+var x,y,
+      container = $('layerBox');
+      // button = $('#order-button'),
+      // orderDisplay = $('.order-display'),
+      // groovyBox = $('#groovy-box');
+      
+
+      container.delegate('.box','mouseenter mouseout', handleMouse);
+      container.sortable();
+      
+      function handleMouse(e) {
+      //   if (e.type == "mouseenter") {
+      //     $(this).addClass('highlight');
+      //   }
+      //   else if (e.type == "mouseout") {
+      //     $(this).removeClass('highlight');
+      //   }
+      // }
+      
+      for (x=0; x<4; x++) {
+          console.log(x+","+y);
+          var box = $('<div class="box"></div>');
+          box.attr('id',x);
+          box.html(x);
+          box.sortable();
+          container.append(box);
+      }
+}
+}
+
+

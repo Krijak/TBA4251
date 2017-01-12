@@ -31,7 +31,7 @@ function addToMap(isDefault){
             "fillColor": color1,
             "weight": 1,
             "opacity": 0.8,
-            "fillOpacity": 0.2, 
+            "fillOpacity": 1, 
          };
 
          var style2 = {
@@ -39,7 +39,7 @@ function addToMap(isDefault){
             "fillColor": color2,
             "weight": 2,
             "opacity": 1,
-            "fillOpacity": 0.8, 
+            "fillOpacity": 1, 
          };
 
          var style3 = {
@@ -47,7 +47,7 @@ function addToMap(isDefault){
             "fillColor": color3,
             "weight": 2,
             "opacity": 1,
-            "fillOpacity": 0.8, 
+            "fillOpacity": 1, 
          };
 
         // var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {style: mystyle });
@@ -70,38 +70,37 @@ function addToMap(isDefault){
         // MyApp.layertypes[elv._leaflet_id] = 'polyline';
 
 
+
+
         var arealbruk = new L.GeoJSON.AJAX("./data/Trondheim/arealbruk.geojson", {style: style1 });
         arealbruk.addTo(MyApp.allLayers);
-
-        var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
-        vann.addTo(MyApp.allLayers);
-
+        
         var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer20.geojson", {style: style3});       
         veg.addTo(MyApp.allLayers);
 
+        var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
+        vann.addTo(MyApp.allLayers);
         
         MyApp.layernames[arealbruk._leaflet_id] = 'Arealbruk';
         MyApp.layertypes[arealbruk._leaflet_id] = 'polygon';
 
         MyApp.layernames[vann._leaflet_id] = 'Vann';
         MyApp.layertypes[vann._leaflet_id] = 'polygon';
-        
+
         MyApp.layernames[veg._leaflet_id] = 'Vei';
         MyApp.layertypes[veg._leaflet_id] = 'polyline';
 
-
-
-
-
-    $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
-        // console.log(MyApp.allLayers);
-    });    
+        $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
+            // console.log(MyApp.allLayers);
+        });
+ 
 
     for (var object in MyApp.allLayers._layers){
         name = MyApp.layernames[object];
         drawLayerControl(object, name);
         // console.log(MyApp.allLayers._layers[object]);
     }
+
 }
 
 
@@ -284,4 +283,5 @@ function addToMapAndLayercontrol(id, result, text){
     for(var i=0; i<error.length; i++){
         error[i].style.display = 'none';
     }
+    orderLayers();
 }

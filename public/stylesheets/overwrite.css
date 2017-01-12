@@ -88,3 +88,15 @@ a:focus, a:hover {
     width: 3px;
     background: rgba(111, 111, 111, 0.5);
 }
+
+li {
+    list-style-type: none;
+}
+
+ul{
+    padding: 0px;
+}
+
+table{
+    width: 100%;
+}
