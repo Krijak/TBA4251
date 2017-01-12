@@ -608,3 +608,7 @@ input[type=range]:focus::-moz-range-track {
 li { 
   cursor: move; 
 }
+
+span{
+  cursor: auto;
+}

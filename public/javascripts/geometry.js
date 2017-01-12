@@ -31,7 +31,7 @@ function addToMap(isDefault){
             "fillColor": color1,
             "weight": 1,
             "opacity": 0.8,
-            "fillOpacity": 1, 
+            "fillOpacity": 0.3, 
          };
 
          var style2 = {
@@ -39,7 +39,7 @@ function addToMap(isDefault){
             "fillColor": color2,
             "weight": 2,
             "opacity": 1,
-            "fillOpacity": 1, 
+            "fillOpacity": 0.8, 
          };
 
          var style3 = {
