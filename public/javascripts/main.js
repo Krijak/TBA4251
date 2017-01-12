@@ -17,9 +17,7 @@ $( document ).ready(function() {
     var $sortableList = $("#layerUl");
 
     var sortEventHandler = function(event, ui){
-        // console.log("New sort order!");
         var idsInOrder = $sortableList.sortable("toArray");
-        console.log(idsInOrder);
         if (idsInOrder.length == $('ul#layerUl li').length) {
             for (var i in idsInOrder){
                 MyApp.map._layers[idsInOrder[i]].bringToBack();//setZIndex(zIndex);
@@ -41,12 +39,9 @@ $( document ).ready(function() {
 
 function orderLayers(){
     var $sortableList = $("#layerUl");
-    console.log(MyApp.layernames);
     var idsInOrder = $sortableList.sortable("toArray");
-    console.log(idsInOrder);
 
     for (var i in idsInOrder){
-        // console.log(i);
         MyApp.map._layers[idsInOrder[i]].bringToBack();//setZIndex(zIndex);
     }
 }
@@ -88,7 +83,6 @@ function updateValue(val, id) {
 }
 
 function editNavbar(){
-    // console.log("hei");
     document.getElementById('getStarted').style.display = 'none';
     document.getElementById('theNavbar').style.width = '254px';
     document.getElementById('theNavbar').style.boxShadow = 'none';
@@ -196,18 +190,14 @@ function openCloseSidebarMenu(id){
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
-        // console.log('!MyApp.openSidebarMenu[0]');
         MyApp.openSidebarMenu = [1, id];
     } else if (MyApp.openSidebarMenu[1] == id || id == -1) {
-        // console.log('elseif');
         hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
         $('.layerdiv').css("backgroundColor", "");
         document.getElementById("layernameinput").value = "";
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
-        // console.log(MyApp.map._layers[MyApp.currentStyle[1]]);
     }else if (MyApp.openSidebarMenu[1] != id){
-        // console.log("gikk inn hit");
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
 
     }
@@ -226,8 +216,6 @@ function downloadTheLayer(id){
     layer = MyApp.map._layers[id];
 
     var json = layer.toGeoJSON();
-    console.log(json);
-    // L.extend(json.properties, polygon.properties);
     
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
     var dlAnchorElem = document.getElementById('downloadLayer');
@@ -242,7 +230,6 @@ function downloadTheLayer(id){
 
 function editLayer(item, id){
     if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
-        console.log("ja, hadde den klassen");
         $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
         MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
 
@@ -278,7 +265,6 @@ function editLayer(item, id){
 
         }
     }
-    // console.log(id);
     openCloseSidebarMenu(id);
 
 }
@@ -311,11 +297,9 @@ function updateSidebarMenu(id){
     document.getElementById('deleteLayer').onclick = function(){deleteLayer(id)};
 
     name = MyApp.layernames[id].split(' ').join('_');
-    console.log(name);
 
     layer = MyApp.map._layers[id];
     var json = layer.toGeoJSON();
-    console.log(json);    
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(json));
     var dlAnchorElem = document.getElementById('downloadLayer');
     dlAnchorElem.setAttribute("href",     dataStr     );
@@ -328,7 +312,6 @@ function layerChanges(save){
     id = MyApp.openSidebarMenu[1];
 
     if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
-        console.log("ja, hadde den klassen");
         $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
         MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
 
@@ -353,13 +336,11 @@ function layerChanges(save){
     if (save) {
         var name = document.getElementById("layernameinput").value;
         if (name != ''){
-            console.log(name);
             document.getElementById(id + 'name').innerHTML = name;
             MyApp.layernames[id] = name;
             $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
             console.log(MyApp.layernames);
         }
-        // console.log(save);
         MyApp.map._layers[id].options.style = style;
         MyApp.currentStyle[0] = style;
         openCloseSidebarMenu(-1);
@@ -375,7 +356,6 @@ function hideshow(item, layerid){
         item.title = "Hide layer";
         MyApp.map._layers[layerid].setStyle(MyApp.map._layers[layerid].options.style);
         // MyApp.map._layers[layerid].resetStyle();
-        // console.log(MyApp.map._layers[layerid]);
 
         // MyApp.allLayers._layers[layerid].addTo(MyApp.map);
 
@@ -392,16 +372,11 @@ function panToLayer(layerid){
     bounds = MyApp.map._layers[layerid].getBounds();
     MyApp.map.fitBounds(bounds);
 
-    // buffer(layerid);
-    // center = MyApp.allLayers._layers[layerid].getBounds().getCenter();
-    // MyApp.map.setView(center);
 }
 
 function drawLayerControl(layerid, name){
 
-    // box = document.getElementById("layerBox");
-    // MyApp.map._layers[layerid].bringToBack();
-    // console.log(MyApp.map._layers[layerid]);
+
     ul = document.getElementById('layerUl');
     li = document.createElement('li');
     li.className = 'ui-state-default';
@@ -468,10 +443,6 @@ function drawLayerControl(layerid, name){
 }
 
 function drawDropdownTool(dropdownId, name){
-    console.log("start dropdown");
-    console.log(dropdownId);
-    console.log(MyApp.layernames);
-    console.log("stop dropdown");
 
     dropdown = document.getElementById(dropdownId);
 
