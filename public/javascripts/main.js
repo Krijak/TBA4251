@@ -42,15 +42,64 @@ $( document ).ready(function() {
 
     $sortableList.on("sortchange", sortEventHandler);
 
+    // MyApp.callbacks = $.Callbacks();
+ 
+    // // Add the above function to the list
+    // MyApp.callbacks.add( colorpickerCallback() );
+    // console.log(callbacks);
+
+
 
     $('.colorpicker-component').colorpicker().on('changeColor',
             function(ev) {
-                if (MyApp.openSidebarMenu[1]){
-                    layerChanges(false);
-                }
-            });
+            if (MyApp.openSidebarMenu[0]){
+                layerChanges(false);
+            }
+        });
+
+    // $('#cpfill').colorpicker().on('changeColor',
+    //         function(ev) {
+    //         if (MyApp.openSidebarMenu[0]){
+    //             layerChanges(false);
+    //         }
+    //     });
+
+    // $('#cpstroke').colorpicker().on('changeColor',
+    //         function(ev) {
+    //         if (MyApp.openSidebarMenu[0]){
+    //             layerChanges(false);
+    //         }
+    //     });
 
     });
+
+
+
+
+
+
+
+
+function colorpickerCallback(){
+}
+
+// var colorpickerCallback = $('.colorpicker-component').colorpicker().on('changeColor',
+//             function(ev) {
+//             var colors = [MyApp.map._layers[id].options.style.color, MyApp.map._layers[id].options.style.fillColor];
+//             if (MyApp.openSidebarMenu[0]){
+//                 console.log(colors);
+//                 // console.log(MyApp.map._layers[id].options.style.color);
+//                 // console.log(id);
+//                 // // if (MyApp.currentStyle == )
+//                 // console.log('currentStyle '+ MyApp.currentStyle[1]);
+//                 // console.log('openSidebarMenu ' + MyApp.openSidebarMenu[1]);
+
+//                 // console.log(MyApp.map._layers[id].options.style, id)
+//                 // layerChanges(false);
+//                 setTimeout(layerChanges(false), 100);
+//                 // setTimeout( function_reference, timeoutMillis );
+//             }
+//         });
 
     // $("#createBufferBtn").click(function() {
     //     var $btn = $(this);
@@ -71,7 +120,6 @@ $( document ).ready(function() {
     // });
 
 function loadBtn(item){
-    console.log(item);
     var $this = $(item);
         $this.button('loading');
         setTimeout(function() {
@@ -230,10 +278,14 @@ function openPopup(id){
 
 
 function openCloseSidebarMenu(id){
+    // MyApp.callbacks.disable();
+    // console.log(id);
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
         MyApp.openSidebarMenu = [1, id];
+        // colorpickerCallback();
+
     } else if (MyApp.openSidebarMenu[1] == id || id == -1) {
         hideThis('#sidebarMenu');  
         MyApp.openSidebarMenu = [0, id];
@@ -242,15 +294,19 @@ function openCloseSidebarMenu(id){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
     }else if (MyApp.openSidebarMenu[1] != id){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
+        // colorpickerCallback();
 
     }
+    // console.log('OPEN: ' + MyApp.openSidebarMenu);
+
 }
 
 
 function deleteLayer(id){
     MyApp.map.removeLayer(MyApp.map._layers[id]);
     $("#"+id+'name').parent().css('display', 'none');
-    hideThis('#sidebarMenu');  
+    hideThis('#sidebarMenu');
+    delete MyApp.layernames[id];
     MyApp.openSidebarMenu = [0, 0];
 
 }
@@ -351,43 +407,75 @@ function updateSidebarMenu(id){
 }
 
 
-function layerChanges(save){
+function layerChanges(save,colors){
     id = MyApp.openSidebarMenu[1];
+    fillColor = document.getElementById('cpfillinput').value;
+    color = document.getElementById('cpstrokeinput').value;
 
-    if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
-        $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
-        MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
+    colors = colors || [color, fillColor];
 
+    var allColors = [];
+    var count = 0;
+    // var pleaseChangeColor = true;
+    var keepGoing = true;
+
+    for (var i in MyApp.layernames){
+        // console.log(MyApp.map._layers[i].options.style.color);
+        c = MyApp.map._layers[i].options.style.color;
+        fc = MyApp.map._layers[i].options.style.fillColor;
+        allColors[count]=[c, fc];
+        count = count + 1;
+        if (((colors[0] == c)&&(MyApp.layertypes[id] == 'polyline')) || ((colors[1] == fc)&& (MyApp.layertypes[id] != 'polyline'))) {// && colors[1] == fc){
+            // console.log('JA!!!');
+            // console.log(colors);
+            // console.log(c +' , ' + fc);
+            keepGoing = false;
+        }
     }
 
-    fillColor = document.getElementById('cpfillinput').value;
-    fillOpacity = document.getElementById('opacityrange').value;
-    color = document.getElementById('cpstrokeinput').value;
-    weight = document.getElementById('strokeweightrange').value;
-    opacity = document.getElementById('strokeopacityrange').value;
+    if (keepGoing){
+        // console.log(keepGoing + ' after');
 
-    var style = {
-        "fillColor": fillColor,
-        "fillOpacity": fillOpacity, 
-        "color": color,
-        "weight": weight,
-        "opacity": opacity,
-     };
+        // console.log('changed');
+        // console.log(colors);
+        // console.log(c +' , ' + fc);
+        if (id != undefined) {
+            if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
+                $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+                MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
 
-    MyApp.map._layers[id].setStyle(style);
-    
-    if (save) {
-        var name = document.getElementById("layernameinput").value;
-        if (name != '' && !(/^ *$/.test(name))){
-            // console.log((/^ *$/.test(name)));
-            document.getElementById(id + 'name').innerHTML = name;
-            MyApp.layernames[id] = name;
-            // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
-            // console.log(MyApp.layernames);
+            }
+
+            // fillColor = document.getElementById('cpfillinput').value;
+            fillOpacity = document.getElementById('opacityrange').value;
+            // color = document.getElementById('cpstrokeinput').value;
+            weight = document.getElementById('strokeweightrange').value;
+            opacity = document.getElementById('strokeopacityrange').value;
+
+            var style = {
+                "fillColor": fillColor,
+                "fillOpacity": fillOpacity, 
+                "color": color,
+                "weight": weight,
+                "opacity": opacity,
+             };
+
+            MyApp.map._layers[id].setStyle(style);
+            
+            if (save) {
+                var name = document.getElementById("layernameinput").value;
+                if (name != '' && !(/^ *$/.test(name))){
+                    // console.log((/^ *$/.test(name)));
+                    document.getElementById(id + 'name').innerHTML = name;
+                    MyApp.layernames[id] = name;
+                    // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+                    // console.log(MyApp.layernames);
+                }
+                MyApp.map._layers[id].options.style = style;
+                MyApp.currentStyle[0] = style;
+                openCloseSidebarMenu(-1);
+            } 
         }
-        MyApp.map._layers[id].options.style = style;
-        MyApp.currentStyle[0] = style;
-        openCloseSidebarMenu(-1);
     }
 }
 
