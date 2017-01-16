@@ -414,31 +414,19 @@ function layerChanges(save,colors){
 
     colors = colors || [color, fillColor];
 
-    var allColors = [];
     var count = 0;
-    // var pleaseChangeColor = true;
     var keepGoing = true;
 
     for (var i in MyApp.layernames){
         // console.log(MyApp.map._layers[i].options.style.color);
         c = MyApp.map._layers[i].options.style.color;
         fc = MyApp.map._layers[i].options.style.fillColor;
-        allColors[count]=[c, fc];
         count = count + 1;
-        if (((colors[0] == c)&&(MyApp.layertypes[id] == 'polyline')) || ((colors[1] == fc)&& (MyApp.layertypes[id] != 'polyline'))) {// && colors[1] == fc){
-            // console.log('JA!!!');
-            // console.log(colors);
-            // console.log(c +' , ' + fc);
+        if (((colors[0] == c)&&(MyApp.layertypes[id] == 'polyline')) || ((colors[1] == fc)&& (MyApp.layertypes[id] != 'polyline'))) {
             keepGoing = false;
         }
     }
-
     if (keepGoing){
-        // console.log(keepGoing + ' after');
-
-        // console.log('changed');
-        // console.log(colors);
-        // console.log(c +' , ' + fc);
         if (id != undefined) {
             if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
                 $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
