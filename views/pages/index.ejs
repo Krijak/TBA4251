@@ -61,7 +61,7 @@
             </table>
             <!-- <div id="errorBlock" class="help-block"></div> -->
             <div id="errorBuffer" class="error-message error" style="display: none;"></div>
-            <button id="createBufferBtn" onclick="computeBuffer()" class="btn useDefaultBtn" title="">Create buffer</button>
+            <button id="createBufferBtn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order" onclick="computeBuffer()" class="btn useDefaultBtn" title="">Create buffer</button>
           </div>
           <div id="mergeDiv" style="display: none">
             <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO UNITE</p>
@@ -79,7 +79,7 @@
               </tr>
             </table>
             <div id="errorUnite" class="error-message error" style="display: none;"></div>
-            <button id="createBufferBtn" onclick="computeMerge()" class="btn useDefaultBtn" title="">Compute union</button>
+            <button id="createBufferBtn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order" onclick="computeMerge()" class="btn useDefaultBtn" title="">Compute union</button>
           </div>
           <div id="intersectDiv" style="display: none">
             <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO INTERSECT</p>
@@ -97,7 +97,7 @@
               </tr>
             </table>
             <div id="errorIntersect" class="error-message error" style="display: none;"></div>
-            <button id="createBufferBtn" onclick="computeIntersect()" class="btn useDefaultBtn" title="">Find intersection</button>
+            <button id="createBufferBtn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order" onclick="computeIntersect()" class="btn useDefaultBtn" title="">Find intersection</button>
           </div>
           <div id="differenceDiv" style="display: none">
             <p class="sidebartext sidebarheader" style="text-align: right; margin-top:40px; margin-bottom: 4px; color: #c6c6c6; font-size: x-small;">SELECT LAYERS TO SUBTRACT</p>
@@ -115,7 +115,7 @@
               </tr>
             </table>
             <div id="errorDifference" class="error-message error" style="display: none;"></div>
-            <button id="createBufferBtn" onclick="computeDifference()" class="btn useDefaultBtn" title="">Compute difference</button>
+            <button id="createBufferBtn" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Processing Order" onclick="computeDifference()" class="btn useDefaultBtn" title="">Compute difference</button>
           </div>
         </div>
       </div>
