@@ -130,8 +130,8 @@ function computeBuffer(){
         var error = document.getElementById('errorBuffer');
         error.style.display = 'block';
         error.addClass = 'file-error-message';
-        error.innerHTML = 'You must select a layer and/or a positive buffer value';
-        console.log("You must select a layer and/or a positive buffer value");
+        error.innerHTML = 'You must select a layer';
+        console.log("You must select a layer");
     }
 }
 

@@ -20,9 +20,6 @@ $( document ).ready(function() {
     //     }
     // });
 
-    // $( ".colorpicker-saturation" ).click(function() {
-    //   alert( "Handler for .click() called." );
-    // });
 
     $( "#layerUl" ).sortable();
     $( "#layerUl" ).disableSelection();
@@ -45,8 +42,15 @@ $( document ).ready(function() {
 
     $sortableList.on("sortchange", sortEventHandler);
 
-        // dragDrop();
-        // drawSidebar();
+
+    $('.colorpicker-component').colorpicker().on('changeColor',
+            function(ev) {
+                console.log(MyApp.openSidebarMenu[1]);
+                if (MyApp.openSidebarMenu[1]){
+                    layerChanges(false);
+                }
+            });
+
     });
 
     // $("#createBufferBtn").click(function() {
@@ -59,12 +63,23 @@ $( document ).ready(function() {
     // });
 
     // $('.btn').on('click', function() {
+    //     console.log('presed button');
     //     var $this = $(this);
     //     $this.button('loading');
     //     setTimeout(function() {
     //        $this.button('reset');
     //    }, 8000);
     // });
+
+function loadBtn(item){
+    console.log(item);
+    var $this = $(item);
+        $this.button('loading');
+        setTimeout(function() {
+           $this.button('reset');
+       }, 8000);
+
+}
 
 function orderLayers(){
     var $sortableList = $("#layerUl");
@@ -365,7 +380,7 @@ function layerChanges(save){
     if (save) {
         var name = document.getElementById("layernameinput").value;
         if (name != '' && !(/^ *$/.test(name))){
-            console.log((/^ *$/.test(name)));
+            // console.log((/^ *$/.test(name)));
             document.getElementById(id + 'name').innerHTML = name;
             MyApp.layernames[id] = name;
             // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
