@@ -75,7 +75,7 @@ function addToMap(isDefault){
         var arealbruk = new L.GeoJSON.AJAX("./data/Trondheim/arealbruk.geojson", {style: style1 });
         arealbruk.addTo(MyApp.allLayers);
         
-        var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer20.geojson", {style: style3});       
+        var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer0.1.geojson", {style: style3});       
         veg.addTo(MyApp.allLayers);
 
         var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
@@ -121,8 +121,8 @@ function computeBuffer(){
         bufferDist = bufferDist/1000;
         var merged = makeOneLayer(id);
         result = turf.buffer(merged, bufferDist, 'kilometers');
-        // console.log(merged);
-        // console.log(result);
+
+        // var result = turf.simplify(merged, bufferDist*1000, true);
 
         addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
