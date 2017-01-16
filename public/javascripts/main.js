@@ -45,7 +45,6 @@ $( document ).ready(function() {
 
     $('.colorpicker-component').colorpicker().on('changeColor',
             function(ev) {
-                console.log(MyApp.openSidebarMenu[1]);
                 if (MyApp.openSidebarMenu[1]){
                     layerChanges(false);
                 }

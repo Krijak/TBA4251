@@ -70,6 +70,10 @@ a:focus, a:hover {
     left: 336px !important;
 }
 
+.colorpicker-alpha{
+    display: none!important;
+}
+
 ::-webkit-scrollbar-track{
     background: white;
     border-radius: 10px;
