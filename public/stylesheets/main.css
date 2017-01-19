@@ -633,3 +633,10 @@ span{
 .btnLoad:hover{
   color:;
 }
+
+#calculatingBufferDiv{
+  /*display: block;*/
+  text-align: center;
+  margin-top: 72px;
+  margin-bottom: -102px;
+}

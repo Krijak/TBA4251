@@ -91,24 +91,24 @@ function addToMap(isDefault){
         MyApp.layertypes[veg._leaflet_id] = 'polyline';
 
 
-        var lay = {
-                "type": "Feature",
-                "properties": {"party": "Republican"},
-                "geometry": {
-                    "type": "Polygon",
-                    "coordinates": [[
-                        [-104.05, 48.99],
-                        [-97.22,  48.98],
-                        [-96.58,  45.94],
-                        [-104.03, 45.94],
-                        [-104.05, 48.99]
-                    ]]
-                }
-            };
-            lay = L.geoJSON(lay, {style: style3})
-            lay.addTo(MyApp.allLayers);
-            MyApp.layernames[lay._leaflet_id] = 'Nytt lag';
-            MyApp.layertypes[lay._leaflet_id] = 'polygon';
+        // var lay = {
+        //         "type": "Feature",
+        //         "properties": {"party": "Republican"},
+        //         "geometry": {
+        //             "type": "Polygon",
+        //             "coordinates": [[
+        //                 [-104.05, 48.99],
+        //                 [-97.22,  48.98],
+        //                 [-96.58,  45.94],
+        //                 [-104.03, 45.94],
+        //                 [-104.05, 48.99]
+        //             ]]
+        //         }
+        //     };
+        //     lay = L.geoJSON(lay, {style: style3})
+        //     lay.addTo(MyApp.allLayers);
+        //     MyApp.layernames[lay._leaflet_id] = 'Nytt lag';
+        //     MyApp.layertypes[lay._leaflet_id] = 'polygon';
 
 
         $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
@@ -146,7 +146,9 @@ function computeBuffer(){
 
         var $button = $('#createBufferBtn');
         $button.button('loading');
-        $(document.body).css({'cursor' : 'wait'});
+        $( "#calculatingBufferDiv" ).css( "display", "block" );
+
+        // $(document.body).css({'cursor' : 'wait'});
 
         bufferDist = bufferDist/1000;
         var merged = makeOneLayer(id);
@@ -181,14 +183,21 @@ function computeBuffer(){
             dataType:"json",
             success: function(data){
                     console.log(data);
+                    if(error != undefined){
+                        error.style.display = 'none';
+                    }
                     addToMapAndLayercontrol(id, data, '_buffer' + bufferDist*1000);
                     $button.button('reset');
-                    $(document.body).css({'cursor' : 'default'});
+                    $( "#calculatingBufferDiv" ).css( "display", "none" );
+                    // $(document.body).css({'cursor' : 'default'});
               },
              error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);
                 $button.button('reset');
-                $(document.body).css({'cursor' : 'default'}); 
+                // $(document.body).css({'cursor' : 'default'}); 
+                error.style.display = 'none';
+                $( "#calculatingBufferDiv" ).css( "display", "none" );
+
              }
         });
 
