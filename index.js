@@ -1,6 +1,5 @@
 // var cool = require('cool-ascii-faces');
 var express = require('express');
-// var connect = require('connect');
 var fs = require('fs');
 var mongoose = require('mongoose');
 var app = express();
@@ -54,13 +53,13 @@ mongoose.connection.on('connected', function () {
   console.log('connected correctly to server');
 });
 
-//load all files in models dir
-// fs.readdirSync(__dirname + '/models').forEach(function(filename) {
-//   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
-// });
+load all files in models dir
+fs.readdirSync(__dirname + '/models').forEach(function(filename) {
+  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+});
 
-// app.get('/users', function(req, res) {
-//   mongoose.model('users').find(function(err, users) {
-//     res.send(users);
-//   });
-// });
+app.get('/users', function(req, res) {
+  mongoose.model('users').find(function(err, users) {
+    res.send(users);
+  });
+});
