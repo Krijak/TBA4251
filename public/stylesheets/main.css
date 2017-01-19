@@ -125,7 +125,7 @@ body {
   width: 60vw;
   min-width: 200px;
   max-width: 500px;
-  max-height: 280px;
+  max-height: 350px;
   height: auto
 }
 
@@ -606,6 +606,21 @@ input[type=range]:focus::-moz-range-track {
   border-radius: 4px;
 }
 
+.obs {
+    padding: 8px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: -14px;
+    /* margin: 10px 0px 0px 0px !important; */
+    color: rgb(255, 255, 255) !important;
+    background-color: rgba(224, 224, 224, 0.64) !important;
+    border: 1px solid rgba(255, 255, 255, 0.41) !important;
+    font-size: smaller;
+    border-radius: 4px;
+}
+
 
 li { 
   cursor: move; 
@@ -613,4 +628,8 @@ li {
 
 span{
   cursor: auto;
+}
+
+.btnLoad:hover{
+  color:;
 }

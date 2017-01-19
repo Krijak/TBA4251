@@ -90,6 +90,27 @@ function addToMap(isDefault){
         MyApp.layernames[veg._leaflet_id] = 'Vei';
         MyApp.layertypes[veg._leaflet_id] = 'polyline';
 
+
+        var lay = {
+                "type": "Feature",
+                "properties": {"party": "Republican"},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [[
+                        [-104.05, 48.99],
+                        [-97.22,  48.98],
+                        [-96.58,  45.94],
+                        [-104.03, 45.94],
+                        [-104.05, 48.99]
+                    ]]
+                }
+            };
+            lay = L.geoJSON(lay, {style: style3})
+            lay.addTo(MyApp.allLayers);
+            MyApp.layernames[lay._leaflet_id] = 'Nytt lag';
+            MyApp.layertypes[lay._leaflet_id] = 'polygon';
+
+
         $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
             // console.log(MyApp.allLayers);
         });
@@ -105,6 +126,9 @@ function addToMap(isDefault){
 
 
 function computeBuffer(){
+       //  setTimeout(function() {
+       //     $button.button('reset');
+       // }, 8000);
     var id = document.getElementById('bufferSelect').value;
     var bufferDist = document.getElementById('bufferInput').value;
 
@@ -118,13 +142,59 @@ function computeBuffer(){
      };
 
     if (id != 0 && bufferDist > 0) {
+
+
+        var $button = $('#createBufferBtn');
+        $button.button('loading');
+        $(document.body).css({'cursor' : 'wait'});
+
         bufferDist = bufferDist/1000;
         var merged = makeOneLayer(id);
-        result = turf.buffer(merged, bufferDist, 'kilometers');
 
-        // var result = turf.simplify(merged, bufferDist*1000, true);
+        // var count = Object.keys(merged).length;
 
-        addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
+        var key, count = 0;
+            for(key in merged.geometry.coordinates) {
+              if(merged.geometry.coordinates.hasOwnProperty(key)) {
+                count++;
+            }
+        }
+        console.log(count);
+
+        if(count>500){
+            var error = document.getElementById('obsBuffer');
+            // $( "errorBuffer" ).addClass( "obs" );
+            error.style.display = 'block';
+            // error.addClass = 'obs';
+            error.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may contiue with your work while waiting';
+            // console.log("You must select a layer");
+
+        }
+
+        var theLayer = JSON.stringify({'layer': merged, 'dist': bufferDist});
+
+        $.ajax({
+            url:"/api/buffer",
+            type:"POST",
+            data: theLayer,
+            contentType:"application/json; charset=utf-8",
+            dataType:"json",
+            success: function(data){
+                    console.log(data);
+                    addToMapAndLayercontrol(id, data, '_buffer' + bufferDist*1000);
+                    $button.button('reset');
+                    $(document.body).css({'cursor' : 'default'});
+              },
+             error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                $button.button('reset');
+                $(document.body).css({'cursor' : 'default'}); 
+             }
+        });
+
+        // result = turf.buffer(merged, bufferDist, 'kilometers');
+
+        // addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
     }else{
         var error = document.getElementById('errorBuffer');

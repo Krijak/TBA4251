@@ -12,15 +12,6 @@ $( document ).ready(function() {
     addToMap(true);
     // orderLayers();
 
-    // var $ele = $("#colorblock");
-    // $ele.on('style', function(e, prop, value) {
-    //     if (prop == 'background-color') {
-    //         // console.debug('new value for left: ' + value);
-    //         console.log(value);
-    //     }
-    // });
-
-
     $( "#layerUl" ).sortable();
     $( "#layerUl" ).disableSelection();
     var $sortableList = $("#layerUl");
@@ -57,49 +48,10 @@ $( document ).ready(function() {
             }
         });
 
-    // $('#cpfill').colorpicker().on('changeColor',
-    //         function(ev) {
-    //         if (MyApp.openSidebarMenu[0]){
-    //             layerChanges(false);
-    //         }
-    //     });
-
-    // $('#cpstroke').colorpicker().on('changeColor',
-    //         function(ev) {
-    //         if (MyApp.openSidebarMenu[0]){
-    //             layerChanges(false);
-    //         }
-    //     });
-
     });
 
 
 
-
-
-
-
-
-function colorpickerCallback(){
-}
-
-// var colorpickerCallback = $('.colorpicker-component').colorpicker().on('changeColor',
-//             function(ev) {
-//             var colors = [MyApp.map._layers[id].options.style.color, MyApp.map._layers[id].options.style.fillColor];
-//             if (MyApp.openSidebarMenu[0]){
-//                 console.log(colors);
-//                 // console.log(MyApp.map._layers[id].options.style.color);
-//                 // console.log(id);
-//                 // // if (MyApp.currentStyle == )
-//                 // console.log('currentStyle '+ MyApp.currentStyle[1]);
-//                 // console.log('openSidebarMenu ' + MyApp.openSidebarMenu[1]);
-
-//                 // console.log(MyApp.map._layers[id].options.style, id)
-//                 // layerChanges(false);
-//                 setTimeout(layerChanges(false), 100);
-//                 // setTimeout( function_reference, timeoutMillis );
-//             }
-//         });
 
     // $("#createBufferBtn").click(function() {
     //     var $btn = $(this);
@@ -196,8 +148,9 @@ function fadeOutDarkening(){
 function hideThis(id) {
 	$(id).hide(300);
 
-    if(id == 'toolsPopup'){
-        $("toolsSelect").val("0");
+    if(id == '#toolsPopup'){
+        // $("#toolsSelect").val("0");
+        $(".error").css("display","none");
     }
 };
 
@@ -411,8 +364,23 @@ function layerChanges(save,colors){
     id = MyApp.openSidebarMenu[1];
     fillColor = document.getElementById('cpfillinput').value;
     color = document.getElementById('cpstrokeinput').value;
+    // fillColor = document.getElementById('cpfillinput').value;
+    fillOpacity = document.getElementById('opacityrange').value;
+    // color = document.getElementById('cpstrokeinput').value;
+    weight = document.getElementById('strokeweightrange').value;
+    opacity = document.getElementById('strokeopacityrange').value;
+
+    var style = {
+        "fillColor": fillColor,
+        "fillOpacity": fillOpacity, 
+        "color": color,
+        "weight": weight,
+        "opacity": opacity,
+     };
 
     colors = colors || [color, fillColor];
+    // pressed = pressedBtn || false;
+
 
     var count = 0;
     var keepGoing = true;
@@ -434,37 +402,24 @@ function layerChanges(save,colors){
 
             }
 
-            // fillColor = document.getElementById('cpfillinput').value;
-            fillOpacity = document.getElementById('opacityrange').value;
-            // color = document.getElementById('cpstrokeinput').value;
-            weight = document.getElementById('strokeweightrange').value;
-            opacity = document.getElementById('strokeopacityrange').value;
-
-            var style = {
-                "fillColor": fillColor,
-                "fillOpacity": fillOpacity, 
-                "color": color,
-                "weight": weight,
-                "opacity": opacity,
-             };
 
             MyApp.map._layers[id].setStyle(style);
             
-            if (save) {
-                var name = document.getElementById("layernameinput").value;
-                if (name != '' && !(/^ *$/.test(name))){
-                    // console.log((/^ *$/.test(name)));
-                    document.getElementById(id + 'name').innerHTML = name;
-                    MyApp.layernames[id] = name;
-                    // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
-                    // console.log(MyApp.layernames);
-                }
-                MyApp.map._layers[id].options.style = style;
-                MyApp.currentStyle[0] = style;
-                openCloseSidebarMenu(-1);
-            } 
         }
     }
+    if (save) {
+        var name = document.getElementById("layernameinput").value;
+        if (name != '' && !(/^ *$/.test(name))){
+            // console.log((/^ *$/.test(name)));
+            document.getElementById(id + 'name').innerHTML = name;
+            MyApp.layernames[id] = name;
+            // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
+            // console.log(MyApp.layernames);
+        }
+        MyApp.map._layers[id].options.style = style;
+        MyApp.currentStyle[0] = style;
+        openCloseSidebarMenu(-1);
+    } 
 }
 
 
@@ -604,17 +559,4 @@ function selectTool(){
 
 
 }
-
-
-/*
-    Usage: 
-    $ele.on('style', function(e, prop, value) {
-        if (prop == 'left') {
-            console.debug('new value for left: ' + value);
-        }
-    });
-*/
-// This plugin also throws events for individual style properties incase the entire 'style' attribute is removed
-// fem på fredag
-
 
