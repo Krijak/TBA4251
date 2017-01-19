@@ -446,11 +446,14 @@ function layerChanges(save,colors){
 
 function hideshow(item, layerid){
     var hide = {opacity: 0, fillOpacity: 0,};
+    console.log('hided');
+    console.log(item);
 
     if ($(item).hasClass( "glyphicon-eye-close" )){
-        item.className = "glyphicon glyphicon-eye-open hideshowLayer layer";
+        item.className = "glyphicon hideshowLayer layer glyphicon-eye-open";
         item.title = "Hide layer";
         MyApp.map._layers[layerid].setStyle(MyApp.map._layers[layerid].options.style);
+        console.log('hasclass');
         // MyApp.map._layers[layerid].resetStyle();
 
         // MyApp.allLayers._layers[layerid].addTo(MyApp.map);
@@ -459,6 +462,8 @@ function hideshow(item, layerid){
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
         item.title = "Show layer";
         MyApp.map._layers[layerid].setStyle(hide);
+        console.log('did not have the class');
+        console.log(MyApp.map._layers[layerid]);
         // MyApp.map.removeLayer(MyApp.map._layers[layerid]);
     }
 
@@ -486,12 +491,15 @@ function drawLayerControl(layerid, name){
     layerp.className = "layerp";
     layerp.id = layerid + 'name';
     t = document.createTextNode(name);
+    // layerp.onclick = function(){editLayer(document.getElementById(layerid + 'edit'), layerid)}; 
 
-    td = document.createElement("td");
+
+    td0 = document.createElement("td");
     edit = document.createElement("span");
     edit.className = "glyphicon  glyphicon-pencil changeName layer";
     edit.title = "Edit layer";
-    edit.onclick = function(){editLayer(this, layerid)};
+    edit.id = layerid + 'edit';
+    edit.onclick = function(){editLayer(document.getElementById(layerid + 'edit'), layerid)};
 
     td1 = document.createElement("td");
     hideshowLayer = document.createElement("span");
@@ -504,7 +512,7 @@ function drawLayerControl(layerid, name){
     goToLayer = document.createElement("span");
     goToLayer.className = "glyphicon glyphicon-search layer";
     goToLayer.title = "Go to layer";
-    goToLayer.onclick = function(){panToLayer(layerid)};
+    td2.onclick = function(){panToLayer(layerid)};
 
     td3 = document.createElement("td");
     downloadLayer = document.createElement("span");
@@ -517,14 +525,14 @@ function drawLayerControl(layerid, name){
 
 
     layerp.appendChild(t);
-    td.appendChild(hideshowLayer);
-    td1.appendChild(edit);
+    td0.appendChild(edit);
+    td1.appendChild(hideshowLayer);
     td2.appendChild(goToLayer);
     td3.appendChild(downloadLayer);
     layertr.appendChild(layerp);
     layertr.appendChild(td2);
-    layertr.appendChild(td);
     layertr.appendChild(td1);
+    layertr.appendChild(td0);
     box.appendChild(layertr);
     li.appendChild(box);
     ul.insertBefore(li, ul.childNodes[0]);
