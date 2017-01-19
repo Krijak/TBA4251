@@ -10,8 +10,8 @@ var turf = require('@turf/turf');
 
 
 
-// app.set('port', (process.env.PORT || 5000));
-app.listen(process.env.PORT || 5000);
+app.set('port', (process.env.PORT || 5000));
+// app.listen(process.env.PORT || 5000);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
@@ -49,18 +49,18 @@ app.listen(app.get('port'), function() {
 // Connection URL 
 var url = 'mongodb://heroku_k7jjmzwc:idaj27pbptblpb7f1nh3oiiqu9@ds139327.mlab.com:39327/heroku_k7jjmzwc';
 
-mongoose.connect(url);
-mongoose.connection.on('connected', function () {  
-  console.log('connected correctly to server');
-});
+// mongoose.connect(url);
+// mongoose.connection.on('connected', function () {  
+//   console.log('connected correctly to server');
+// });
 
-load all files in models dir
-fs.readdirSync(__dirname + '/models').forEach(function(filename) {
-  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
-});
+// load all files in models dir
+// fs.readdirSync(__dirname + '/models').forEach(function(filename) {
+//   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+// });
 
-app.get('/users', function(req, res) {
-  mongoose.model('users').find(function(err, users) {
-    res.send(users);
-  });
-});
+// app.get('/users', function(req, res) {
+//   mongoose.model('users').find(function(err, users) {
+//     res.send(users);
+//   });
+// });
