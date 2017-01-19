@@ -12,13 +12,13 @@ function addToMap(isDefault){
         "opacity": 0.65
     };
 
-    $.ajax({
-        dataType: "json",
-        url: "users",
-        success: function(data) {
-            // console.log(data);
-        }
-        }).error(function() {});
+    // $.ajax({
+    //     dataType: "json",
+    //     url: "users",
+    //     success: function(data) {
+    //         // console.log(data);
+    //     }
+    //     }).error(function() {});
 
        var color1 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
        var color2 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
