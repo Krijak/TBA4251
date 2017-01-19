@@ -166,10 +166,21 @@ function hideOrShowSidebar(){
             left: "+=500",
                 }, 300, function() {
             });
-            $( "#sidebarMenu" ).animate({
-            left: "+=100vw",
-                }, 300, function() {
-            });
+            // $('#sidebarMenu').show(200);
+            if($(window).width()< 480){
+               $( "#sidebarMenu" ).animate({
+                left: "0",
+                    }, 300, function() {
+                });
+               console.log($(window).width());
+           }else{
+             $( "#sidebarMenu" ).animate({
+                left: "254",
+                    }, 300, function() {
+                });
+               console.log($(window).width());
+
+           }
             $('#headerLogo').animate({
                 left: '50%',
                 }, 300, function(){
@@ -183,20 +194,20 @@ function hideOrShowSidebar(){
         left: "-500",
             }, 300, function() {
         });
-
+       // $('#sidebarMenu').hide(300);
        if($(window).width()< 480){
            $( "#sidebarMenu" ).animate({
-            left: "-100vw",
+            left: "-102vw",
                 }, 300, function() {
             });
            console.log($(window).width());
        }else{
          $( "#sidebarMenu" ).animate({
-            left: "-500vw",
+            left: "-255",
                 }, 300, function() {
             });
            console.log($(window).width());
-         
+
        }
 
        $('#headerLogo').animate({
