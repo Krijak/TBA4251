@@ -67,7 +67,7 @@ a:focus, a:hover {
 }
 
 .colorpicker-visible{
-    left: 336px !important;
+    /*left: 336px !important;*/
 }
 
 .colorpicker-alpha{

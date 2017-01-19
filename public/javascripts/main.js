@@ -172,13 +172,11 @@ function hideOrShowSidebar(){
                 left: "0",
                     }, 300, function() {
                 });
-               console.log($(window).width());
            }else{
              $( "#sidebarMenu" ).animate({
                 left: "254",
                     }, 300, function() {
                 });
-               console.log($(window).width());
 
            }
             $('#headerLogo').animate({
@@ -200,13 +198,11 @@ function hideOrShowSidebar(){
             left: "-102vw",
                 }, 300, function() {
             });
-           console.log($(window).width());
        }else{
          $( "#sidebarMenu" ).animate({
             left: "-255",
                 }, 300, function() {
             });
-           console.log($(window).width());
 
        }
 

@@ -163,7 +163,6 @@ function computeBuffer(){
                 count++;
             }
         }
-        console.log(count);
 
         if(count>500){
             var obs = document.getElementById('obsBuffer');
@@ -183,14 +182,13 @@ function computeBuffer(){
 
         var theLayer = JSON.stringify({'layer': merged, 'dist': bufferDist});
 
-        $.ajax({
+        var bufferAjax = $.ajax({
             url:"/api/buffer",
             type:"POST",
             data: theLayer,
             contentType:"application/json; charset=utf-8",
             dataType:"json",
             success: function(data){
-                    console.log(data);
                     if(obs != undefined){
                         obs.style.display = 'none';
                     }
@@ -205,7 +203,7 @@ function computeBuffer(){
                     // $(document.body).css({'cursor' : 'default'});
               },
              error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+                alert("Status: " + textStatus + ' ' + errorThrown);
                 $button.button('reset');
                 // $(document.body).css({'cursor' : 'default'}); 
                 obs.style.display = 'none';
@@ -218,6 +216,9 @@ function computeBuffer(){
 
              }
         });
+
+        // var myajax = $.ajax(...); 
+        $(window).unload( function () { console.log('aborted'); bufferAjax.abort();} );
 
         // result = turf.buffer(merged, bufferDist, 'kilometers');
 
