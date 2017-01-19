@@ -55,12 +55,12 @@ var url = 'mongodb://heroku_k7jjmzwc:idaj27pbptblpb7f1nh3oiiqu9@ds139327.mlab.co
 // });
 
 //load all files in models dir
-fs.readdirSync(__dirname + '/models').forEach(function(filename) {
-  if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
-});
+// fs.readdirSync(__dirname + '/models').forEach(function(filename) {
+//   if (~filename.indexOf('.js')) require(__dirname + '/models/' + filename)
+// });
 
-app.get('/users', function(req, res) {
-  mongoose.model('users').find(function(err, users) {
-    res.send(users);
-  });
-});
+// app.get('/users', function(req, res) {
+//   mongoose.model('users').find(function(err, users) {
+//     res.send(users);
+//   });
+// });
