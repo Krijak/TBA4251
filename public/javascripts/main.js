@@ -163,7 +163,7 @@ function hideOrShowSidebar(){
         }else{
             document.getElementById('headerLogo').title = "Hide sidebar";
             $( "#sidebar" ).animate({
-            left: "+=254",
+            left: "+=500",
                 }, 300, function() {
             });
             $( "#sidebarMenu" ).animate({
@@ -171,7 +171,7 @@ function hideOrShowSidebar(){
                 }, 300, function() {
             });
             $('#headerLogo').animate({
-                left: '+=90',
+                left: '50%',
                 }, 300, function(){
             });
         }
@@ -180,11 +180,11 @@ function hideOrShowSidebar(){
     }else{
         document.getElementById('headerLogo').title = "Show sidebar";
        $( "#sidebar" ).animate({
-        left: "-254",
+        left: "-500",
             }, 300, function() {
         });
        $( "#sidebarMenu" ).animate({
-        left: "-254",
+        left: "-500",
             }, 300, function() {
         });
        $('#headerLogo').animate({

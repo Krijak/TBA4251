@@ -146,7 +146,9 @@ function computeBuffer(){
 
         var $button = $('#createBufferBtn');
         $button.button('loading');
+        $("#createBufferBtn").toggleClass('spatialOpBtn createBufferBtnLoad');
         $( "#calculatingBufferDiv" ).css( "display", "block" );
+        $('#createBufferBtn').removeClass('btn');
 
         // $(document.body).css({'cursor' : 'wait'});
 
@@ -164,11 +166,17 @@ function computeBuffer(){
         console.log(count);
 
         if(count>500){
-            var error = document.getElementById('obsBuffer');
+            var obs = document.getElementById('obsBuffer');
+            // var error = document.getElementById('errorBuffer');
+            if($('#errorBuffer:visible').length != 0){
+                error.style.display = 'none';
+                // $( "#errorBuffer" ).css( "display", "none" );
+            }
+
             // $( "errorBuffer" ).addClass( "obs" );
-            error.style.display = 'block';
+            obs.style.display = 'block';
             // error.addClass = 'obs';
-            error.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may contiue with your work while waiting';
+            obs.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may contiue with your work while waiting';
             // console.log("You must select a layer");
 
         }
@@ -183,20 +191,30 @@ function computeBuffer(){
             dataType:"json",
             success: function(data){
                     console.log(data);
-                    if(error != undefined){
-                        error.style.display = 'none';
+                    if(obs != undefined){
+                        obs.style.display = 'none';
                     }
                     addToMapAndLayercontrol(id, data, '_buffer' + bufferDist*1000);
                     $button.button('reset');
-                    $( "#calculatingBufferDiv" ).css( "display", "none" );
+                    document.getElementById('calculatingBufferDiv').style.display = 'none';
+                    // $( "#calculatingBufferDiv" ).css( "display", "none" );
+                    $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
+                    $('#createBufferBtn').addClass('btn');
+
+
                     // $(document.body).css({'cursor' : 'default'});
               },
              error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 alert("Status: " + textStatus); alert("Error: " + errorThrown);
                 $button.button('reset');
                 // $(document.body).css({'cursor' : 'default'}); 
-                error.style.display = 'none';
-                $( "#calculatingBufferDiv" ).css( "display", "none" );
+                obs.style.display = 'none';
+                // $( "#calculatingBufferDiv" ).css( "display", "none" );
+                document.getElementById('calculatingBufferDiv').style.display = 'none';
+                $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
+                $('#createBufferBtn').addClass('btn');
+
+
 
              }
         });

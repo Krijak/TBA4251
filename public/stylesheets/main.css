@@ -125,7 +125,7 @@ body {
   width: 60vw;
   min-width: 200px;
   max-width: 500px;
-  max-height: 350px;
+  /*max-height: 350px;*/
   height: auto
 }
 
@@ -541,7 +541,7 @@ input[type=range]:focus::-moz-range-track {
   color: black;
 }
 
-#createBufferBtn{
+.spatialOpBtn{
   margin-top: 25px; 
   font-size: smaller; 
   background-color: 
@@ -550,8 +550,20 @@ input[type=range]:focus::-moz-range-track {
   position: relative;
 }
 
-#createBufferBtn:hover{
+.spatialOpBtn:hover{
   color: #dadada;
+}
+
+.createBufferBtnLoad{
+  margin-top: 25px; 
+  font-size: smaller; 
+  background-color: 
+  rgba(255, 145, 60, 0.77); 
+  color: #dadada; 
+  position: relative;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
 }
 
 #bufferInput{
@@ -639,4 +651,29 @@ span{
   text-align: center;
   margin-top: 72px;
   margin-bottom: -102px;
+}
+
+
+@media screen and (max-width: 480px) {
+    .tdTools {
+        display: block;
+        margin-bottom: 5px;
+    }
+    #selectBufferLayerTd{
+      width: 100%!important;
+    }
+    #selectBufferDistTd{
+      text-align: center;
+      margin-left: 14px;
+      margin-top: 20px;
+    }
+    #sidebar{
+      width: 100vw;
+    }
+    .layerp{
+      width: 70%;
+    }
+    .navbar{
+      width: 100vw;
+    }
 }
