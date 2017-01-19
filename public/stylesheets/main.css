@@ -676,4 +676,13 @@ span{
     .navbar{
       width: 100vw;
     }
+    #sidebarMenu{
+      position: absolute;
+      z-index: 99;
+      left: 0;
+      width: 100vw;
+    }
+    .tdslider{
+      width: 55%;
+    }
 }

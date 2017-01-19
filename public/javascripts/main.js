@@ -167,7 +167,7 @@ function hideOrShowSidebar(){
                 }, 300, function() {
             });
             $( "#sidebarMenu" ).animate({
-            left: "+=507",
+            left: "+=100vw",
                 }, 300, function() {
             });
             $('#headerLogo').animate({
@@ -183,10 +183,22 @@ function hideOrShowSidebar(){
         left: "-500",
             }, 300, function() {
         });
-       $( "#sidebarMenu" ).animate({
-        left: "-500",
-            }, 300, function() {
-        });
+
+       if($(window).width()< 480){
+           $( "#sidebarMenu" ).animate({
+            left: "-100vw",
+                }, 300, function() {
+            });
+           console.log($(window).width());
+       }else{
+         $( "#sidebarMenu" ).animate({
+            left: "-500vw",
+                }, 300, function() {
+            });
+           console.log($(window).width());
+         
+       }
+
        $('#headerLogo').animate({
                 left: '+40',
                 }, 300, function(){
@@ -233,6 +245,8 @@ function openPopup(id){
 function openCloseSidebarMenu(id){
     // MyApp.callbacks.disable();
     // console.log(id);
+
+
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
