@@ -124,6 +124,10 @@ function addToMap(isDefault){
 
 }
 
+function cancelBuffer(){
+    MyApp.bufferAjax.abort();
+}
+
 
 function computeBuffer(){
        //  setTimeout(function() {
@@ -148,6 +152,8 @@ function computeBuffer(){
         $button.button('loading');
         $("#createBufferBtn").toggleClass('spatialOpBtn createBufferBtnLoad');
         $( "#calculatingBufferDiv" ).css( "display", "block" );
+        $( "#cancelBufferDiv" ).css( "display", "block" );
+
         $('#createBufferBtn').removeClass('btn');
 
         // $(document.body).css({'cursor' : 'wait'});
@@ -182,7 +188,7 @@ function computeBuffer(){
 
         var theLayer = JSON.stringify({'layer': merged, 'dist': bufferDist});
 
-        var bufferAjax = $.ajax({
+        MyApp.bufferAjax = $.ajax({
             url:"/api/buffer",
             type:"POST",
             data: theLayer,
@@ -194,23 +200,27 @@ function computeBuffer(){
                     }
                     addToMapAndLayercontrol(id, data, '_buffer' + bufferDist*1000);
                     $button.button('reset');
-                    document.getElementById('calculatingBufferDiv').style.display = 'none';
-                    // $( "#calculatingBufferDiv" ).css( "display", "none" );
+                    // document.getElementById('calculatingBufferDiv').style.display = 'none';
+                    $( "#calculatingBufferDiv" ).css( "display", "none" );
                     $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
                     $('#createBufferBtn').addClass('btn');
+                    $( "#cancelBufferDiv" ).css( "display", "none" );
+
 
 
                     // $(document.body).css({'cursor' : 'default'});
               },
              error: function(XMLHttpRequest, textStatus, errorThrown) { 
-                alert("Status: " + textStatus + ' ' + errorThrown);
+                console.log("Status: " + textStatus + ' ' + errorThrown);
                 $button.button('reset');
                 // $(document.body).css({'cursor' : 'default'}); 
                 obs.style.display = 'none';
-                // $( "#calculatingBufferDiv" ).css( "display", "none" );
-                document.getElementById('calculatingBufferDiv').style.display = 'none';
+                $( "#calculatingBufferDiv" ).css( "display", "none" );
+                // document.getElementById('calculatingBufferDiv').style.display = 'none';
                 $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
                 $('#createBufferBtn').addClass('btn');
+                $( "#cancelBufferDiv" ).css( "display", "none" );
+
 
 
 
@@ -218,7 +228,7 @@ function computeBuffer(){
         });
 
         // var myajax = $.ajax(...); 
-        $(window).unload( function () { console.log('aborted'); bufferAjax.abort();} );
+        $(window).unload( function () { console.log('aborted'); MyApp.bufferAjax.abort();} );
 
         // result = turf.buffer(merged, bufferDist, 'kilometers');
 

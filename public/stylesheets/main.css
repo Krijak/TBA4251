@@ -116,7 +116,7 @@ body {
   /*margin-top: -200px;*/
   left: 0;
   right: 0;
-  top: 50%;
+  top: 45%;
   margin:auto;
   margin-top: -150px;
   z-index: 100;
@@ -653,6 +653,16 @@ span{
   margin-bottom: -102px;
 }
 
+#cancelBufferBtn{
+  width: 200px;
+  font-size: smaller;
+}
+
+#cancelBufferDiv{
+  display: none;
+  text-align: center;
+  margin-top: 8px;
+}
 
 @media screen and (max-width: 480px) {
     .tdTools {

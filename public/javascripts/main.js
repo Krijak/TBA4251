@@ -446,14 +446,14 @@ function layerChanges(save,colors){
 
 function hideshow(item, layerid){
     var hide = {opacity: 0, fillOpacity: 0,};
-    console.log('hided');
-    console.log(item);
+    // console.log('hided');
+    // console.log(item);
 
     if ($(item).hasClass( "glyphicon-eye-close" )){
         item.className = "glyphicon hideshowLayer layer glyphicon-eye-open";
         item.title = "Hide layer";
         MyApp.map._layers[layerid].setStyle(MyApp.map._layers[layerid].options.style);
-        console.log('hasclass');
+        // console.log('hasclass');
         // MyApp.map._layers[layerid].resetStyle();
 
         // MyApp.allLayers._layers[layerid].addTo(MyApp.map);
@@ -462,8 +462,8 @@ function hideshow(item, layerid){
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
         item.title = "Show layer";
         MyApp.map._layers[layerid].setStyle(hide);
-        console.log('did not have the class');
-        console.log(MyApp.map._layers[layerid]);
+        // console.log('did not have the class');
+        // console.log(MyApp.map._layers[layerid]);
         // MyApp.map.removeLayer(MyApp.map._layers[layerid]);
     }
 
