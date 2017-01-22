@@ -374,9 +374,7 @@ function layerChanges(save,colors){
     id = MyApp.openSidebarMenu[1];
     fillColor = document.getElementById('cpfillinput').value;
     color = document.getElementById('cpstrokeinput').value;
-    // fillColor = document.getElementById('cpfillinput').value;
     fillOpacity = document.getElementById('opacityrange').value;
-    // color = document.getElementById('cpstrokeinput').value;
     weight = document.getElementById('strokeweightrange').value;
     opacity = document.getElementById('strokeopacityrange').value;
 
@@ -389,14 +387,11 @@ function layerChanges(save,colors){
      };
 
     colors = colors || [color, fillColor];
-    // pressed = pressedBtn || false;
-
 
     var count = 0;
     var keepGoing = true;
 
     for (var i in MyApp.layernames){
-        // console.log(MyApp.map._layers[i].options.style.color);
         c = MyApp.map._layers[i].options.style.color;
         fc = MyApp.map._layers[i].options.style.fillColor;
         count = count + 1;
@@ -420,11 +415,8 @@ function layerChanges(save,colors){
     if (save) {
         var name = document.getElementById("layernameinput").value;
         if (name != '' && !(/^ *$/.test(name))){
-            // console.log((/^ *$/.test(name)));
             document.getElementById(id + 'name').innerHTML = name;
             MyApp.layernames[id] = name;
-            // $('#layernameinput').attr("placeholder", MyApp.layernames[id]);
-            // console.log(MyApp.layernames);
         }
         MyApp.map._layers[id].options.style = style;
         MyApp.currentStyle[0] = style;
