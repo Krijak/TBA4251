@@ -181,7 +181,7 @@ function computeBuffer(){
             // $( "errorBuffer" ).addClass( "obs" );
             obs.style.display = 'block';
             // error.addClass = 'obs';
-            obs.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may contiue with your work while waiting';
+            obs.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may continue with your work while waiting';
             // console.log("You must select a layer");
 
         }

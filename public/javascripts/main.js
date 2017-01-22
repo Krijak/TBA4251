@@ -51,25 +51,14 @@ $( document ).ready(function() {
     });
 
 
-
-
-    // $("#createBufferBtn").click(function() {
-    //     var $btn = $(this);
-    //     $btn.button('loading');
-    //     // simulating a timeout
-    //     setTimeout(function () {
-    //         $btn.button('reset');
-    //     }, 1000);
-    // });
-
-    // $('.btn').on('click', function() {
-    //     console.log('presed button');
-    //     var $this = $(this);
-    //     $this.button('loading');
-    //     setTimeout(function() {
-    //        $this.button('reset');
-    //    }, 8000);
-    // });
+$(function(){
+  $( "#layerUl" ).bind( "taphold", dragAndDropTouch );
+ 
+  function dragAndDropTouch( event ){
+    console.log('tapped');
+    // $().addClass( "taphold" );
+  }
+});
 
 function loadBtn(item){
     var $this = $(item);
