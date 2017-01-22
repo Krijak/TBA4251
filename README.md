@@ -1,41 +1,34 @@
 [![TBA4251](https://infinite-plains-41468.herokuapp.com/images/logo_orange_shdw.png)](https://infinite-plains-41468.herokuapp.com/)
-# TBA4251
-### Programmering i geomatikk ("Programming in geomatics")
-
-A barebones Node.js app using [Express 4](http://expressjs.com/).
-
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+# TBA4251, Programming in Geomatics
 
 ## About
+This vector based web Geographic informationsystem is developed as a project in the course "Programming in Geomatics" at NTNU. The aim of the course is to combine computer science with knowledge of geographic information systems. The subject is self-tought, and is a chance to experience a process of developing a web application and a geographic information system from start to end. The process involves everything form the choice of technology to design and implementation.
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
+[TBA4251](https://infinite-plains-41468.herokuapp.com/)
 
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+In this project, my focus have been on making a geographic informationsystem that are easy to use and with a nice user experience. The application may be used on any device, PC as well as a mobile phone (I have not been able to test the application on Apple-products, and can therefore not guarantee full compatibility with these kind of devices).
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## Use
+### Functionality:
 
-## How to use
+* Change color, opacity and name of layer
+* Download layer
+* Delete layer
+* Hide and view layer
+* Zoom/pan to layer
+* Change layer order
+* Spatial operations
+  * Buffer
+  * Union
+  * Intersect
+  * Difference
 
+### How to use:
 ```
 $ heroku create
 $ git push heroku master
 $ heroku open
 ```
-or
-
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 ## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+Most of the magic happens in Geometry.js and in Main.js
