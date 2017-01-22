@@ -32,3 +32,8 @@ Most of the magic happens in Geometry.js and in Main.js
 ```
 Txt
 ```
+### Libraries
+* [jQuery and jQueryUI](https://jquery.com/)
+* [Leaflet](http://leafletjs.com/)
+* [Turf](http://turfjs.org/)
+* [Bootstrap-colorpicker](https://github.com/itsjavi/bootstrap-colorpicker)
