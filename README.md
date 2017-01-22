@@ -31,7 +31,7 @@ In this project, my focus have been on making a geographic informationsystem tha
 Most of the magic happens in Geometry.js and in Main.js
 
 ### Installation
-You have to have [Node.js](https://nodejs.org/en/) installed.
+First of all, you need to have [Node.js](https://nodejs.org/en/) installed.
 ```
 
 ```
