@@ -363,19 +363,16 @@ function layerChanges(save,colors){
             keepGoing = false;
         }
     }
+    
     if (keepGoing){
         if (id != undefined) {
             if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
                 $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
                 MyApp.map._layers[id].setStyle(MyApp.map._layers[id].options.style);
-
-            }
-
-
-            MyApp.map._layers[id].setStyle(style);
-            
+            } MyApp.map._layers[id].setStyle(style);
         }
     }
+
     if (save) {
         var name = document.getElementById("layernameinput").value;
         if (name != '' && !(/^ *$/.test(name))){
