@@ -1,6 +1,6 @@
 # TBA4251, Programming in Geomatics
 
-<p align="center"><img style ="width: 20px" src ="https://infinite-plains-41468.herokuapp.com/images/logo_orange_shdw.png" /></p>
+<p align="center"><img style ="width: 20px" src ="https://github.com/Krijak/TBA4251/blob/master/public/images/logo_orange_shdw.png?raw=true" /></p>
 
 ## About
 This vector based web Geographic Information System is developed as a project in the course "Programming in Geomatics" at NTNU. The aim of the course is to combine computer science with knowledge of geographic information systems. The subject is self-tought, and is a chance to experience a process of developing a web application and a geographic information system from start to end. The process involves everything form the choice of technology to design and implementation.
