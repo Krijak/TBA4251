@@ -1,4 +1,3 @@
-// var cool = require('cool-ascii-faces');
 var express = require('express');
 var fs = require('fs');
 var mongoose = require('mongoose');
@@ -6,16 +5,14 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var turf = require('@turf/turf');
-// var router = app.Router();
 
 
 
 app.set('port', (process.env.PORT || 5000));
-// app.listen(process.env.PORT || 5000);
 
 app.use(express.static(__dirname + '/public'));
 app.use('/scripts', express.static(__dirname + '/node_modules'));
-// app.use('/api', router);
+
 app.use(bodyParser.json({limit: '200mb'}));
 app.use(bodyParser.urlencoded({limit: '200mb', extended: true, parameterLimit:50000}));
 
@@ -28,15 +25,11 @@ app.get('/', function(request, response) {
 });
 
 
-// app.get('/cool', function(request, response) {
-//   response.send(cool());
-// });
-
 app.get('/api/buffer', function(request, response) {
   response.json({message: 'API!!'});
-  // console.log('halllaien');
 });
 
+//buffer computations
 app.post('/api/buffer', function(request,response){
 	result = turf.buffer(request.body.layer, request.body.dist, 'kilometers');
 	response.send(result);

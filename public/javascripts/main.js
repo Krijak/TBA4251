@@ -7,15 +7,17 @@ MyApp.currentStyle = null;
 $( document ).ready(function() {
     console.log( "ready!" );
 
+    // initializes the map and adds all the initial layers to it.
     initializeMap();
-    initializeFileInput();
     addToMap(true);
-    // orderLayers();
+    // initializeFileInput();
 
+    //defines the layer control as a "sortable list", jQueryUI library
     $( "#layerUl" ).sortable();
     $( "#layerUl" ).disableSelection();
     var $sortableList = $("#layerUl");
 
+    //orders the layers
     var sortEventHandler = function(event, ui){
         var idsInOrder = $sortableList.sortable("toArray");
         if (idsInOrder.length == $('ul#layerUl li').length) {
@@ -29,18 +31,10 @@ $( document ).ready(function() {
         stop: sortEventHandler
     });
 
-    // You can also set the event handler on an already existing Sortable widget this way:
-
+    // defines what happens when the sortable list is rearranged
     $sortableList.on("sortchange", sortEventHandler);
 
-    // MyApp.callbacks = $.Callbacks();
- 
-    // // Add the above function to the list
-    // MyApp.callbacks.add( colorpickerCallback() );
-    // console.log(callbacks);
-
-
-
+    // defines what happens when the color picker changes color
     $('.colorpicker-component').colorpicker().on('changeColor',
             function(ev) {
             if (MyApp.openSidebarMenu[0]){
@@ -69,6 +63,7 @@ function loadBtn(item){
 
 }
 
+// what happens when the order in the sortable list is rearranged
 function orderLayers(){
     var $sortableList = $("#layerUl");
     var idsInOrder = $sortableList.sortable("toArray");
@@ -78,23 +73,7 @@ function orderLayers(){
     }
 }
 
-function initializeMap(){
-	MyApp.map = L.map('map', {
-    	zoomControl: false,
-    }).setView([63.422, 10.526], 13);//[58.96, 5.717], 13) //[63.422, 10.38], 13);
-	L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png').addTo(MyApp.map);
-	// L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png').addTo(map);
-	// L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
-	// L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
-	// L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
-	// L.tileLayer('').addTo(map);
-	L.control.zoom({
-     	position:'topright'
-	}).addTo(MyApp.map);
-};
-
-
-
+// this is not in use
 function initializeFileInput(){
 	    $("#input-21").fileinput({
         // previewFileType: "image",
@@ -114,19 +93,20 @@ function updateValue(val, id) {
     document.getElementById(id).innerHTML=val; 
 }
 
+// this is not in use
 function editNavbar(){
     document.getElementById('getStarted').style.display = 'none';
     document.getElementById('theNavbar').style.width = '254px';
     document.getElementById('theNavbar').style.boxShadow = 'none';
     document.getElementById('theNavbar').style.background= 'rgba(253, 252, 252, 0)';
-  //   $( "#theNavbar" ).animate({
-  //   width: "254"
-  // }, 300, function() {
-  //   // Animation complete.
-  // });
-
 }
 
+function openPopup(id){
+    $(id).show(300);
+    $("#darkening").delay(200).fadeIn();
+};
+
+// when popups close
 function fadeOutDarkening(){
 	$("#darkening").fadeOut(500);
     if (MyApp.openHelp){
@@ -134,17 +114,16 @@ function fadeOutDarkening(){
     }
 };
 
+//close
 function hideThis(id) {
 	$(id).hide(300);
-
     if(id == '#toolsPopup'){
-        // $("#toolsSelect").val("0");
         $(".error").css("display","none");
     }
 };
 
+// hide or show side bar menu
 function hideOrShowSidebar(){
-    // orderLayers();
     if (!MyApp.openSidebar){
         if($('#sidebar').css('display') == 'none')
         {
@@ -203,6 +182,7 @@ function hideOrShowSidebar(){
     }
 };
 
+//This is not in use
 function hideOrShowHelp(cameFromLogo){
     if (!cameFromLogo){
         $("#getStartedPopup").hide(500);
@@ -228,26 +208,13 @@ function hideOrShowHelp(cameFromLogo){
 }
 
 
-function openPopup(id){
-    // $("#getStartedPopup").toggle( "scale" );
-    $(id).show(300);
-    $("#darkening").delay(200).fadeIn();
-
-    // $("#darkening").show(500);
-    // $('#getStartedPopup').removeClass( "isClosed" ).addClass( "isOpen" );
-};
-
 
 function openCloseSidebarMenu(id){
-    // MyApp.callbacks.disable();
-    // console.log(id);
-
 
     if (!MyApp.openSidebarMenu[0]){
         $('#sidebarMenu').show(200);
         MyApp.currentStyle = [MyApp.map._layers[id].options.style, id];
         MyApp.openSidebarMenu = [1, id];
-        // colorpickerCallback();
 
     } else if (MyApp.openSidebarMenu[1] == id || id == -1) {
         hideThis('#sidebarMenu');  
@@ -257,11 +224,7 @@ function openCloseSidebarMenu(id){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
     }else if (MyApp.openSidebarMenu[1] != id){
         MyApp.map._layers[MyApp.currentStyle[1]].setStyle(MyApp.currentStyle[0]);
-        // colorpickerCallback();
-
     }
-    // console.log('OPEN: ' + MyApp.openSidebarMenu);
-
 }
 
 
@@ -290,6 +253,7 @@ function downloadTheLayer(id){
 }
 
 
+// what happens when the edit layer button is pressed in the sidebar menu
 function editLayer(item, id){
     if ($('#'+ id + 'hideshow').hasClass("glyphicon-eye-close")){
         $('#'+ id + 'hideshow').removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
@@ -328,11 +292,10 @@ function editLayer(item, id){
         }
     }
     openCloseSidebarMenu(id);
-
 }
 
+//set values to the sidebar menu
 function updateSidebarMenu(id){
-    // $('.colorpicker-saturation').onclick = layerChanges(false);
 
     if (MyApp.layertypes[id] == 'polyline') {
         document.getElementById('filldiv').style.display = 'none';
@@ -370,6 +333,7 @@ function updateSidebarMenu(id){
 }
 
 
+//deals with layer changes (previews layers or save changes)
 function layerChanges(save,colors){
     id = MyApp.openSidebarMenu[1];
     fillColor = document.getElementById('cpfillinput').value;
@@ -424,38 +388,31 @@ function layerChanges(save,colors){
     } 
 }
 
-
+// hides or shows layer when the button is pressed in the sidebar
 function hideshow(item, layerid){
     var hide = {opacity: 0, fillOpacity: 0,};
-    // console.log('hided');
-    // console.log(item);
 
     if ($(item).hasClass( "glyphicon-eye-close" )){
         item.className = "glyphicon hideshowLayer layer glyphicon-eye-open";
         item.title = "Hide layer";
         MyApp.map._layers[layerid].setStyle(MyApp.map._layers[layerid].options.style);
-        // console.log('hasclass');
-        // MyApp.map._layers[layerid].resetStyle();
-
-        // MyApp.allLayers._layers[layerid].addTo(MyApp.map);
 
     }else{
         item.className = "glyphicon glyphicon-eye-close hideshowLayer layer";
         item.title = "Show layer";
         MyApp.map._layers[layerid].setStyle(hide);
-        // console.log('did not have the class');
-        // console.log(MyApp.map._layers[layerid]);
-        // MyApp.map.removeLayer(MyApp.map._layers[layerid]);
     }
 
 }
 
+//pans to layer when the button is pressed in the sidebar
 function panToLayer(layerid){
     bounds = MyApp.map._layers[layerid].getBounds();
     MyApp.map.fitBounds(bounds);
 
 }
 
+//add layers to the layercontrol in the sidebar
 function drawLayerControl(layerid, name){
 
 
@@ -520,34 +477,9 @@ function drawLayerControl(layerid, name){
 
     selectTool();
 
-    // list.insertBefore(newItem, list.childNodes[0])
-
-    // MyApp.map._layers[layerid].bringToBack();
-
-
 }
 
-function drawDropdownTool(dropdownId, name){
-
-    dropdown = document.getElementById(dropdownId);
-
-    while (dropdown.firstChild) {
-        dropdown.removeChild(dropdown.firstChild);
-    }
-
-    optionSelected = document.createElement('option');
-    optionSelected.disabled = true;
-    optionSelected.selected = true;
-    optionSelected.innerHTML = name;
-    optionSelected.value = 0;
-    dropdown.appendChild(optionSelected);
-
-    for (var object in MyApp.layernames){
-        dropdown.options.add( new Option(MyApp.layernames[object],object) );
-    }
-
-}
-
+//desides which spatial tool to be shown in the tools-popup
 function selectTool(){
         drawDropdownTool('bufferSelect', 'Select layer');
         drawDropdownTool('merge1select', 'Select first layer');
@@ -566,7 +498,27 @@ function selectTool(){
     }else if($( "#toolsSelect option:selected" ).val() == 'difference'){
         document.getElementById('differenceDiv').style.display = 'block';
     }
+}
 
+//draws the tools-popup
+function drawDropdownTool(dropdownId, name){
+
+    dropdown = document.getElementById(dropdownId);
+
+    while (dropdown.firstChild) {
+        dropdown.removeChild(dropdown.firstChild);
+    }
+
+    optionSelected = document.createElement('option');
+    optionSelected.disabled = true;
+    optionSelected.selected = true;
+    optionSelected.innerHTML = name;
+    optionSelected.value = 0;
+    dropdown.appendChild(optionSelected);
+
+    for (var object in MyApp.layernames){
+        dropdown.options.add( new Option(MyApp.layernames[object],object) );
+    }
 
 }
 

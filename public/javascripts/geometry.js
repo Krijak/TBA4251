@@ -3,136 +3,97 @@ MyApp.layertypes = {};
 MyApp.layerResult = {};
 MyApp.result;
 
+// Initializes Map at startup. Adds a map to a map-div.
+function initializeMap(){
+    MyApp.map = L.map('map', {
+        zoomControl: false,
+    }).setView([63.422, 10.526], 13);//[58.96, 5.717], 13) //[63.422, 10.38], 13);
+    L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png').addTo(MyApp.map);
+    // L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png').addTo(map);
+    // L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
+    // L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png').addTo(map);
+    // L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map);
+    // L.tileLayer('').addTo(map);
+    L.control.zoom({
+        position:'topright'
+    }).addTo(MyApp.map);
+};
+
+// Adds the layers to the map at start up
 function addToMap(isDefault){
-    // var allLayers = new L.geoJson();
+
     MyApp.allLayers = new L.FeatureGroup();
-    var defaultLayerStyle = {
-        "color": "#ffffff",
+
+    var color1 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var color2 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    var color3 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+
+
+    var style1 = {
+        "color": color1,
+        "fillColor": color1,
+        "weight": 1,
+        "opacity": 0.8,
+        "fillOpacity": 0.3, 
+     };
+
+    var style2 = {
+        "color": color2,
+        "fillColor": color2,
         "weight": 2,
-        "opacity": 0.65
-    };
+        "opacity": 1,
+        "fillOpacity": 0.8, 
+     };
 
-    // $.ajax({
-    //     dataType: "json",
-    //     url: "users",
-    //     success: function(data) {
-    //         // console.log(data);
-    //     }
-    //     }).error(function() {});
-
-       var color1 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-       var color2 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-       var color3 = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
-
-
-
-        var style1 = {
-            "color": color1,
-            "fillColor": color1,
-            "weight": 1,
-            "opacity": 0.8,
-            "fillOpacity": 0.3, 
-         };
-
-         var style2 = {
-            "color": color2,
-            "fillColor": color2,
-            "weight": 2,
-            "opacity": 1,
-            "fillOpacity": 0.8, 
-         };
-
-         var style3 = {
-            "color": color3,
-            "fillColor": color3,
-            "weight": 2,
-            "opacity": 1,
-            "fillOpacity": 1, 
-         };
-
-        // var skolekretser = new L.GeoJSON.AJAX("/data/SkolekretserStav.geojson", {style: mystyle });
-        // skolekretser.addTo(MyApp.allLayers);
-
-        // var turveier = new L.GeoJSON.AJAX("./data/turveierStav.geojson", {style: turveistyle});       
-        // turveier.addTo(MyApp.allLayers);
-
-        // var elv = new L.GeoJSON.AJAX("./data/river.geojson", {style: turveistyle});       
-        // elv.addTo(MyApp.allLayers);
-
-        
-        // MyApp.layernames[skolekretser._leaflet_id] = 'Skolekretser';
-        // MyApp.layertypes[skolekretser._leaflet_id] = 'polygon';
-
-        // MyApp.layernames[turveier._leaflet_id] = 'Turveier';
-        // MyApp.layertypes[turveier._leaflet_id] = 'polyline';
-        
-        // MyApp.layernames[elv._leaflet_id] = 'Elv, Trondheim';
-        // MyApp.layertypes[elv._leaflet_id] = 'polyline';
+    var style3 = {
+        "color": color3,
+        "fillColor": color3,
+        "weight": 2,
+        "opacity": 1,
+        "fillOpacity": 1, 
+     };
 
 
 
 
-        var arealbruk = new L.GeoJSON.AJAX("./data/Trondheim/arealbruk.geojson", {style: style1 });
-        arealbruk.addTo(MyApp.allLayers);
-        
-        var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer0.1.geojson", {style: style3});       
-        veg.addTo(MyApp.allLayers);
+    var arealbruk = new L.GeoJSON.AJAX("./data/Trondheim/arealbruk.geojson", {style: style1 });
+    arealbruk.addTo(MyApp.allLayers);
+    
+    var veg = new L.GeoJSON.AJAX("./data/Trondheim/Vei_buffer0.1.geojson", {style: style3});       
+    veg.addTo(MyApp.allLayers);
 
-        var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
-        vann.addTo(MyApp.allLayers);
-        
-        MyApp.layernames[arealbruk._leaflet_id] = 'Arealbruk';
-        MyApp.layertypes[arealbruk._leaflet_id] = 'polygon';
+    var vann = new L.GeoJSON.AJAX("./data/Trondheim/vann.geojson", {style: style2});       
+    vann.addTo(MyApp.allLayers);
+    
+    MyApp.layernames[arealbruk._leaflet_id] = 'Arealbruk';
+    MyApp.layertypes[arealbruk._leaflet_id] = 'polygon';
 
-        MyApp.layernames[vann._leaflet_id] = 'Vann';
-        MyApp.layertypes[vann._leaflet_id] = 'polygon';
+    MyApp.layernames[vann._leaflet_id] = 'Vann';
+    MyApp.layertypes[vann._leaflet_id] = 'polygon';
 
-        MyApp.layernames[veg._leaflet_id] = 'Vei';
-        MyApp.layertypes[veg._leaflet_id] = 'polyline';
-
-
-        // var lay = {
-        //         "type": "Feature",
-        //         "properties": {"party": "Republican"},
-        //         "geometry": {
-        //             "type": "Polygon",
-        //             "coordinates": [[
-        //                 [-104.05, 48.99],
-        //                 [-97.22,  48.98],
-        //                 [-96.58,  45.94],
-        //                 [-104.03, 45.94],
-        //                 [-104.05, 48.99]
-        //             ]]
-        //         }
-        //     };
-        //     lay = L.geoJSON(lay, {style: style3})
-        //     lay.addTo(MyApp.allLayers);
-        //     MyApp.layernames[lay._leaflet_id] = 'Nytt lag';
-        //     MyApp.layertypes[lay._leaflet_id] = 'polygon';
+    MyApp.layernames[veg._leaflet_id] = 'Vei';
+    MyApp.layertypes[veg._leaflet_id] = 'polyline';
 
 
-        $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
-            // console.log(MyApp.allLayers);
-        });
+    //adds all initial layers to the map
+    $.when($.ajax(MyApp.allLayers.addTo(MyApp.map))).then(function () {
+    });
  
-
+    // Adds every layer in MyApp.allLayers to the layer control in the sidebar menu
     for (var object in MyApp.allLayers._layers){
         name = MyApp.layernames[object];
         drawLayerControl(object, name);
-        // console.log(MyApp.allLayers._layers[object]);
     }
 
 }
 
+// Cancels the buffer computation
 function cancelBuffer(){
     MyApp.bufferAjax.abort();
 }
 
-
+// Computes the buffer
 function computeBuffer(){
-       //  setTimeout(function() {
-       //     $button.button('reset');
-       // }, 8000);
     var id = document.getElementById('bufferSelect').value;
     var bufferDist = document.getElementById('bufferInput').value;
 
@@ -145,6 +106,7 @@ function computeBuffer(){
         "fillOpacity": 0.7, 
      };
 
+     //Checks whether the right amount of input is commited
     if (id != 0 && bufferDist > 0) {
 
 
@@ -153,16 +115,14 @@ function computeBuffer(){
         $("#createBufferBtn").toggleClass('spatialOpBtn createBufferBtnLoad');
         $( "#calculatingBufferDiv" ).css( "display", "block" );
         $( "#cancelBufferDiv" ).css( "display", "block" );
-
         $('#createBufferBtn').removeClass('btn');
 
-        // $(document.body).css({'cursor' : 'wait'});
-
         bufferDist = bufferDist/1000;
+
+        //The input layer may consist of several layers
         var merged = makeOneLayer(id);
 
-        // var count = Object.keys(merged).length;
-
+        // counts how big the layer is
         var key, count = 0;
             for(key in merged.geometry.coordinates) {
               if(merged.geometry.coordinates.hasOwnProperty(key)) {
@@ -170,24 +130,24 @@ function computeBuffer(){
             }
         }
 
+        //Display a message to the user if the layer is considered a big layer
         if(count>500){
             var obs = document.getElementById('obsBuffer');
-            // var error = document.getElementById('errorBuffer');
             if($('#errorBuffer:visible').length != 0){
                 error.style.display = 'none';
-                // $( "#errorBuffer" ).css( "display", "none" );
             }
-
-            // $( "errorBuffer" ).addClass( "obs" );
             obs.style.display = 'block';
-            // error.addClass = 'obs';
             obs.innerHTML = 'This layer is very big, so calculating the bufferzone can take a while. <br> You may continue with your work while waiting';
-            // console.log("You must select a layer");
 
         }
 
+        //We have to do the buffer computing at the server side because of the amount of memory required
+        // theLayer is the JSON-object that contians all the data we need to send to the sever side for
+        // the buffer computation to be done.
         var theLayer = JSON.stringify({'layer': merged, 'dist': bufferDist});
 
+        // defines an ajax request. If successfull, the bufferzone is added to the map. If error, a message
+        // is sent to the user
         MyApp.bufferAjax = $.ajax({
             url:"/api/buffer",
             type:"POST",
@@ -200,39 +160,21 @@ function computeBuffer(){
                     }
                     addToMapAndLayercontrol(id, data, '_buffer' + bufferDist*1000);
                     $button.button('reset');
-                    // document.getElementById('calculatingBufferDiv').style.display = 'none';
                     $( "#calculatingBufferDiv" ).css( "display", "none" );
                     $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
                     $('#createBufferBtn').addClass('btn');
                     $( "#cancelBufferDiv" ).css( "display", "none" );
-
-
-
-                    // $(document.body).css({'cursor' : 'default'});
               },
              error: function(XMLHttpRequest, textStatus, errorThrown) { 
                 console.log("Status: " + textStatus + ' ' + errorThrown);
                 $button.button('reset');
-                // $(document.body).css({'cursor' : 'default'}); 
                 obs.style.display = 'none';
                 $( "#calculatingBufferDiv" ).css( "display", "none" );
-                // document.getElementById('calculatingBufferDiv').style.display = 'none';
                 $("#createBufferBtn").toggleClass('createBufferBtnLoad spatialOpBtn');
                 $('#createBufferBtn').addClass('btn');
                 $( "#cancelBufferDiv" ).css( "display", "none" );
-
-
-
-
              }
         });
-
-        // var myajax = $.ajax(...); 
-        $(window).unload( function () { console.log('aborted'); MyApp.bufferAjax.abort();} );
-
-        // result = turf.buffer(merged, bufferDist, 'kilometers');
-
-        // addToMapAndLayercontrol(id, result, '_buffer' + bufferDist*1000);
 
     }else{
         var error = document.getElementById('errorBuffer');
@@ -241,11 +183,6 @@ function computeBuffer(){
         error.innerHTML = 'You must select a layer';
         console.log("You must select a layer");
     }
-}
-
-
-function union(layerOne, layerTwo){
-    return turf.union(layerOne, layerTwo);
 }
 
 
@@ -375,6 +312,11 @@ function makeOneLayer(id){
     return merged;
 }
 
+function union(layerOne, layerTwo){
+    return turf.union(layerOne, layerTwo);
+}
+
+//adds the layers to the layer control in the sidebar menu
 function addToMapAndLayercontrol(id, result, text){
     var color = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
     var mystyle = {
