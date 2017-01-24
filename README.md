@@ -30,11 +30,6 @@ In this project, my focus have been on making a geographic information system th
 ## Documentation
 Most of the magic happens in Geometry.js and in Main.js
 
-### Installation
-First of all, you need to have [Node.js](https://nodejs.org/en/) installed.
-```
-
-```
 ### Libraries
 * [jQuery and jQueryUI](https://jquery.com/)
 * [Leaflet](http://leafletjs.com/)
