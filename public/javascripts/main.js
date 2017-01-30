@@ -350,6 +350,14 @@ function layerChanges(save,colors){
         "opacity": opacity,
      };
 
+     var styleNotColor = {
+        "fillOpacity": fillOpacity, 
+        "weight": weight,
+        "opacity": opacity,
+     };
+
+     MyApp.map._layers[id].setStyle(styleNotColor);
+
     colors = colors || [color, fillColor];
 
     var count = 0;
@@ -539,8 +547,8 @@ var helpPopup = {
         gifPath: "../images/help/changeNameColor.gif"
     },
     deleteLayer:{
-        name: "HOW TO DELETE A LAYER",
-        txt: "To delete a layer, press the pen in the layer control and then the trash can at the bottom of the menu",
+        name: "HOW TO DELETE OR DOWNLOAD A LAYER",
+        txt: "To delete a layer, press the pen in the layer control and then the trash can at the bottom of the menu. If you want to downlaod a layer as a geoJSON file, press the download icon at the bottom of the menu.",
         gifPath: "../images/help/deleteLayer.gif"
     },
     hideShowLayer:{
@@ -667,7 +675,7 @@ function drawHelp(state){
         deleteLayer = document.createElement('p');
         deleteLayer.className = "text helpTxt";
         deleteLayer.style.fontSize = "smaller";
-        deleteLayerTxt = document.createTextNode("How to delete a layer");
+        deleteLayerTxt = document.createTextNode("How to delete or download a layer");
         deleteLayer.appendChild(deleteLayerTxt);
         deleteLayer.addEventListener("click", function(){
           drawHelp(helpPopup.deleteLayer);
