@@ -37,6 +37,10 @@ body {
    width: 100%;
 }*/
 
+a{
+  color: #f36a01;
+}
+
 #headerLogo{
   position: absolute;
   left: 50%;
@@ -695,4 +699,36 @@ span{
     .tdslider{
       width: 55%;
     }
+}
+
+#logoHelp{
+  width: 50px;
+  margin-bottom: 5px;
+}
+
+.helpTxt{
+  margin-bottom: 0px;
+}
+
+.helpTxt:hover{
+  color: black;
+}
+
+.helpHeader{
+  color: grey;
+  margin-bottom: 23px;
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.helpGif{
+  width: 100%;
+}
+
+#aboutPopup{
+  top: 35%;
+}
+
+.helpBack:hover{
+  color: black;
 }

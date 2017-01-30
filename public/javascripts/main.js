@@ -519,3 +519,261 @@ function drawDropdownTool(dropdownId, name){
 
 }
 
+
+var helpPopup = {
+    start: {
+        name: "TBA4251",
+        imgPath: "../../images/logo_orange_shdw.png",
+        txt: "This is a vector based web", 
+        txt1: "developed as a project in the course Programming in Geomatics at NTNU. For more information, visit the",
+        link: " GitHub repository."
+    },
+    spatialOps:{
+        name: "HOW TO DO SPATIAL OPERATIONS ON LAYERS",
+        txt: "To do spatial operations like buffer or intersect, press the Tools button, and choose a spatial operation in the dropwdown menu. Then, choose layers you want to do the operations on.",
+        gifPath: "../images/help/buffer.gif"
+    },
+    changeName:{
+        name: "CHANGE COLOR AND LAYER NAME",
+        txt: "To change name and color, press the pen icon in the layer control, and then apply wanted styling and name. If you want to keep the changes, remember to press the 'Save changes' button!",
+        gifPath: "../images/help/changeNameColor.gif"
+    },
+    deleteLayer:{
+        name: "HOW TO DELETE A LAYER",
+        txt: "To delete a layer, press the pen in the layer control and then the trash can at the bottom of the menu",
+        gifPath: "../images/help/deleteLayer.gif"
+    },
+    hideShowLayer:{
+        name: "HOW TO HIDE AND SHOW A LAYER",
+        txt: "To hide and show a layer, press the eye icon in the layer control.",
+        gifPath: "../images/help/hideShowLayer.gif"
+    },
+    orderLayer:{
+        name: "HOW TO ORDER LAYERS",
+        txt: "To order layers, simply drag the layers in wantet order.",
+        gifPath: "../images/help/orderLayer.gif"
+    },
+    panToLayer:{
+        name: "HOW TO PAN AND ZOOM TO LAYER",
+        txt: "To pan and zoom to a layer, press the magnifying glass icon in the layer control.",
+        gifPath: "../images/help/panToLayer.gif"
+    },
+    previewMap:{
+        name: "HOW TO PREVIEW MAP",
+        txt: "To preview the map, simply press the logo. To get the sidebar back, press the logo again.",
+        gifPath: "../../images/logo_orange_shdw.png"
+    }
+}
+
+
+function drawCloseThis(){
+    closeThis = document.createElement("a");
+    closeThis.className = "closeThis";
+    span = document.createElement("span");
+    span.style.paddingLeft = "10px";
+    span.className = "glyphicon glyphicon-remove";
+    closeThis.appendChild(span);
+    closeThis.addEventListener("click", function(){
+      hideThis("#aboutPopup");
+        fadeOutDarkening();
+    });
+
+    return closeThis;
+}
+
+
+function drawHelp(state){
+    var popup = document.getElementById("aboutPopup");
+    while (popup.firstChild) {
+        popup.removeChild(popup.firstChild);
+    }
+
+        popup.appendChild(drawCloseThis());
+
+    if(state == helpPopup.start){
+ 
+        containerDiv = document.createElement("div");
+        containerDiv.style.width = "100%";
+        containerDiv.overflow = "hidden";
+
+        div1 = document.createElement("div");
+        div1.style.width = "30%";
+        div1.style.float = "left";
+        div1.style.marginRight = "20px";
+
+        div2 = document.createElement("div");
+
+        img = document.createElement("img");
+        img.src = state.imgPath;
+        img.id = "logoHelp";
+        img.className = "img-responsive";
+
+        pName = document.createElement("p");
+        pName.className = "text";
+        pName.style.fontSize = "smaller";
+        pName.style.fontWeight = "bold";
+        pNameTxt = document.createTextNode(state.name);
+        pName.appendChild(pNameTxt);
+
+        pTxt = document.createElement("p");
+        pTxt.className = "text";
+        pTxt.style.fontSize = "smaller";
+        pTxtTxt = document.createTextNode(state.txt);
+        pTxtTxt2 = document.createTextNode(state.txt1);
+        pNameB = document.createElement("b");
+        pNameBold = document.createTextNode(" Geographic Information System ");
+        pNameB.appendChild(pNameBold);
+        pNameLink = document.createElement("a");
+        pNameLinktxt = document.createTextNode(state.link);
+        pNameLink.appendChild(pNameLinktxt);
+        pNameLink.href = "https://github.com/Krijak/TBA4251";
+        pTxt.appendChild(pTxtTxt);
+        pTxt.appendChild(pNameB);
+        pTxt.appendChild(pTxtTxt2);
+        pTxt.appendChild(pNameLink);
+
+        hr = document.createElement("hr");
+        hr.style.borderColor = 'grey';
+        hr.style.marginTop= '20px';
+
+        pHelp = document.createElement("p");
+        pHelp.className = "text";
+        pHelpTxt = document.createTextNode("HOW DO I USE IT?")
+        pHelp.appendChild(pHelpTxt);
+        pHelp.style.fontWeight = 'bold';
+        pHelp.style.marginBottom = "15px";
+        pHelp.style.marginTop = '50px';
+
+        helpDiv = document.createElement("div");
+
+        spatialOps = document.createElement('p');
+        spatialOps.className = "text helpTxt";
+        spatialOps.style.fontSize = "smaller";
+        spatialOpsTxt = document.createTextNode("How to do spatial operations on layers");
+        spatialOps.appendChild(spatialOpsTxt);
+        spatialOps.addEventListener("click", function(){
+          drawHelp(helpPopup.spatialOps);
+        });
+
+        changeNameColor = document.createElement('p');
+        changeNameColor.className = "text helpTxt";
+        changeNameColor.style.fontSize = "smaller";
+        changeNameColorTxt = document.createTextNode("How to change color and layer name");
+        changeNameColor.appendChild(changeNameColorTxt);
+        changeNameColor.addEventListener("click", function(){
+          drawHelp(helpPopup.changeName);
+        });
+
+        deleteLayer = document.createElement('p');
+        deleteLayer.className = "text helpTxt";
+        deleteLayer.style.fontSize = "smaller";
+        deleteLayerTxt = document.createTextNode("How to delete a layer");
+        deleteLayer.appendChild(deleteLayerTxt);
+        deleteLayer.addEventListener("click", function(){
+          drawHelp(helpPopup.deleteLayer);
+        });
+
+
+        hideShowLayer = document.createElement('p');
+        hideShowLayer.className = "text helpTxt";
+        hideShowLayer.style.fontSize = "smaller";
+        hideShowLayerTxt = document.createTextNode("How to hide and show a layer");
+        hideShowLayer.appendChild(hideShowLayerTxt);
+        hideShowLayer.addEventListener("click", function(){
+          drawHelp(helpPopup.hideShowLayer);
+        });
+
+
+        orderLayer = document.createElement('p');
+        orderLayer.className = "text helpTxt";
+        orderLayer.style.fontSize = "smaller";
+        orderLayerTxt = document.createTextNode("How to order layers");
+        orderLayer.appendChild(orderLayerTxt);
+        orderLayer.addEventListener("click", function(){
+          drawHelp(helpPopup.orderLayer);
+        });
+
+
+        panToLayer = document.createElement('p');
+        panToLayer.className = "text helpTxt";
+        panToLayer.style.fontSize = "smaller";
+        panToLayerTxt = document.createTextNode("How to pan to layer");
+        panToLayer.appendChild(panToLayerTxt);
+        panToLayer.addEventListener("click", function(){
+          drawHelp(helpPopup.panToLayer);
+        });
+
+        previewMap = document.createElement('p');
+        previewMap.className = "text helpTxt";
+        previewMap.style.fontSize = "smaller";
+        previewMapTxt = document.createTextNode("How to preview map");
+        previewMap.appendChild(previewMapTxt);
+        previewMap.addEventListener("click", function(){
+          drawHelp(helpPopup.previewMap);
+        });
+
+        helpDiv.appendChild(spatialOps);
+        helpDiv.appendChild(changeNameColor);
+        helpDiv.appendChild(deleteLayer);
+        helpDiv.appendChild(hideShowLayer);
+        helpDiv.appendChild(orderLayer);
+        helpDiv.appendChild(panToLayer);
+        helpDiv.appendChild(previewMap);
+
+
+
+        div1.appendChild(img);
+        div1.appendChild(pName);
+        div2.appendChild(pTxt);
+        containerDiv.appendChild(div1);
+        containerDiv.appendChild(div2);
+        // containerDiv.appendChild(hr);
+        containerDiv.appendChild(pHelp);
+        containerDiv.appendChild(helpDiv);
+
+
+        popup.appendChild(containerDiv);
+
+
+
+    // }else if (state == helpPopup.spatialOps){
+
+    }else{
+        back = document.createElement('span');
+        back.className = "glyphicon glyphicon-chevron-left text helpBack";
+        back.title = "Back to help";
+        back.addEventListener("click", function(){
+          drawHelp(helpPopup.start);
+        });
+
+
+        header = document.createElement("p");
+        header.className = "helpHeader";
+        headerTxt = document.createTextNode(state.name);
+        header.appendChild(headerTxt);
+
+        txt = document.createElement("p");
+        txt.className = 'text';
+        txt.style.fontSize = "smaller";
+        txtTxt = document.createTextNode(state.txt);
+        txt.appendChild(txtTxt);
+
+        gif = document.createElement("img");
+        gif.className = "helpGif";
+        gif.src = state.gifPath;
+
+        if(state == helpPopup.previewMap){
+            gif.style.width = "50px";
+            gif.style.position = "relative";
+            gif.style.left = "50%";
+            gif.style.marginLeft = "-25px";
+        }
+
+        popup.appendChild(back);
+        popup.appendChild(header);
+        popup.appendChild(txt);
+        popup.appendChild(gif);
+
+    }
+}
+
